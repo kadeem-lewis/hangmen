@@ -1,10 +1,11 @@
 <script setup>
-import HelloWorld from "./components/HelloWorld.vue";
+import Register from "./components/Register.vue";
+import Header from "./components/Header.vue";
 </script>
 
 <template>
-  <div></div>
-  <HelloWorld />
+  <Header></Header>
+  <Register />
 </template>
 
 <style scoped></style>
