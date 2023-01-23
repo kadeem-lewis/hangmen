@@ -1,5 +1,8 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+import { createApp } from "vue";
+import "./style.css";
+import io from "socket.io-client";
+import App from "./App.vue";
 
-createApp(App).mount('#app')
+const socket = io("http://localhost:3005");
+createApp(App).use(store).config.globalProperties.$socket = socket;
+createApp(App).mount("#app");

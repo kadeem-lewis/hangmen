@@ -5,14 +5,26 @@
       class="border-2 border-black"
       type="text"
       name="username"
-      id="username"
+      v-model="username"
     />
-    <button type="submit">Play</button>
+    <button type="submit" @click="register">Play</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Register",
+  data() {
+    return {
+      username: "",
+    };
+  },
+  methods: {
+    register() {
+      this.$socket.emit("register", this.username);
+    },
+  },
+  created() {
+    this.emit("connect", () => {});
+  },
 };
 </script>
