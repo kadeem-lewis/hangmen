@@ -1,9 +1,15 @@
-<script setup>
-import RegisterUser from "./components/RegisterUser.vue";
-</script>
-
 <template>
-  <RegisterUser></RegisterUser>
+  <NavBar></NavBar>
+  <main>
+    <router-view></router-view>
+  </main>
 </template>
-
+<script>
+import NavBar from "./components/NavBar.vue";
+export default {
+  components: {
+    NavBar,
+  },
+};
+</script>
 <style scoped></style>
