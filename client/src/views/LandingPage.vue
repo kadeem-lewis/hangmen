@@ -1,3 +1,27 @@
 <template>
-  <h1>Home</h1>
+  <div class="flex flex-col">
+    <h2 class="text-3xl">Please Enter a Username:</h2>
+    <input
+      class="border-2 border-black"
+      type="text"
+      name="username"
+      v-model="username"
+    />
+    <button type="submit" @click="register">Play</button>
+  </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      username: "",
+    };
+  },
+  methods: {
+    register() {
+      // TODO: Send Data to server using socket.io
+      this.$router.push("/mode");
+    },
+  },
+};
+</script>
