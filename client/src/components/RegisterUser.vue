@@ -18,13 +18,7 @@ export default {
       username: "",
     };
   },
-  methods: {
-    register() {
-      this.$socket.emit("register", this.username);
-    },
-  },
-  created() {
-    this.emit("connect", () => {});
-  },
+  methods: {},
+  created() {},
 };
 </script>
