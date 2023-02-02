@@ -1,3 +1,3 @@
 <template>
-  <h1>Hangman Game</h1>
+  <header><p class="text-lg text-center">Hangman Game</p></header>
 </template>

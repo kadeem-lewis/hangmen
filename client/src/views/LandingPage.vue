@@ -1,13 +1,19 @@
 <template>
   <div class="flex flex-col">
-    <h2 class="text-3xl">Please Enter a Username:</h2>
     <input
       class="border-2 border-black"
       type="text"
       name="username"
+      placeholder="Enter a username"
       v-model="username"
     />
-    <button type="submit" @click="register">Play</button>
+    <button
+      type="submit"
+      @click="register"
+      class="border-black border-2 rounded-full bg-blue-200 py-1 hover:bg-blue-100 mt-2"
+    >
+      Play
+    </button>
   </div>
 </template>
 <script>
