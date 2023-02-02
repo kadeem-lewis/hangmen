@@ -1,0 +1,16 @@
+build:
+  # Specify the directories containing the client and server code
+  client: client/
+  server: server/
+  # Build the server image and copy the static content to the server
+  docker:
+    server:
+      context: server/
+      args:
+        STATIC_DIR: client/
+    client: client/Dockerfile
+
+# Specify the image to run as the web process
+web:
+  image: server
+  command: npm start
