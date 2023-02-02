@@ -1,8 +1,22 @@
 <template>
   <h1>Choose Mode</h1>
-  <button @click="createGame"></button>
+  <button @click="createGame">Create Game</button>
   <input type="text" ref="gameCode" />
-  <button @click="joinGame"></button>
+  <button @click="joinGame">Join Game</button>
 </template>
 
-<script></script>
+<script>
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    createGame() {
+      this.$router.push("/game/lobby");
+    },
+    joinGame() {
+      this.$router.push("/game/lobby");
+    },
+  },
+};
+</script>
