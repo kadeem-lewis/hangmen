@@ -3,6 +3,7 @@ const http = require("http");
 const express = require("express");
 const { Server } = require("socket.io");
 const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
 
@@ -18,6 +19,6 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console("New connection");
 });
-server.listen(SERVER_PORT, () =>
-  console.log(`Server running on https://localhost:${SERVER_PORT}`)
+server.listen(PORT, () =>
+  console.log(`Server running on https://localhost:${PORT}`)
 );
