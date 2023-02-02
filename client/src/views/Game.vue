@@ -1,8 +1,11 @@
 <template>
-  <h1>Game</h1>
-  <RouterView></RouterView>
-  <InputArea></InputArea>
-  <ChatBox></ChatBox>
+  <div class="grid grid-cols-4">
+    <div class="col-span-3">
+      <RouterView></RouterView>
+      <InputArea></InputArea>
+    </div>
+    <ChatBox class="h-full grid-col-span-1"></ChatBox>
+  </div>
 </template>
 
 <script>
