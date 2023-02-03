@@ -4,12 +4,12 @@
   </div>
   <div></div>
   <ul>
-    <li>Player 1</li>
+    <li class="">Player 1</li>
     <li>Player 2</li>
     <li>Player 3</li>
     <li>Player 4</li>
   </ul>
-  <div>
+  <div class="flex">
     <button
       class="rounded-full bg-red-600 py-2 hover:bg-red-500 m-2 font-semibold text-xl w-1/2"
     >
