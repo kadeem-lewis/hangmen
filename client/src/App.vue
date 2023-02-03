@@ -1,5 +1,5 @@
 <template>
-  <div class="container text-white min-h-screen">
+  <div class="container text-white min-h-screen m-auto">
     <NavBar></NavBar>
     <main>
       <RouterView></RouterView>
