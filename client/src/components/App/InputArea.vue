@@ -14,13 +14,5 @@
       />
     </button>
   </form>
-  <KeyBoard></KeyBoard>
 </template>
-<script>
-import KeyBoard from "./KeyBoard.vue";
-export default {
-  components: {
-    KeyBoard,
-  },
-};
-</script>
+<script></script>
