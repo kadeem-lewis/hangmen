@@ -17,6 +17,7 @@ const routes = [
       { name: "game-lobby", path: "/lobby", component: GameLobby },
       { name: "game-play", path: "/play", component: GameCanvas },
       { name: "game-over", path: "/end", component: GameOver },
+      { path: "", redirect: "/lobby" },
     ],
   },
   { path: "/:notFound(.*)", component: NotFound },
