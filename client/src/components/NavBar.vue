@@ -1,10 +1,6 @@
 <template>
-  <header class="flex justify-center">
-    <img
-      src="../assets/logo.svg"
-      alt="Hangman Logo"
-      class="h-auto max-w-full"
-    />
+  <header class="flex justify-center my-4">
+    <img src="../assets/logo.svg" alt="Hangman Logo" class="h-12" />
   </header>
 </template>
 <script>

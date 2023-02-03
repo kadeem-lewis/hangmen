@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col">
+  <form class="flex flex-col">
     <input
-      class="border-2 border-black"
+      class="bg-dark-mode-400 rounded-sm px-4 py-2 outline-none mx-2"
       type="text"
       name="username"
       placeholder="Enter a username"
@@ -10,11 +10,11 @@
     <button
       type="submit"
       @click="register"
-      class="border-black border-2 rounded-full bg-blue-200 py-1 hover:bg-blue-100 mt-2"
+      class="rounded-full bg-blue-600 py-2 hover:bg-blue-500 mt-2 font-semibold text-xl w-3/4 mx-auto"
     >
       Play
     </button>
-  </div>
+  </form>
 </template>
 <script>
 export default {

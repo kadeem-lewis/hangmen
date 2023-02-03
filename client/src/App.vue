@@ -21,6 +21,6 @@ export default {
   box-sizing: border-box;
 }
 body {
-  background-color: black;
+  background-color: hsl(0, 0%, 7%);
 }
 </style>

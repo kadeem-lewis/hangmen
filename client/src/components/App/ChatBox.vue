@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-slate-800">
+  <div class="bg-dark-mode-500 p-4">
     <div>
       <p>Hello All</p>
     </div>
