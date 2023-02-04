@@ -17,13 +17,18 @@ const io = new Server(server, {
     origin: `http://localhost:3000`,
   },
 });
+
+const people = {};
+
 io.on("connection", (socket) => {
   console.log(socket.id);
-  io.on("register-user", () => {
-    //
+  io.on("register", (username) => {
+    people[socket.id] = username;
+    console.log(people[socket.id]);
   });
   io.on("join-room", () => {});
   io.on("create-room", () => {});
+  io.on("disconnect", () => {});
 });
 
 server.listen(3005, () =>
