@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-4">
+  <div class="grid grid-cols-4 gap-2">
     <div class="col-span-3">
       <RouterView></RouterView>
       <InputArea></InputArea>
