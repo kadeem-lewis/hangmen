@@ -16,9 +16,23 @@
       Not Ready
     </button>
     <button
+      @click="startGame"
       class="rounded-full bg-blue-600 py-2 hover:bg-blue-500 m-2 font-semibold text-xl w-1/2"
     >
       Start
     </button>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    startGame() {
+      this.$router.push("/game/play");
+    },
+  },
+};
+</script>
