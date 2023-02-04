@@ -1,19 +1,18 @@
 <template>
-  <form class="flex" @submit.prevent>
+  <form class="flex relative" @submit.prevent>
     <input
       type="text"
-      class="basis-3/4 rounded-sm px-4 py-2 outline-none bg-dark-mode-400"
+      class="grow rounded-sm px-4 py-2 outline-none bg-dark-mode-400"
       placeholder="Enter Message..."
     />
-    <button class="basic-1/4 border-2 p-2 rounded">Send</button>
+    <button
+      class="absolute right-2 p-1 rounded-md hover:bg-dark-mode-600 top-1/2 -translate-y-1/2"
+    >
+      <font-awesome-icon
+        icon="fa-solid fa-paper-plane"
+        class="text-gray-300 m-auto"
+      />
+    </button>
   </form>
-  <KeyBoard></KeyBoard>
 </template>
-<script>
-import KeyBoard from "./KeyBoard.vue";
-export default {
-  components: {
-    KeyBoard,
-  },
-};
-</script>
+<script></script>
