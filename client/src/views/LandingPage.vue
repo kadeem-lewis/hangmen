@@ -24,7 +24,7 @@ export default {
     register() {
       // TODO: Send Data to server using socket.io
       const username = this.$refs.username.value;
-      socket.emit("register", username);
+      //socket.emit("register", username);
       this.$router.push("/mode");
     },
   },
