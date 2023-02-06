@@ -16,15 +16,24 @@
   </form>
 </template>
 <script>
+import SocketIoService from "../services/SocketIoService";
 export default {
   data() {
-    return {};
+    return {
+      socket: SocketIoService.setupSocketConnection(),
+    };
+  },
+  mounted() {
+    console.log(this.socket);
+    this.socket.on("connect", () => {
+      console.log("user connected");
+    });
   },
   methods: {
     register() {
       // TODO: Send Data to server using socket.io
       const username = this.$refs.username.value;
-      //socket.emit("register", username);
+      this.socket.emit("register", username);
       this.$router.push("/mode");
     },
   },

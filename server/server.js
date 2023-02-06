@@ -10,27 +10,44 @@ const app = express();
 app.use(cors());
 
 const server = http.createServer(app);
-// const PORT = process.env.SERVER_PORT || 3000;
-// const C_PORT = process.env.CLIENT_PORT;
+
 const io = new Server(server, {
   cors: {
-    origin: `http://localhost:3000`,
+    origin: process.env.CLIENT_URL,
   },
 });
 
 const people = {};
+const messages = [];
+const activeRooms = ["1234", "1A2B", "ABCD"];
 
 io.on("connection", (socket) => {
   console.log(socket.id);
-  io.on("register", (username) => {
+  socket.on("register", (username) => {
+    console.log("register event received");
     people[socket.id] = username;
-    console.log(people[socket.id]);
+    console.log(people);
   });
-  io.on("join-room", () => {});
-  io.on("create-room", () => {});
-  io.on("disconnect", () => {});
+
+  socket.on("join-room", (room, res) => {
+    if (activeRooms.includes(room)) {
+      socket.join(room);
+      console.log(`user joined room ${room}`);
+    } else {
+      res("Game not found");
+    }
+  });
+  socket.on("send-message", (data) => {
+    messages.push(data);
+    console.log(messages);
+    socket.emit("receive-message", messages);
+  });
+  socket.on("create-room", () => {});
+  socket.on("disconnect", () => {
+    console.log("client disconnected");
+  });
 });
 
-server.listen(3005, () =>
-  console.log(`Server running on https://localhost:3005`)
+server.listen(process.env.PORT, () =>
+  console.log(`Server running on ${process.env.SERVER_URL}`)
 );
