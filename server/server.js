@@ -16,7 +16,8 @@ const io = new Server(server, {
     origin: process.env.CLIENT_URL,
   },
 });
-
+//Functions
+function createRoomCode() {}
 const people = {};
 const messages = [];
 const activeRooms = ["1234", "1A2B", "ABCD"];
@@ -37,6 +38,7 @@ io.on("connection", (socket) => {
       res("Game not found");
     }
   });
+  io.emit("create-room");
   socket.on("send-message", (data) => {
     messages.push(data);
     console.log(messages);

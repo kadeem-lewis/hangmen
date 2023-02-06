@@ -5,7 +5,7 @@
       type="text"
       name="username"
       placeholder="Enter a username"
-      ref="username"
+      v-model="username"
     />
     <button
       type="submit"
@@ -20,21 +20,41 @@ import SocketIoService from "../services/SocketIoService";
 export default {
   data() {
     return {
-      socket: SocketIoService.setupSocketConnection(),
+      socket: null,
+      username: "",
+      userId: "",
     };
   },
   mounted() {
-    console.log(this.socket);
-    this.socket.on("connect", () => {
-      console.log("user connected");
-    });
+    this.socket = SocketIoService.setupSocketConnection();
+    if (localStorage.getItem("username") !== null) {
+      this.username = localStorage.getItem("username");
+    }
   },
   methods: {
     register() {
       // TODO: Send Data to server using socket.io
-      const username = this.$refs.username.value;
-      this.socket.emit("register", username);
+      if (localStorage.getItem("userId") !== null) {
+        this.userId = localStorage.getItem("userId");
+      } else {
+        this.userId = this.generateId();
+        localStorage.setItem("userId", this.userId);
+      }
+      localStorage.setItem("username", this.username);
+      this.socket.emit("register", {
+        userId: this.userId,
+        username: this.username,
+      });
       this.$router.push("/mode");
+    },
+    generateId() {
+      // Creates a random ID for each user
+      return (
+        Date.now().toString(36) +
+        Math.floor(
+          Math.pow(10, 12) + Math.random() * 9 * Math.pow(10, 12)
+        ).toString(36)
+      );
     },
   },
 };
