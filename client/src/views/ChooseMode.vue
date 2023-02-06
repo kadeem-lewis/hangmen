@@ -23,15 +23,26 @@
 </template>
 
 <script>
+import SocketIoService from "../services/SocketIoService";
 export default {
+  mounted() {
+    this.socket = SocketIoService.setupSocketConnection();
+  },
   data() {
-    return {};
+    return {
+      socket: null,
+    };
   },
   methods: {
     createGame() {
       this.$router.push("/game/lobby");
     },
     joinGame() {
+      let room = this.$refs.gameCode.value.toString();
+      console.log(typeof room);
+      this.socket.emit("join-room", room, (message) => {
+        console.log(message);
+      });
       this.$router.push("/game/lobby");
     },
   },
