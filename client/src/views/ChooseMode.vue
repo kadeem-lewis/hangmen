@@ -35,11 +35,10 @@ export default {
   },
   methods: {
     createGame() {
-      this.$router.push("/game/lobby");
+      this.socket.this.$router.push("/game/lobby");
     },
     joinGame() {
       let room = this.$refs.gameCode.value.toString();
-      console.log(typeof room);
       this.socket.emit("join-room", room, (message) => {
         console.log(message);
       });

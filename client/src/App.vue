@@ -8,9 +8,19 @@
 </template>
 <script>
 import NavBar from "./components/NavBar.vue";
+import SocketIoService from "./services/SocketIoService";
 export default {
   components: {
     NavBar,
+  },
+  created() {
+    this.socket = SocketIoService.setupSocketConnection();
+  },
+  mounted() {
+    console.log(this.socket);
+    this.socket.on("connect", () => {
+      console.log("user connected");
+    });
   },
 };
 </script>
