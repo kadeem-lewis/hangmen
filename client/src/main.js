@@ -19,5 +19,4 @@ library.add(faClock);
 const app = createApp(App);
 app.use(router);
 app.component("font-awesome-icon", FontAwesomeIcon);
-app.provide("socket", socket);
 app.mount("#app");
