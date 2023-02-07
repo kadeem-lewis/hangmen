@@ -5,6 +5,9 @@ const { Server } = require("socket.io");
 const cors = require("cors");
 require("dotenv").config();
 
+const Room = require("./Room");
+const User = require("./User");
+
 const app = express();
 
 app.use(cors());
@@ -17,34 +20,47 @@ const io = new Server(server, {
   },
 });
 //Functions
-function createRoomCode() {}
+function createRoomCode() {
+  activeRooms.push(new Room());
+  return code;
+}
 const people = {};
 const messages = [];
-const activeRooms = ["1234", "1A2B", "ABCD"];
+const activeRooms = [
+  {
+    code: "1234",
+    users: [],
+    size: "",
+  },
+];
 
 io.on("connection", (socket) => {
   console.log(socket.id);
   socket.on("register", (username) => {
     console.log("register event received");
     people[socket.id] = username;
-    console.log(people);
+    console.log(people[socket.id]);
   });
 
+  socket.on("request-room-code", () => {
+    const room = new Room();
+    activeRooms.push(room);
+    io.emit("create-room", room.code);
+  });
   socket.on("join-room", (room, res) => {
     if (activeRooms.includes(room)) {
       socket.join(room);
+
       console.log(`user joined room ${room}`);
     } else {
       res("Game not found");
     }
   });
-  io.emit("create-room");
   socket.on("send-message", (data) => {
     messages.push(data);
     console.log(messages);
     socket.emit("receive-message", messages);
   });
-  socket.on("create-room", () => {});
   socket.on("disconnect", () => {
     console.log("client disconnected");
   });
