@@ -24,7 +24,7 @@ function createRoomCode() {
   activeRooms.push(new Room());
   return code;
 }
-const people = {};
+const users = [];
 const messages = [];
 const activeRooms = [
   {
@@ -37,9 +37,8 @@ const activeRooms = [
 io.on("connection", (socket) => {
   console.log(socket.id);
   socket.on("register", (username) => {
-    console.log("register event received");
-    people[socket.id] = username;
-    console.log(people[socket.id]);
+    const user = new User(username, socket.id);
+    users.push(user);
   });
 
   socket.on("request-room-code", () => {
@@ -50,7 +49,6 @@ io.on("connection", (socket) => {
   socket.on("join-room", (room, res) => {
     if (activeRooms.includes(room)) {
       socket.join(room);
-
       console.log(`user joined room ${room}`);
     } else {
       res("Game not found");
