@@ -2,7 +2,7 @@
   <div>
     <p class="text-center text-3xl">Waiting</p>
   </div>
-  <div></div>
+  <div>{{ roomCode }}</div>
   <ul>
     <li class="">Player 1</li>
     <li>Player 2</li>
@@ -25,9 +25,18 @@
 </template>
 
 <script>
+import SocketIoService from "../../services/SocketIoService";
 export default {
+  mounted() {
+    this.socket = SocketIoService.setupSocketConnection();
+    this.socket.on("create-room", (room) => {
+      this.roomCode = room;
+    });
+  },
   data() {
-    return {};
+    return {
+      roomCode: "",
+    };
   },
   methods: {
     startGame() {
