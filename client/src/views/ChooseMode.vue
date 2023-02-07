@@ -31,11 +31,13 @@ export default {
   data() {
     return {
       socket: null,
+      roomCode: "",
     };
   },
   methods: {
     createGame() {
-      this.socket.this.$router.push("/game/lobby");
+      this.socket.emit("request-room-code");
+      this.$router.push("/game/lobby");
     },
     joinGame() {
       let room = this.$refs.gameCode.value.toString();
