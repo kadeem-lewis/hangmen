@@ -37,14 +37,25 @@ export default {
   methods: {
     createGame() {
       this.socket.emit("request-room-code");
-      this.$router.push("/game/lobby");
+      this.socket.on("create-room", (roomCode) => {
+        this.socket.emit("join-room", roomCode, (message) => {
+          console.log(message);
+        });
+        this.$router.push({
+          name: "game-lobby",
+          params: { roomCode: roomCode },
+        });
+      });
     },
     joinGame() {
       let room = this.$refs.gameCode.value.toString();
       this.socket.emit("join-room", room, (message) => {
         console.log(message);
       });
-      this.$router.push("/game/lobby");
+      this.$router.push({
+        name: "game-lobby",
+        params: { roomCode: room },
+      });
     },
   },
 };
