@@ -41,10 +41,7 @@ export default {
         localStorage.setItem("userId", this.userId);
       }
       localStorage.setItem("username", this.username);
-      this.socket.emit("register", {
-        userId: this.userId,
-        username: this.username,
-      });
+      this.socket.emit("register", this.username, this.userId);
       this.$router.push("/mode");
     },
     generateId() {
