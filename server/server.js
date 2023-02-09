@@ -52,11 +52,10 @@ io.on("connection", (socket) => {
     } else {
       cb("Game not found");
     }
-    socket.on();
-    socket.on("send-message", (data) => {
+    socket.on("send-message", (sender, message) => {
       messages.push(data);
       console.log(messages);
-      socket.emit("receive-message", messages);
+      socket.emit("receive-message", sender, message);
     });
   });
   socket.on("disconnect", () => {
