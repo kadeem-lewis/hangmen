@@ -26,13 +26,7 @@ function createRoomCode() {
 }
 const users = [];
 const messages = [];
-const activeRooms = [
-  {
-    code: "1234",
-    users: [],
-    size: "",
-  },
-];
+const activeRooms = [];
 
 io.on("connection", (socket) => {
   console.log(socket.id);
@@ -54,17 +48,16 @@ io.on("connection", (socket) => {
       foundRoom.addPlayer(currentUser);
       socket.emit("new-player", currentUser);
 
-      console.log(users);
-      console.log(currentUser);
       console.log(`user joined room ${roomCode}`);
     } else {
       cb("Game not found");
     }
-  });
-  socket.on("send-message", (data) => {
-    messages.push(data);
-    console.log(messages);
-    socket.emit("receive-message", messages);
+    socket.on();
+    socket.on("send-message", (data) => {
+      messages.push(data);
+      console.log(messages);
+      socket.emit("receive-message", messages);
+    });
   });
   socket.on("disconnect", () => {
     console.log("client disconnected");
