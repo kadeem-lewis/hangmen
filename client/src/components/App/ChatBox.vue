@@ -1,10 +1,12 @@
 <template>
   <div class="bg-dark-mode-500 p-4">
-    <div>
-      <p>Hello All</p>
-    </div>
     <div class="odd:bg-slate-200">
-      <ChatBubble v-for="message in messages"></ChatBubble>
+      <ChatBubble
+        v-for="message in sortedMessages"
+        :key="message.id"
+        :sender="message.sender"
+        :message="message.text"
+      ></ChatBubble>
     </div>
   </div>
 </template>
@@ -17,12 +19,20 @@ export default {
   },
   mounted() {
     this.socket = SocketIoService.setupSocketConnection();
+    this.socket.on("receive-message", (message) => {
+      this.messages.push(message);
+    });
   },
   data() {
     return {
       socket: null,
       messages: [],
     };
+  },
+  computed: {
+    sortedMessages() {
+      return this.messages.sort;
+    },
   },
   methods: {
     receiveMessage() {
