@@ -1,8 +1,10 @@
 class Message {
   static nextId = 0;
-  constructor(id, sender, text) {
-    this.id = ++nextId;
+  constructor(sender, text) {
+    this.id = ++Message.nextId;
     this.sender = sender;
     this.text = text;
   }
 }
+
+module.exports = Message;
