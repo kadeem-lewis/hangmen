@@ -1,9 +1,9 @@
 <template>
   <div class="bg-dark-mode-500 p-4">
-    <div class="odd:bg-slate-200">
+    <div>
       <ChatBubble
-        v-for="message in sortedMessages"
-        :key="message.id"
+        v-for="message in messages"
+        :key="message.index"
         :sender="message.sender"
         :message="message.text"
       ></ChatBubble>

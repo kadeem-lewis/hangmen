@@ -26,7 +26,14 @@ import SocketIoService from "../../services/SocketIoService";
 export default {
   mounted() {
     this.socket = SocketIoService.setupSocketConnection();
-    this.socket.on("new-player", (player) => this.players.push(player));
+    this.socket.on("new-player", (player) => {
+      this.players.push(player);
+      const message = {
+        id: 99,
+        sender: "Announcer",
+        text: `${player.username} has joined the room`,
+      };
+    });
     this.roomCode = this.$route.params.roomCode;
   },
   data() {

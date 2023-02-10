@@ -36,9 +36,10 @@ export default {
     sendMessage() {
       this.socket.emit(
         "send-message",
-        localStorage.getItem("userId"),
+        localStorage.getItem("username"),
         this.chatInput
       );
+      console.log(this.socket);
       this.chatInput = "";
     },
   },
