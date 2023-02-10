@@ -7,6 +7,7 @@ require("dotenv").config();
 
 const Room = require("./Room");
 const User = require("./User");
+const Message = require("./Message");
 
 const app = express();
 
@@ -49,14 +50,15 @@ io.on("connection", (socket) => {
       socket.emit("new-player", currentUser);
 
       console.log(`user joined room ${roomCode}`);
+      console.log(foundRoom);
     } else {
       cb("Game not found");
     }
-    socket.on("send-message", (sender, message) => {
-      messages.push(data);
-      console.log(messages);
-      socket.emit("receive-message", sender, message);
-    });
+  });
+  socket.on("send-message", (sender, text) => {
+    const message = new Message(sender, text);
+    console.log(messages);
+    socket.emit("receive-message", message);
   });
   socket.on("disconnect", () => {
     console.log("client disconnected");
