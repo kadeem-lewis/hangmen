@@ -14,7 +14,7 @@ const routes = [
     path: "/game",
     component: Game,
     children: [
-      { name: "game-lobby", path: "lobby", component: GameLobby },
+      { name: "game-lobby", path: "lobby/:roomCode", component: GameLobby },
       { name: "game-play", path: "play", component: GameCanvas },
       { name: "game-over", path: "end", component: GameOver },
       { path: "", name: "game-redirect", redirect: { name: "game-lobby" } },

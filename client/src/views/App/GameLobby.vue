@@ -3,11 +3,10 @@
     <p class="text-center text-3xl">Waiting</p>
   </div>
   <div>{{ roomCode }}</div>
-  <ul>
-    <li class="">Player 1</li>
-    <li>Player 2</li>
-    <li>Player 3</li>
-    <li>Player 4</li>
+  <ul class="grid grid-cols-2">
+    <li class="p-2 text-center" v-for="player in players" :key="player.id">
+      {{ player.username }}
+    </li>
   </ul>
   <div class="flex">
     <button
@@ -29,13 +28,15 @@ import SocketIoService from "../../services/SocketIoService";
 export default {
   mounted() {
     this.socket = SocketIoService.setupSocketConnection();
-    this.socket.on("create-room", (room) => {
-      this.roomCode = room;
+    this.socket.on("new-player", (player, players) => {
+      this.players = players;
     });
+    this.roomCode = this.$route.params.roomCode;
   },
   data() {
     return {
       roomCode: "",
+      players: [],
     };
   },
   methods: {

@@ -32,11 +32,17 @@ export default {
       chatInput: "",
     };
   },
+  computed: {
+    getId() {
+      const timestamp = Date.now();
+      const random = Math.floor(Math.random() * 9) + 1;
+      return `${timestamp}-${random}`;
+    },
+  },
   methods: {
     sendMessage() {
-      this.socket.emit("send-message", {
-        message: this.chatInput,
-      });
+      this.socket.emit("send-message", this.getId, this.chatInput);
+      console.log(this.socket);
       this.chatInput = "";
     },
   },
