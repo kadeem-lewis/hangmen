@@ -13,7 +13,8 @@ class SocketIoService {
 
   setupSocketConnection() {
     if (!this.socket) {
-      this.socket = io("http://localhost:3005");
+      const serverUrl = import.meta.env.SERVER_URL || "http://localhost:3005";
+      this.socket = io(serverUrl);
     }
     return this.socket;
   }
