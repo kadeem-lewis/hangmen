@@ -1,8 +1,7 @@
 class User {
-  constructor(username, userId, socketId) {
+  constructor(username, userId) {
     this.username = username;
     this.userId = userId;
-    this.socketId = socketId;
     this.isHost = false;
     this.currentRoom = null;
   }
