@@ -1,7 +1,7 @@
 <template>
   <div>
-    <p :class="[sender === 'Announcer' ? 'text-red-800' : 'text-white']">
-      <strong>{{ sender }}:</strong><span>{{ message }}</span>
+    <p :class="[sender === 'Announcer' ? 'text-red-500' : 'text-white']">
+      <strong>{{ sender }}:</strong><span>&nbsp;{{ message }}</span>
     </p>
   </div>
 </template>
