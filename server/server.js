@@ -7,7 +7,6 @@ require("dotenv").config();
 
 const Room = require("./Room");
 const User = require("./User");
-const Message = require("./Message");
 
 const app = express();
 
