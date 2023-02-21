@@ -34,13 +34,14 @@ export default {
   },
   methods: {
     sendMessage() {
-      this.socket.emit(
-        "send-message",
-        localStorage.getItem("username"),
-        this.chatInput
-      );
+      this.socket.emit("send-message", getId, this.chatInput);
       console.log(this.socket);
       this.chatInput = "";
+    },
+    getId() {
+      const timestamp = Date.now();
+      const random = Math.floor(Math.random() * 9) + 1;
+      return `${timestamp}-${random}`;
     },
   },
 };
