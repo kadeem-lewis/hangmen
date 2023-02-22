@@ -1,8 +1,24 @@
 <template>
   <div>
-    <p class="text-center text-3xl">Waiting</p>
+    <p class="text-center text-3xl">Waiting...</p>
   </div>
-  <div>{{ roomCode }}</div>
+  <div>
+    <p class="font-bold text-lg">Room Code:</p>
+    <div class="py-2 text-2xl">
+      <span class="p-2 rounded-lg bg-dark-mode-400 mr-2 font-bold">{{
+        roomCode
+      }}</span>
+      <button
+        @click="copyCode()"
+        class="rounded-lg p-2 bg-sky-600 hover:bg-sky-500"
+      >
+        <font-awesome-icon icon="fa-solid fa-copy" />
+      </button>
+      <span v-show="isCopied" class="p-2 text-green-500"
+        ><font-awesome-icon icon="fa-solid fa-check"
+      /></span>
+    </div>
+  </div>
   <ul class="grid grid-cols-2">
     <li class="p-2 text-center" v-for="player in players" :key="player.id">
       {{ player.username }}
@@ -37,12 +53,23 @@ export default {
     return {
       roomCode: "",
       players: [],
+      isCopied: false,
     };
   },
   methods: {
     startGame() {
       this.$router.push("/game/play");
     },
+    copyCode() {
+      navigator.clipboard.writeText(this.roomCode);
+      this.isCopied = true;
+      setTimeout(() => {
+        this.isCopied = false;
+      }, 2000);
+    },
+  },
+  beforeUnmount() {
+    //this.players = [];
   },
 };
 </script>

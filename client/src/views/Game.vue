@@ -9,12 +9,25 @@
 </template>
 
 <script>
+import SocketIoService from "../services/SocketIoService";
 import ChatBox from "../components/App/ChatBox.vue";
 import InputArea from "../components/App/InputArea.vue";
 export default {
   components: {
     ChatBox,
     InputArea,
+  },
+  mounted() {
+    this.socket = SocketIoService.setupSocketConnection();
+  },
+  data() {
+    return {
+      socket: null,
+    };
+  },
+  beforeRouteLeave(to, from, next) {
+    this.socket.emit("leave-room");
+    next();
   },
 };
 </script>
