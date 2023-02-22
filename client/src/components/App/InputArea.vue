@@ -42,7 +42,6 @@ export default {
   methods: {
     sendMessage() {
       this.socket.emit("send-message", this.getId, this.chatInput);
-      console.log(this.socket);
       this.chatInput = "";
     },
   },
