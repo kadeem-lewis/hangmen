@@ -1,10 +1,13 @@
 class Room {
   constructor() {
     this.code = this.createNewCode();
-    this.players = [];
+    this.players = {};
   }
-  addPlayer(player) {
-    this.players.push(player);
+  addPlayer(id, player) {
+    this.players[id] = player;
+  }
+  getPlayers() {
+    return Object.values(this.players);
   }
   createNewCode() {
     let roomId = "";
