@@ -54,5 +54,8 @@ export default {
       this.$router.push({ name: "game-mode" });
     },
   },
+  beforeUnmount() {
+    this.messages = [];
+  },
 };
 </script>

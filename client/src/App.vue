@@ -17,7 +17,6 @@ export default {
     this.socket = SocketIoService.setupSocketConnection();
   },
   mounted() {
-    console.log(this.socket);
     this.socket.on("connect", () => {
       console.log("user connected");
     });

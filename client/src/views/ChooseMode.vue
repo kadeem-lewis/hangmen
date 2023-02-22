@@ -49,9 +49,7 @@ export default {
     },
     joinGame() {
       let room = this.$refs.gameCode.value.toString();
-      this.socket.emit("join-room", room, (message) => {
-        console.log(message);
-      });
+      this.socket.emit("join-room", room, (message) => {});
       this.$router.push({
         name: "game-lobby",
         params: { roomCode: room },

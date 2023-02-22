@@ -38,7 +38,7 @@ io.on("connection", (socket) => {
   socket.on("join-room", (roomCode, cb) => {
     if (activeRooms[roomCode]) {
       socket.join(roomCode);
-      activeRooms[roomCode].addPlayer(users[socket.id]);
+      activeRooms[roomCode].addPlayer(socket.id, users[socket.id]);
       users[socket.id].currentRoom = roomCode;
       io.to(roomCode).emit(
         "new-player",
@@ -60,7 +60,8 @@ io.on("connection", (socket) => {
     });
 
     socket.on("leave-room", () => {
-      delete activeRooms[roomCode];
+      //delete activeRooms[roomCode];
+      delete activeRooms[roomCode].players[socket.id];
       users[socket.id].currentRoom = null;
       socket.leave(roomCode);
     });
