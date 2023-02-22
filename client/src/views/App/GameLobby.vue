@@ -68,5 +68,8 @@ export default {
       }, 2000);
     },
   },
+  beforeUnmount() {
+    //this.players = [];
+  },
 };
 </script>
