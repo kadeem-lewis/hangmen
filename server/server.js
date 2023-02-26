@@ -59,11 +59,17 @@ io.on("connection", (socket) => {
       });
     });
 
-    socket.on("leave-room", () => {
+    socket.on("leave-room", (cb) => {
       //delete activeRooms[roomCode];
       delete activeRooms[roomCode].players[socket.id];
       users[socket.id].currentRoom = null;
       socket.leave(roomCode);
+      if (!(socket.id in activeRooms[roomCode].players)) {
+        cb({
+          status: "ok",
+        });
+      }
+      io.emit("player-leave-room", users[socket.id]);
     });
   });
   socket.on("disconnect", () => {
