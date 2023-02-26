@@ -19,11 +19,7 @@
       /></span>
     </div>
   </div>
-  <ul class="grid grid-cols-2">
-    <li class="p-2 text-center" v-for="player in players" :key="player.id">
-      {{ player.username }}
-    </li>
-  </ul>
+  <PlayerList />
   <div class="flex">
     <button
       class="rounded-full bg-red-600 py-2 hover:bg-red-500 m-2 font-semibold text-xl w-1/2"
@@ -41,18 +37,18 @@
 
 <script>
 import SocketIoService from "../../services/SocketIoService";
+import PlayerList from "../../components/App/PlayerList.vue";
 export default {
+  components: {
+    PlayerList,
+  },
   mounted() {
     this.socket = SocketIoService.setupSocketConnection();
-    this.socket.on("new-player", (player, players) => {
-      this.players = players;
-    });
     this.roomCode = this.$route.params.roomCode;
   },
   data() {
     return {
       roomCode: "",
-      players: [],
       isCopied: false,
     };
   },
@@ -67,9 +63,6 @@ export default {
         this.isCopied = false;
       }, 2000);
     },
-  },
-  beforeUnmount() {
-    //this.players = [];
   },
 };
 </script>
