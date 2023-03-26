@@ -1,4 +1,4 @@
-class Room {
+export class Room {
   constructor() {
     this.code = this.createNewCode();
     this.players = {};
@@ -20,4 +20,3 @@ class Room {
     return roomId;
   }
 }
-module.exports = Room;

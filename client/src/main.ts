@@ -2,7 +2,6 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import "./style.css";
 // Vue router  imports
-import { createRouter } from "vue-router";
 import router from "./router";
 // Font Awesome imports
 import { library } from "@fortawesome/fontawesome-svg-core";

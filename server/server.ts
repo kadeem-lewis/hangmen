@@ -1,12 +1,14 @@
-const http = require("http");
+import http from "http";
 
-const express = require("express");
-const { Server } = require("socket.io");
-const cors = require("cors");
-require("dotenv").config();
+import express from "express";
+import { Server } from "socket.io";
+import cors from "cors";
+import dotenv from "dotenv";
 
-const Room = require("./Room");
-const User = require("./User");
+dotenv.config();
+
+import { Room } from "./Room.js";
+import { User } from "./User.js";
 
 const app = express();
 
@@ -58,12 +60,18 @@ io.on("connection", (socket) => {
         text: text,
       });
     });
-
-    socket.on("leave-room", () => {
+    socket.on("rejoin-room", (roomCode, cb) => {});
+    socket.on("leave-room", (cb) => {
       //delete activeRooms[roomCode];
       delete activeRooms[roomCode].players[socket.id];
       users[socket.id].currentRoom = null;
       socket.leave(roomCode);
+      if (!(socket.id in activeRooms[roomCode].players)) {
+        cb({
+          status: "ok",
+        });
+      }
+      io.emit("player-leave-room", users[socket.id]);
     });
   });
   socket.on("disconnect", () => {

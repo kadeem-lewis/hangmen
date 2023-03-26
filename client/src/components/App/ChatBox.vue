@@ -26,8 +26,18 @@ export default {
     this.socket.on("new-player", (player, players) => {
       const message = {
         id: `${Date.now()}-${Math.floor(Math.random() * 9) + 1}`,
-        sender: "Announcer",
-        text: `${player.username} has joined the room`,
+        sender: player.username,
+        text: `has joined the game`,
+      };
+      this.messages.push(message);
+    });
+  },
+  updated() {
+    this.socket.on("player-leave-room", (player) => {
+      const message = {
+        id: `${Date.now()}-${Math.floor(Math.random() * 9) + 1}`,
+        sender: player.username,
+        text: "has left the room",
       };
       this.messages.push(message);
     });
@@ -50,8 +60,13 @@ export default {
       });
     },
     leaveGame() {
-      this.socket.emit("leave-room");
-      this.$router.push({ name: "game-mode" });
+      this.socket.emit("leave-room", (response) => {
+        if (response.status == "ok") {
+          this.$router.push({ name: "game-mode" });
+        } else {
+          console.log("An error has occurred");
+        }
+      });
     },
   },
   beforeUnmount() {

@@ -25,6 +25,12 @@ export default {
       socket: null,
     };
   },
+  beforeEnter(to, from, next) {
+    if (from.name === "game-mode") {
+      next();
+    }
+    next({ name: "game-mode" });
+  },
   beforeRouteLeave(to, from, next) {
     this.socket.emit("leave-room");
     next();

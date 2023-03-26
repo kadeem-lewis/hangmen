@@ -1,0 +1,28 @@
+{
+  "name": "hangman",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kadeem-lewis/hangman.git"
+  },
+  "keywords": [],
+  "author": "Kadeem Lewis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kadeem-lewis/hangman/issues"
+  },
+  "homepage": "https://github.com/kadeem-lewis/hangman#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-vue": "^9.10.0",
+    "prettier": "2.8.7",
+    "typescript": "^5.0.2"
+  }
+}
