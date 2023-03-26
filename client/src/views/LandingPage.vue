@@ -15,7 +15,7 @@
     </button>
   </form>
 </template>
-<script>
+<script setup lang="ts">
 import SocketIoService from "../services/SocketIoService";
 export default {
   data() {

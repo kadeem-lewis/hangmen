@@ -22,7 +22,7 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import SocketIoService from "../services/SocketIoService";
 export default {
   mounted() {

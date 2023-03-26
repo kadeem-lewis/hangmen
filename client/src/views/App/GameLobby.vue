@@ -35,7 +35,7 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import SocketIoService from "../../services/SocketIoService";
 import PlayerList from "../../components/App/PlayerList.vue";
 export default {
