@@ -58,7 +58,7 @@ io.on("connection", (socket) => {
         text: text,
       });
     });
-
+    socket.on("rejoin-room", (roomCode, cb) => {});
     socket.on("leave-room", (cb) => {
       //delete activeRooms[roomCode];
       delete activeRooms[roomCode].players[socket.id];
