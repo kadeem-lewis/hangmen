@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true
+  },
+  "references": [
+    {
+      "path": "client"
+    },
+    {
+      "path": "server"
+    }
+  ],
+  "exclude": ["node_modules"]
+}
