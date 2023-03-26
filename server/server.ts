@@ -1,12 +1,14 @@
-const http = require("http");
+import http from "http";
 
-const express = require("express");
-const { Server } = require("socket.io");
-const cors = require("cors");
-require("dotenv").config();
+import express from "express";
+import { Server } from "socket.io";
+import cors from "cors";
+import dotenv from "dotenv";
 
-const Room = require("./Room");
-const User = require("./User");
+dotenv.config();
+
+import { Room } from "./Room.js";
+import { User } from "./User.js";
 
 const app = express();
 
