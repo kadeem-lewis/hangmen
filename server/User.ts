@@ -1,4 +1,4 @@
-class User {
+export class User {
   constructor(username, userId) {
     this.username = username;
     this.userId = userId;
@@ -6,4 +6,3 @@ class User {
     this.currentRoom = null;
   }
 }
-module.exports = User;
