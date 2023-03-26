@@ -3,7 +3,8 @@
     "target": "ESNext",
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "strict": true
   },
   "references": [
     {
