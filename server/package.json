@@ -5,8 +5,8 @@
   "type": "module",
   "main": "server.ts",
   "scripts": {
-    "dev": "nodemon --exec ts-node server.ts",
-    "start": "node server.ts"
+    "dev": "nodemon",
+    "start": "nodemon"
   },
   "dependencies": {
     "cors": "^2.8.5",
