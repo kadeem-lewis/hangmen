@@ -35,13 +35,15 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import SocketIoService from "../../services/SocketIoService";
 import PlayerList from "../../components/App/PlayerList.vue";
+
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+
 export default {
-  components: {
-    PlayerList,
-  },
   mounted() {
     this.socket = SocketIoService.setupSocketConnection();
     this.roomCode = this.$route.params.roomCode;

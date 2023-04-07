@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import SocketIoService from "../services/SocketIoService";
 import ChatBox from "../components/App/ChatBox.vue";
 import InputArea from "../components/App/InputArea.vue";

@@ -6,22 +6,20 @@
     </main>
   </div>
 </template>
-<script>
+<script setup lang="ts">
 import NavBar from "./components/NavBar.vue";
 import SocketIoService from "./services/SocketIoService";
-export default {
-  components: {
-    NavBar,
-  },
+import { onMounted, ref } from "vue";
+
   created() {
-    this.socket = SocketIoService.setupSocketConnection();
-  },
-  mounted() {
+    const socket = SocketIoService.setupSocketConnection();
+  }
+  onMounted(()=>{
+
     this.socket.on("connect", () => {
       console.log("user connected");
     });
-  },
-};
+  }
 </script>
 <style>
 *,
