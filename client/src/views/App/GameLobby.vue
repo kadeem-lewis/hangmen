@@ -12,10 +12,10 @@
         @click="copyCode()"
         class="rounded-lg p-2 bg-sky-600 hover:bg-sky-500"
       >
-        <font-awesome-icon icon="fa-solid fa-copy" />
+        <ClipboardIcon />
       </button>
       <span v-show="isCopied" class="p-2 text-green-500">
-        <font-awesome-icon icon="fa-solid fa-check" />
+        <ClipboardDocumentCheckIcon />
       </span>
     </div>
   </div>
@@ -40,6 +40,10 @@ import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import SocketIoService from "../../services/SocketIoService";
 import PlayerList from "../../components/App/PlayerList.vue";
+import {
+  ClipboardIcon,
+  ClipboardDocumentCheckIcon,
+} from "@heroicons/vue/24/solid";
 
 const route = useRoute();
 const router = useRouter();

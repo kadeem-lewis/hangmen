@@ -9,16 +9,14 @@
     <button
       class="absolute right-2 p-1 rounded-md hover:bg-dark-mode-600 top-1/2 -translate-y-1/2"
     >
-      <font-awesome-icon
-        icon="fa-solid fa-paper-plane"
-        class="text-gray-300 m-auto"
-      />
+      <PaperAirplaneIcon />
     </button>
   </form>
 </template>
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import SocketIoService from "../../services/SocketIoService";
+import { PaperAirplaneIcon } from "heroicons/vue/24/solid";
 
 const socket = ref(null);
 const chatInput = ref("");

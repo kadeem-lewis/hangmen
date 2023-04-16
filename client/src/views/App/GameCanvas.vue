@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col">
     <div>
-      <span><font-awesome-icon icon="fa-solid fa-clock" /></span>
+      <span><ClockIcon /></span>
       <span>30s</span>
     </div>
     <p class="text-center text-3xl">Player's Turn</p>
@@ -25,3 +25,6 @@
     </button>
   </div>
 </template>
+<script setup lang="ts">
+import { ClockIcon } from "@heroicons/vue/24/solid";
+</script>
