@@ -6,29 +6,29 @@
   </ul>
 </template>
 
-<script>
+<script setup lang="ts">
+import { ref, onMounted, onUpdated, onBeforeUnmount } from "vue";
 import SocketIoService from "../../services/SocketIoService";
-export default {
-  mounted() {
-    this.socket = SocketIoService.setupSocketConnection();
-    this.socket.on("new-player", (player, players) => {
-      this.players = players;
-    });
-  },
-  updated() {
-    this.socket.on("player-leave-room", (user) => {
-      this.players = this.players.filter(
-        (player) => player.username !== user.username
-      );
-    });
-  },
-  data() {
-    return {
-      players: [],
-    };
-  },
-  beforeUnmount() {
-    this.players = [];
-  },
-};
+
+const socket = ref(null);
+const players = ref([]);
+
+onMounted(() => {
+  socket.value = SocketIoService.setupSocketConnection();
+  socket.value.on("new-player", (player, playersList) => {
+    players.value = playersList;
+  });
+});
+
+onUpdated(() => {
+  socket.value.on("player-leave-room", (user) => {
+    players.value = players.value.filter(
+      (player) => player.username !== user.username
+    );
+  });
+});
+
+onBeforeUnmount(() => {
+  players.value = [];
+});
 </script>

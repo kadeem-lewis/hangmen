@@ -6,21 +6,13 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    sender: {
-      type: String,
-      required: true,
-    },
-    message: {
-      type: String,
-      required: true,
-    },
-  },
-  data() {
-    return {};
-  },
-  methods: {},
-};
+<script setup lang="ts">
+import { defineProps } from "vue";
+
+const props = defineProps<{
+  sender: string;
+  message: string;
+}>();
+
+const { sender, message } = props;
 </script>

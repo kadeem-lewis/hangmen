@@ -5,10 +5,4 @@
     </RouterLink>
   </header>
 </template>
-<script>
-export default {
-  data() {
-    return {};
-  },
-};
-</script>
+<script setup lang="ts"></script>

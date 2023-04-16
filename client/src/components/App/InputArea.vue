@@ -16,34 +16,25 @@
     </button>
   </form>
 </template>
-<script>
-import ChatBubble from "./ChatBubble.vue";
+<script setup lang="ts">
+import { ref, onMounted } from "vue";
 import SocketIoService from "../../services/SocketIoService";
-export default {
-  components: {
-    ChatBubble,
-  },
-  mounted() {
-    this.socket = SocketIoService.setupSocketConnection();
-  },
-  data() {
-    return {
-      socket: null,
-      chatInput: "",
-    };
-  },
-  computed: {
-    getId() {
-      const timestamp = Date.now();
-      const random = Math.floor(Math.random() * 9) + 1;
-      return `${timestamp}-${random}`;
-    },
-  },
-  methods: {
-    sendMessage() {
-      this.socket.emit("send-message", this.getId, this.chatInput);
-      this.chatInput = "";
-    },
-  },
+
+const socket = ref(null);
+const chatInput = ref("");
+
+onMounted(() => {
+  socket.value = SocketIoService.setupSocketConnection();
+});
+
+const getId = () => {
+  const timestamp = Date.now();
+  const random = Math.floor(Math.random() * 9) + 1;
+  return `${timestamp}-${random}`;
+};
+
+const sendMessage = () => {
+  socket.value.emit("send-message", getId(), chatInput.value);
+  chatInput.value = "";
 };
 </script>
