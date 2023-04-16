@@ -2,11 +2,9 @@
   "name": "@hangman/server",
   "private": true,
   "version": "1.0.0",
-  "type": "module",
   "main": "server.ts",
   "scripts": {
-    "dev": "nodemon",
-    "start": "nodemon"
+    "dev": "nodemon"
   },
   "dependencies": {
     "cors": "^2.8.5",
