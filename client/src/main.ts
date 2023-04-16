@@ -3,6 +3,8 @@ import App from "./App.vue";
 import "./style.css";
 // Vue router  imports
 import router from "./router";
+//Socket io connection
+import SocketPlugin from "./plugins/SocketPlugin";
 // Font Awesome imports
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -18,5 +20,6 @@ library.add(faCheck);
 
 const app = createApp(App);
 app.use(router);
+//app.use(SocketPlugin);
 app.component("font-awesome-icon", FontAwesomeIcon);
 app.mount("#app");
