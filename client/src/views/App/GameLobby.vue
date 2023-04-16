@@ -12,11 +12,11 @@
         @click="copyCode()"
         class="rounded-lg p-2 bg-sky-600 hover:bg-sky-500"
       >
-        <font-awesome-icon icon="fa-solid fa-copy" />
+        <ClipboardIcon />
       </button>
-      <span v-show="isCopied" class="p-2 text-green-500"
-        ><font-awesome-icon icon="fa-solid fa-check"
-      /></span>
+      <span v-show="isCopied" class="p-2 text-green-500">
+        <ClipboardDocumentCheckIcon />
+      </span>
     </div>
   </div>
   <PlayerList />
@@ -36,35 +36,35 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import SocketIoService from "../../services/SocketIoService";
 import PlayerList from "../../components/App/PlayerList.vue";
-
-import { useRoute } from "vue-router";
+import {
+  ClipboardIcon,
+  ClipboardDocumentCheckIcon,
+} from "@heroicons/vue/24/solid";
 
 const route = useRoute();
+const router = useRouter();
+const socket = ref(null);
+const roomCode = ref("");
+const isCopied = ref(false);
 
-export default {
-  mounted() {
-    this.socket = SocketIoService.setupSocketConnection();
-    this.roomCode = this.$route.params.roomCode;
-  },
-  data() {
-    return {
-      roomCode: "",
-      isCopied: false,
-    };
-  },
-  methods: {
-    startGame() {
-      this.$router.push("/game/play");
-    },
-    copyCode() {
-      navigator.clipboard.writeText(this.roomCode);
-      this.isCopied = true;
-      setTimeout(() => {
-        this.isCopied = false;
-      }, 2000);
-    },
-  },
+onMounted(() => {
+  socket.value = SocketIoService.setupSocketConnection();
+  roomCode.value = route.params.roomCode;
+});
+
+const startGame = () => {
+  router.push("/game/play");
+};
+
+const copyCode = () => {
+  navigator.clipboard.writeText(roomCode.value);
+  isCopied.value = true;
+  setTimeout(() => {
+    isCopied.value = false;
+  }, 2000);
 };
 </script>

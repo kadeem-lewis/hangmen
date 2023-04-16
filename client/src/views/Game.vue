@@ -9,31 +9,26 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, onBeforeRouteEnter, onBeforeRouteLeave } from "vue";
 import SocketIoService from "../services/SocketIoService";
 import ChatBox from "../components/App/ChatBox.vue";
 import InputArea from "../components/App/InputArea.vue";
-export default {
-  components: {
-    ChatBox,
-    InputArea,
-  },
-  mounted() {
-    this.socket = SocketIoService.setupSocketConnection();
-  },
-  data() {
-    return {
-      socket: null,
-    };
-  },
-  beforeEnter(to, from, next) {
-    if (from.name === "game-mode") {
-      next();
-    }
-    next({ name: "game-mode" });
-  },
-  beforeRouteLeave(to, from, next) {
-    this.socket.emit("leave-room");
+
+const socket = ref(null);
+
+onMounted(() => {
+  socket.value = SocketIoService.setupSocketConnection();
+});
+
+onBeforeRouteEnter((to, from, next) => {
+  if (from.name === "game-mode") {
     next();
-  },
-};
+  }
+  next({ name: "game-mode" });
+});
+
+onBeforeRouteLeave((to, from, next) => {
+  socket.value.emit("leave-room");
+  next();
+});
 </script>

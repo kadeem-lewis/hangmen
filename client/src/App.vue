@@ -10,16 +10,15 @@
 import NavBar from "./components/NavBar.vue";
 import SocketIoService from "./services/SocketIoService";
 import { onMounted, ref } from "vue";
+const socket = ref();
 
-  created() {
-    const socket = SocketIoService.setupSocketConnection();
-  }
-  onMounted(()=>{
+onMounted(() => {
+  socket.value = SocketIoService.setupSocketConnection();
 
-    this.socket.on("connect", () => {
-      console.log("user connected");
-    });
-  }
+  socket.value.on("connect", () => {
+    console.log("user connected");
+  });
+});
 </script>
 <style>
 *,

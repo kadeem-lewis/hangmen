@@ -11,66 +11,54 @@
     </div>
   </div>
 </template>
-<script>
+<script setup lang="ts">
+import { ref, onMounted, onUpdated, onBeforeUnmount } from "vue";
+import { useRouter } from "vue-router";
 import ChatBubble from "./ChatBubble.vue";
 import SocketIoService from "../../services/SocketIoService";
-export default {
-  components: {
-    ChatBubble,
-  },
-  mounted() {
-    this.socket = SocketIoService.setupSocketConnection();
-    this.socket.on("receive-message", (message) => {
-      this.messages.push(message);
-    });
-    this.socket.on("new-player", (player, players) => {
-      const message = {
-        id: `${Date.now()}-${Math.floor(Math.random() * 9) + 1}`,
-        sender: player.username,
-        text: `has joined the game`,
-      };
-      this.messages.push(message);
-    });
-  },
-  updated() {
-    this.socket.on("player-leave-room", (player) => {
-      const message = {
-        id: `${Date.now()}-${Math.floor(Math.random() * 9) + 1}`,
-        sender: player.username,
-        text: "has left the room",
-      };
-      this.messages.push(message);
-    });
-  },
-  data() {
-    return {
-      socket: null,
-      messages: [],
+
+const socket = ref(null);
+const messages = ref([]);
+
+onMounted(() => {
+  socket.value = SocketIoService.setupSocketConnection();
+  socket.value.on("receive-message", (message) => {
+    messages.value.push(message);
+  });
+  socket.value.on("new-player", (player, players) => {
+    const message = {
+      id: `${Date.now()}-${Math.floor(Math.random() * 9) + 1}`,
+      sender: player.username,
+      text: `has joined the game`,
     };
-  },
-  computed: {
-    sortedMessages() {
-      return this.messages.sort;
-    },
-  },
-  methods: {
-    receiveMessage() {
-      this.socket.on("receive-message", (data) => {
-        messages.push(data);
-      });
-    },
-    leaveGame() {
-      this.socket.emit("leave-room", (response) => {
-        if (response.status == "ok") {
-          this.$router.push({ name: "game-mode" });
-        } else {
-          console.log("An error has occurred");
-        }
-      });
-    },
-  },
-  beforeUnmount() {
-    this.messages = [];
-  },
+    messages.value.push(message);
+  });
+});
+
+onUpdated(() => {
+  socket.value.on("player-leave-room", (player) => {
+    const message = {
+      id: `${Date.now()}-${Math.floor(Math.random() * 9) + 1}`,
+      sender: player.username,
+      text: "has left the room",
+    };
+    messages.value.push(message);
+  });
+});
+
+const router = useRouter();
+
+const leaveGame = () => {
+  socket.value.emit("leave-room", (response) => {
+    if (response.status == "ok") {
+      router.push({ name: "game-mode" });
+    } else {
+      console.log("An error has occurred");
+    }
+  });
 };
+
+onBeforeUnmount(() => {
+  messages.value = [];
+});
 </script>

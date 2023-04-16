@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 
 class SocketIoService {
-  static instance = null;
+  static instance: null | SocketIoService = null;
   socket = null;
 
   static getInstance() {

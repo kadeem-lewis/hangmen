@@ -23,38 +23,36 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, useRouter } from "vue";
 import SocketIoService from "../services/SocketIoService";
-export default {
-  mounted() {
-    this.socket = SocketIoService.setupSocketConnection();
-  },
-  data() {
-    return {
-      socket: null,
-      roomCode: "",
-    };
-  },
-  methods: {
-    createGame() {
-      this.socket.emit("request-room-code");
-      this.socket.on("create-room", (roomCode) => {
-        this.socket.emit("join-room", roomCode, (message) => {
-          console.log(message);
-        });
-        this.$router.push({
-          name: "game-lobby",
-          params: { roomCode: roomCode },
-        });
-      });
-    },
-    joinGame() {
-      let room = this.$refs.gameCode.value.toString();
-      this.socket.emit("join-room", room, (message) => {});
-      this.$router.push({
-        name: "game-lobby",
-        params: { roomCode: room },
-      });
-    },
-  },
+
+const socket = ref(null);
+const router = useRouter();
+const gameCode = ref("");
+
+onMounted(() => {
+  socket.value = SocketIoService.setupSocketConnection();
+});
+
+const createGame = () => {
+  socket.value.emit("request-room-code");
+  socket.value.on("create-room", (roomCode) => {
+    socket.value.emit("join-room", roomCode, (message) => {
+      console.log(message);
+    });
+    router.push({
+      name: "game-lobby",
+      params: { roomCode: roomCode },
+    });
+  });
+};
+
+const joinGame = () => {
+  let room = gameCode.value.toString();
+  socket.value.emit("join-room", room, (message) => {});
+  router.push({
+    name: "game-lobby",
+    params: { roomCode: room },
+  });
 };
 </script>
