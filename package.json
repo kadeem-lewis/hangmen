@@ -5,6 +5,9 @@
     "server",
     "client"
   ],
+  "scripts": {
+    "dev": "concurrently \"cd client && npm run dev\" \"cd server && npm run dev\""
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kadeem-lewis/hangman.git"
@@ -19,6 +22,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
+    "concurrently": "^8.0.1",
     "eslint": "^8.36.0",
     "eslint-plugin-vue": "^9.10.0",
     "typescript": "^5.0.2"
