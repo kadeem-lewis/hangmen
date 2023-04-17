@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center items-center">
-    <div class="w-full max-w-md md:max-w-3xl">
+    <div class="w-full">
       <div class="flex flex-col md:flex-row gap-y-4 items-center">
         <span class="relative">
           <img :src="avatar" alt="Avatar" />
@@ -16,7 +16,7 @@
             Choose a character and a nickname
           </p>
           <input
-            class="bg-dark-mode-400 text-xl font-semibold w-full mx rounded-md px-4 py-2 outline-none"
+            class="bg-dark-mode-400 text-xl font-semibold w-full mx-4 rounded-md px-4 py-2 outline-none"
             type="text"
             name="username"
             placeholder="Enter a username"
@@ -43,11 +43,12 @@
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import SocketIoService from "../services/SocketIoService";
+import { Socket } from "socket.io-client";
 import { PlayIcon, ArrowPathIcon } from "@heroicons/vue/24/solid";
 import { createAvatar } from "@dicebear/core";
 import { adventurerNeutral } from "@dicebear/collection";
 
-const socket = ref(null);
+const socket = ref<Socket | null>(null);
 const username = ref("");
 const userId = ref("");
 const router = useRouter();
@@ -70,7 +71,7 @@ const register = () => {
   }
   localStorage.setItem("username", username.value);
   localStorage.setItem("userSeed", seed.value);
-  socket.value.emit("register", username.value, userId.value);
+  socket.value?.emit("register", username.value, userId.value);
   router.push("/mode");
 };
 const generateAvatar = () => {
