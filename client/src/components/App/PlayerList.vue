@@ -9,9 +9,14 @@
 <script setup lang="ts">
 import { ref, onMounted, onUpdated, onBeforeUnmount } from "vue";
 import SocketIoService from "../../services/SocketIoService";
+import { Socket } from "socket.io-client";
+type Player = {
+  id: string;
+  username: string;
+};
 
-const socket = ref(null);
-const players = ref([]);
+const socket = ref<Socket | null>(null);
+const players = ref<Player[]>([]);
 
 onMounted(() => {
   socket.value = SocketIoService.setupSocketConnection();
@@ -21,7 +26,7 @@ onMounted(() => {
 });
 
 onUpdated(() => {
-  socket.value.on("player-leave-room", (user) => {
+  socket.value?.on("player-leave-room", (user) => {
     players.value = players.value.filter(
       (player) => player.username !== user.username
     );

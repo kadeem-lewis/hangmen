@@ -16,9 +16,15 @@ import { ref, onMounted, onUpdated, onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";
 import ChatBubble from "./ChatBubble.vue";
 import SocketIoService from "../../services/SocketIoService";
+import { Socket } from "socket.io-client";
 
-const socket = ref(null);
-const messages = ref([]);
+type Message = {
+  id: string;
+  sender: string;
+  text: string;
+};
+const socket = ref<Socket | null>(null);
+const messages = ref<Message[]>([]);
 
 onMounted(() => {
   socket.value = SocketIoService.setupSocketConnection();
@@ -36,7 +42,7 @@ onMounted(() => {
 });
 
 onUpdated(() => {
-  socket.value.on("player-leave-room", (player) => {
+  socket.value?.on("player-leave-room", (player) => {
     const message = {
       id: `${Date.now()}-${Math.floor(Math.random() * 9) + 1}`,
       sender: player.username,
@@ -49,7 +55,7 @@ onUpdated(() => {
 const router = useRouter();
 
 const leaveGame = () => {
-  socket.value.emit("leave-room", (response) => {
+  socket.value?.emit("leave-room", (response: any) => {
     if (response.status == "ok") {
       router.push({ name: "game-mode" });
     } else {
