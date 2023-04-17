@@ -15,7 +15,9 @@ class SocketIoService {
     if (!this.socket) {
       const serverUrl =
         import.meta.env.VITE_SERVER_URL || "http://localhost:3005";
-      this.socket = io(serverUrl);
+      this.socket = io(serverUrl, {
+        withCredentials: true,
+      });
     }
     return this.socket;
   }
