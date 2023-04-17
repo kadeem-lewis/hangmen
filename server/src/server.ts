@@ -7,8 +7,8 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-import { Room } from "./Room.ts";
-import { User } from "./User.ts";
+import { Room } from "./Room";
+import { User } from "./User";
 
 const app = express();
 
