@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import SocketIoService from "../../services/SocketIoService";
-import { PaperAirplaneIcon } from "heroicons/vue/24/solid";
+import { PaperAirplaneIcon } from "@heroicons/vue/24/solid";
 
 const socket = ref(null);
 const chatInput = ref("");
