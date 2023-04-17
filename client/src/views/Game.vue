@@ -10,12 +10,13 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { onBeforeRouteEnter, onBeforeRouteLeave } from "vue-router";
+import { onBeforeRouteLeave } from "vue-router";
 import SocketIoService from "../services/SocketIoService";
 import ChatBox from "../components/App/ChatBox.vue";
 import InputArea from "../components/App/InputArea.vue";
+import { Socket } from "socket.io-client";
 
-const socket = ref(null);
+const socket = ref<Socket | null>(null);
 
 onMounted(() => {
   socket.value = SocketIoService.setupSocketConnection();
@@ -29,7 +30,7 @@ onMounted(() => {
 // });
 
 onBeforeRouteLeave((to, from, next) => {
-  socket.value.emit("leave-room");
+  socket.value?.emit("leave-room");
   next();
 });
 </script>

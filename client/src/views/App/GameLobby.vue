@@ -12,10 +12,10 @@
         @click="copyCode()"
         class="rounded-lg p-2 bg-sky-600 hover:bg-sky-500"
       >
-        <ClipboardIcon />
+        <ClipboardIcon class="h-6 w-6" />
       </button>
       <span v-show="isCopied" class="p-2 text-green-500">
-        <ClipboardDocumentCheckIcon />
+        <ClipboardDocumentCheckIcon class="h-6 w-6" />
       </span>
     </div>
   </div>
@@ -39,6 +39,7 @@
 import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import SocketIoService from "../../services/SocketIoService";
+import { Socket } from "socket.io-client";
 import PlayerList from "../../components/App/PlayerList.vue";
 import {
   ClipboardIcon,
@@ -47,13 +48,13 @@ import {
 
 const route = useRoute();
 const router = useRouter();
-const socket = ref(null);
+const socket = ref<Socket | null>(null);
 const roomCode = ref("");
 const isCopied = ref(false);
 
 onMounted(() => {
   socket.value = SocketIoService.setupSocketConnection();
-  roomCode.value = route.params.roomCode;
+  roomCode.value = route.params.roomCode as string;
 });
 
 const startGame = () => {

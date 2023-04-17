@@ -26,8 +26,9 @@
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import SocketIoService from "../services/SocketIoService";
+import { Socket } from "socket.io-client";
 
-const socket = ref(null);
+const socket = ref<Socket | null>(null);
 const router = useRouter();
 const gameCode = ref("");
 
@@ -36,9 +37,9 @@ onMounted(() => {
 });
 
 const createGame = () => {
-  socket.value.emit("request-room-code");
-  socket.value.on("create-room", (roomCode) => {
-    socket.value.emit("join-room", roomCode, (message) => {
+  socket.value?.emit("request-room-code");
+  socket.value?.on("create-room", (roomCode) => {
+    socket.value?.emit("join-room", roomCode, (message: string) => {
       console.log(message);
     });
     router.push({
@@ -50,7 +51,7 @@ const createGame = () => {
 
 const joinGame = () => {
   let room = gameCode.value.toString();
-  socket.value.emit("join-room", room, (message) => {});
+  socket.value?.emit("join-room", room, (message: string) => {});
   router.push({
     name: "game-lobby",
     params: { roomCode: room },
