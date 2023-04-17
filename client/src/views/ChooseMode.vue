@@ -23,7 +23,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, useRouter } from "vue";
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import SocketIoService from "../services/SocketIoService";
 
 const socket = ref(null);
