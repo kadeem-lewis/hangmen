@@ -9,16 +9,17 @@
     <button
       class="absolute right-2 p-1 rounded-md hover:bg-dark-mode-600 top-1/2 -translate-y-1/2"
     >
-      <PaperAirplaneIcon />
+      <PaperAirplaneIcon class="h-6 w-6" />
     </button>
   </form>
 </template>
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import SocketIoService from "../../services/SocketIoService";
-import { PaperAirplaneIcon } from "heroicons/vue/24/solid";
+import { PaperAirplaneIcon } from "@heroicons/vue/24/solid";
+import { Socket } from "socket.io-client";
 
-const socket = ref(null);
+const socket = ref<Socket | null>(null);
 const chatInput = ref("");
 
 onMounted(() => {
@@ -32,7 +33,7 @@ const getId = () => {
 };
 
 const sendMessage = () => {
-  socket.value.emit("send-message", getId(), chatInput.value);
+  socket.value?.emit("send-message", getId(), chatInput.value);
   chatInput.value = "";
 };
 </script>

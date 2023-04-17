@@ -7,8 +7,8 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-import { Room } from "./Room.js";
-import { User } from "./User.js";
+import { Room } from "./Room.ts";
+import { User } from "./User.ts";
 
 const app = express();
 
@@ -21,10 +21,21 @@ const io = new Server(server, {
     origin: process.env.CLIENT_URL,
   },
 });
+interface Users {
+  [key: string]: User;
+}
 
-const users = {};
-const messages = {};
-const activeRooms = {};
+interface Messages {
+  // You can replace 'any' with a specific type if you have one
+  [key: string]: any;
+}
+
+interface ActiveRooms {
+  [key: string]: Room;
+}
+const users: Users = {};
+const messages: Messages = {};
+const activeRooms: ActiveRooms = {};
 
 io.on("connection", (socket) => {
   console.log(socket.id);
@@ -64,7 +75,7 @@ io.on("connection", (socket) => {
     socket.on("leave-room", (cb) => {
       //delete activeRooms[roomCode];
       delete activeRooms[roomCode].players[socket.id];
-      users[socket.id].currentRoom = null;
+      users[socket.id].currentRoom = "";
       socket.leave(roomCode);
       if (!(socket.id in activeRooms[roomCode].players)) {
         cb({

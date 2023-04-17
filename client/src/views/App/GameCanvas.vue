@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col">
     <div>
-      <span><ClockIcon /></span>
+      <span><ClockIcon class="h-6 w-6" /></span>
       <span>30s</span>
     </div>
     <p class="text-center text-3xl">Player's Turn</p>

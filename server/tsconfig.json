@@ -3,6 +3,9 @@
   "compilerOptions": {
     "module": "NodeNext",
     "moduleResolution": "nodenext",
-    "composite": true
-  }
+    "esModuleInterop": true,
+    "composite": true,
+    "allowImportingTsExtensions": true
+  },
+  "include": ["src/**/*.ts"]
 }

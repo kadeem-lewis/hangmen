@@ -1,8 +1,8 @@
-import { io } from "socket.io-client";
+import { io, Socket } from "socket.io-client";
 
 class SocketIoService {
   static instance: null | SocketIoService = null;
-  socket = null;
+  socket: Socket | null = null;
 
   static getInstance() {
     if (!SocketIoService.instance) {

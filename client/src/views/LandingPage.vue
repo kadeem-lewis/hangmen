@@ -1,50 +1,98 @@
 <template>
-  <form class="flex flex-col" @submit.prevent="register">
-    <input
-      class="bg-dark-mode-400 rounded-sm px-4 py-2 outline-none mx-2"
-      type="text"
-      name="username"
-      placeholder="Enter a username"
-      v-model="username"
-    />
-    <button
-      type="submit"
-      class="rounded-full bg-blue-600 py-2 hover:bg-blue-500 mt-2 font-semibold text-xl w-3/4 mx-auto"
-    >
-      Play
-    </button>
-  </form>
+  <div class="flex justify-center items-center">
+    <div class="w-full">
+      <div class="flex flex-col md:flex-row gap-y-4 items-center">
+        <span class="relative">
+          <img :src="avatar" alt="Avatar" />
+          <button
+            class="absolute bottom-0 right-0 bg-blue-600 hover:bg-blue-500 rounded-full p-1"
+            @click="changeAvatar"
+          >
+            <ArrowPathIcon class="h-6 w-6" />
+          </button>
+        </span>
+        <div class="w-full mx-16 md:space-y-4 text-left">
+          <p class="hidden md:block font-semibold uppercase text-lg">
+            Choose a character and a nickname
+          </p>
+          <input
+            class="bg-dark-mode-400 text-xl font-semibold w-full mx-4 rounded-md px-4 py-2 outline-none"
+            type="text"
+            name="username"
+            placeholder="Enter a username"
+            v-model="username"
+          />
+        </div>
+      </div>
+      <button
+        @click="register"
+        class="rounded-lg pl-4 flex items-center gap-x-4 bg-blue-600 py-2 hover:bg-blue-500 mt-8 font-semibold text-xl w-1/2 mx-auto"
+      >
+        <PlayIcon class="h-6 w-6 flex-none" />
+        <span class="flex-grow uppercase">Play</span>
+      </button>
+    </div>
+    <div class="hidden md:block">
+      <h4 class="text-2xl">How to play</h4>
+      <p>Guess the word or something. Idk, why are you asking me??</p>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import SocketIoService from "../services/SocketIoService";
+import { Socket } from "socket.io-client";
+import { PlayIcon, ArrowPathIcon } from "@heroicons/vue/24/solid";
+import { createAvatar } from "@dicebear/core";
+import { adventurerNeutral } from "@dicebear/collection";
 
-const socket = ref(null);
+const socket = ref<Socket | null>(null);
 const username = ref("");
 const userId = ref("");
 const router = useRouter();
+const avatar = ref("");
+const seed = ref("");
 
 onMounted(() => {
   socket.value = SocketIoService.setupSocketConnection();
   if (localStorage.getItem("username") !== null) {
-    username.value = localStorage.getItem("username");
+    username.value = localStorage.getItem("username") as string;
   }
 });
 
 const register = () => {
   if (localStorage.getItem("userId") !== null) {
-    userId.value = localStorage.getItem("userId");
+    userId.value = localStorage.getItem("userId") as string;
   } else {
     userId.value = generateId();
     localStorage.setItem("userId", userId.value);
   }
   localStorage.setItem("username", username.value);
-  socket.value.emit("register", username.value, userId.value);
+  localStorage.setItem("userSeed", seed.value);
+  socket.value?.emit("register", username.value, userId.value);
   router.push("/mode");
 };
-
+const generateAvatar = () => {
+  const svg = createAvatar(adventurerNeutral, {
+    size: window.innerWidth >= 448 ? 128 : 96,
+    radius: 50,
+    scale: 90,
+    seed: seed.value,
+  }).toDataUriSync();
+  avatar.value = svg;
+};
+const changeAvatar = () => {
+  seed.value = Math.floor(Math.random() * 100).toString();
+  generateAvatar();
+};
+onMounted(() => {
+  if (localStorage.getItem("userSeed") !== null) {
+    seed.value = localStorage.getItem("userSeed") as string;
+  }
+  generateAvatar();
+});
 const generateId = () => {
   return (
     Date.now().toString(36) +

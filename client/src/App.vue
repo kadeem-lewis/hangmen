@@ -1,8 +1,8 @@
 <template>
   <div class="container text-white min-h-screen m-auto">
-    <NavBar></NavBar>
-    <main>
-      <RouterView></RouterView>
+    <NavBar />
+    <main class="mt-16 max-w-md md:max-w-3xl">
+      <RouterView />
     </main>
   </div>
 </template>
