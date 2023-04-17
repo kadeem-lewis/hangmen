@@ -1,9 +1,11 @@
 export class Room {
+  code: string;
+  players: { [id: string]: any };
   constructor() {
     this.code = this.createNewCode();
     this.players = {};
   }
-  addPlayer(id, player) {
+  addPlayer(id: string, player: any) {
     this.players[id] = player;
   }
   getPlayers() {
