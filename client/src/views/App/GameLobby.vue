@@ -12,11 +12,9 @@
         @click="copyCode()"
         class="rounded-lg p-2 bg-sky-600 hover:bg-sky-500"
       >
-        <ClipboardIcon class="h-6 w-6" />
+        <ClipboardIcon v-if="!isCopied" class="h-6 w-6" />
+        <ClipboardDocumentCheckIcon v-else class="h-6 w-6" />
       </button>
-      <span v-show="isCopied" class="p-2 text-green-500">
-        <ClipboardDocumentCheckIcon class="h-6 w-6" />
-      </span>
     </div>
   </div>
   <PlayerList />

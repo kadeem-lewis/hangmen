@@ -29,8 +29,8 @@ onMounted(() => {
 //   next({ name: "game-mode" });
 // });
 
-onBeforeRouteLeave((to, from, next) => {
-  socket.value?.emit("leave-room");
-  next();
-});
+// onBeforeRouteLeave((to, from, next) => {
+//   socket.value?.emit("leave-room");
+//   next();
+// });
 </script>
