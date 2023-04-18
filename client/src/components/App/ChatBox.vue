@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-dark-mode-500 p-4">
-    <div><button @click="leaveGame()">Leave Game</button></div>
+  <div class="bg-dark-mode-500 p-4 overflow-y-auto h-64">
+    <button @click="leaveGame()">Leave Game</button>
     <div>
       <ChatBubble
         v-for="message in messages"
