@@ -54,7 +54,8 @@ io.on("connection", (socket) => {
     activeRooms[room.code] = room;
     io.emit("create-room", room.code);
   });
-  socket.on("join-room", (roomCode, cb) => {
+  socket.on("join-room", (roomCode, callback) => {
+    let status = false;
     if (activeRooms[roomCode]) {
       socket.join(roomCode);
       activeRooms[roomCode].addPlayer(socket.id, users[socket.id]);
@@ -64,11 +65,12 @@ io.on("connection", (socket) => {
         users[socket.id],
         activeRooms[roomCode].players
       );
-
+      status = true;
       console.log(activeRooms[roomCode]);
     } else {
-      cb("Game not found");
+      status = false;
     }
+    callback({ status });
 
     socket.on("send-message", (id, text) => {
       io.to(roomCode).emit("receive-message", {
@@ -77,20 +79,23 @@ io.on("connection", (socket) => {
         text: text,
       });
     });
-    socket.on("rejoin-room", (roomCode, cb) => {});
-    socket.on("leave-room", (cb) => {
-      //delete activeRooms[roomCode];
+    socket.on("leave-room", (callback) => {
+      //! on leave room remove the player from the room, remove the room from the players current room and delete the room if the player count is 0.
       delete activeRooms[roomCode].players[socket.id];
       users[socket.id].currentRoom = "";
+      if (activeRooms[roomCode].players.length === 0) {
+        delete activeRooms[roomCode];
+      }
       socket.leave(roomCode);
       if (!(socket.id in activeRooms[roomCode].players)) {
-        cb({
+        callback({
           status: "ok",
         });
       }
       io.emit("player-leave-room", users[socket.id]);
     });
   });
+  socket.on("rejoin-room", (roomCode, cb) => {});
   socket.on("disconnect", () => {
     console.log("client disconnected");
   });
