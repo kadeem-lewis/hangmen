@@ -97,7 +97,11 @@ io.on("connection", (socket) => {
         status: "ok",
       });
     }
-    io.emit("player-leave-room", users[socket.id]);
+    io.emit(
+      "player-leave-room",
+      users[socket.id],
+      activeRooms[roomCode].players
+    );
   });
   socket.on("rejoin-room", (roomCode, cb) => {});
   socket.on("disconnect", () => {

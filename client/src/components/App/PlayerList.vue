@@ -26,12 +26,8 @@ onMounted(() => {
 });
 
 onUpdated(() => {
-  socket.value?.on("player-leave-room", (user) => {
-    console.log(`before ${players.value.length}`);
-    players.value = players.value.filter(
-      (player) => player.username !== user.username
-    );
-    console.log(`after ${players.value.length}`);
+  socket.value?.on("player-leave-room", (user, playersList) => {
+    players.value = playersList;
   });
 });
 

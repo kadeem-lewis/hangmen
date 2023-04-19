@@ -43,7 +43,7 @@ onMounted(() => {
 });
 
 onUpdated(() => {
-  socket.value?.on("player-leave-room", (player) => {
+  socket.value?.on("player-leave-room", (player, playersList) => {
     const message = {
       id: `${Date.now()}-${Math.floor(Math.random() * 9) + 1}`,
       sender: player.username,
