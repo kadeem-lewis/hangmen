@@ -66,11 +66,15 @@ io.on("connection", (socket) => {
         activeRooms[roomCode].players
       );
       status = true;
-      console.log(activeRooms[roomCode]);
     } else {
       status = false;
     }
     callback({ status });
+
+    const host = Object.keys(activeRooms[roomCode].players)[0];
+    users[host].isHost = true;
+
+    console.log(activeRooms[roomCode]);
 
     socket.on("send-message", (id, text) => {
       io.to(roomCode).emit("receive-message", {
@@ -79,21 +83,21 @@ io.on("connection", (socket) => {
         text: text,
       });
     });
-    socket.on("leave-room", (callback) => {
-      //! on leave room remove the player from the room, remove the room from the players current room and delete the room if the player count is 0.
-      delete activeRooms[roomCode].players[socket.id];
-      users[socket.id].currentRoom = "";
-      if (activeRooms[roomCode].players.length === 0) {
-        delete activeRooms[roomCode];
-      }
-      socket.leave(roomCode);
-      if (!(socket.id in activeRooms[roomCode].players)) {
-        callback({
-          status: "ok",
-        });
-      }
-      io.emit("player-leave-room", users[socket.id]);
-    });
+  });
+  socket.on("leave-room", (roomCode, callback) => {
+    //! on leave room remove the player from the room, remove the room from the players current room and delete the room if the player count is 0.
+    delete activeRooms[roomCode].players[socket.id];
+    users[socket.id].currentRoom = "";
+    if (activeRooms[roomCode].players.length === 0) {
+      delete activeRooms[roomCode];
+    }
+    socket.leave(roomCode);
+    if (!(socket.id in activeRooms[roomCode].players)) {
+      callback({
+        status: "ok",
+      });
+    }
+    io.emit("player-leave-room", users[socket.id]);
   });
   socket.on("rejoin-room", (roomCode, cb) => {});
   socket.on("disconnect", () => {
