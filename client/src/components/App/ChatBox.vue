@@ -13,7 +13,7 @@
 </template>
 <script setup lang="ts">
 import { ref, onMounted, onUpdated, onBeforeUnmount } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import ChatBubble from "./ChatBubble.vue";
 import SocketIoService from "../../services/SocketIoService";
 import { Socket } from "socket.io-client";
@@ -25,6 +25,7 @@ type Message = {
 };
 const socket = ref<Socket | null>(null);
 const messages = ref<Message[]>([]);
+const roomCode = ref("");
 
 onMounted(() => {
   socket.value = SocketIoService.setupSocketConnection();
@@ -53,10 +54,13 @@ onUpdated(() => {
 });
 
 const router = useRouter();
+const route = useRoute();
+roomCode.value = route.params.roomCode as string;
 
 const leaveGame = () => {
-  socket.value?.emit("leave-room", (response: any) => {
-    if (response.status == "ok") {
+  console.log(roomCode.value);
+  socket.value?.emit("leave-room", roomCode.value, (response: any) => {
+    if (response.status === "ok") {
       router.push({ name: "game-mode" });
     } else {
       console.log("An error has occurred");
