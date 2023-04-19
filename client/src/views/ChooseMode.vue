@@ -50,7 +50,7 @@ const createGame = () => {
 };
 
 const joinGame = () => {
-  let room = gameCode.value.toString();
+  let room = gameCode.value.toString().toUpperCase();
   socket.value?.emit("join-room", room, (res: any) => {
     if (res.status === true) {
       router.push({
