@@ -1,7 +1,7 @@
 <template>
   <div class="grid grid-cols-4 gap-2">
     <div class="col-span-3">
-      <RouterView />
+      <NuxtPage />
       <InputArea />
     </div>
     <ChatBox class="h-full grid-col-span-1" />

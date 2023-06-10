@@ -4,7 +4,6 @@
   </NuxtLayout>
 </template>
 <script setup lang="ts">
-import NavBar from "./components/NavBar.vue";
 import SocketIoService from "./services/SocketIoService";
 import { onMounted, ref } from "vue";
 const socket = ref();
