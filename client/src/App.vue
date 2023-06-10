@@ -1,10 +1,7 @@
 <template>
-  <div class="container text-white min-h-screen m-auto">
-    <NavBar />
-    <main class="mt-16 max-w-md md:max-w-3xl m-auto">
-      <RouterView />
-    </main>
-  </div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>
 <script setup lang="ts">
 import NavBar from "./components/NavBar.vue";
