@@ -1,8 +1,8 @@
 <template>
   <header class="flex justify-between md:justify-center my-4 items-center">
-    <RouterLink :to="{ name: 'landing-page' }">
+    <NuxtLink to="/">
       <img src="../assets/logo.svg" alt="Hangman Logo" class="h-12" />
-    </RouterLink>
+    </NuxtLink>
     <button class="md:hidden">
       <ExclamationCircleIcon class="h-8 w-8" />
     </button>
