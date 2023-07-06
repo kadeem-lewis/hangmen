@@ -24,7 +24,6 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
 import SocketIoService from "../services/SocketIoService";
 import { Socket } from "socket.io-client";
 

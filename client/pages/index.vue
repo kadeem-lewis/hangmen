@@ -41,7 +41,6 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
 import SocketIoService from "../services/SocketIoService";
 import { Socket } from "socket.io-client";
 import { PlayIcon, ArrowPathIcon } from "@heroicons/vue/24/solid";
