@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/kadeem-lewis/hangman#readme",
   "devDependencies": {
+    "@types/node": "^20.3.0",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
     "concurrently": "^8.0.1",
