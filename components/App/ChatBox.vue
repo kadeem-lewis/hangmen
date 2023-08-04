@@ -12,7 +12,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted, onUpdated, onBeforeUnmount } from "vue";
 import ChatBubble from "./ChatBubble.vue";
 import SocketIoService from "../../services/SocketIoService";
 import { Socket } from "socket.io-client";

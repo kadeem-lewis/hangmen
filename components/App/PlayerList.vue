@@ -7,7 +7,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUpdated, onBeforeUnmount } from "vue";
 import SocketIoService from "../../services/SocketIoService";
 import { Socket } from "socket.io-client";
 type Player = {
