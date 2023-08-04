@@ -14,7 +14,6 @@
   </form>
 </template>
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
 import SocketIoService from "../../services/SocketIoService";
 import { PaperAirplaneIcon } from "@heroicons/vue/24/solid";
 import { Socket } from "socket.io-client";

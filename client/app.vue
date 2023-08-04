@@ -8,7 +8,6 @@
 </template>
 <script setup lang="ts">
 import SocketIoService from "./services/SocketIoService";
-import { onMounted, ref } from "vue";
 const socket = ref();
 
 onMounted(() => {

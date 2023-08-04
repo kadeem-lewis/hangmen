@@ -23,7 +23,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
 import SocketIoService from "../services/SocketIoService";
 import { Socket } from "socket.io-client";
 
