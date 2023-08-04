@@ -5,3 +5,5 @@ this app is a test essentially to make sure I better understand socket.io. Goal 
 - update styling and add dark mode toggle ( maybe for later )
 - create figma mockups of what the pages will look like before coding them
 - create a event timeline of how the game will work ( high level first and then go into greater details as I figure them out)
+- players can still be present in the same room multiple times so all their messages are duplicated
+- rooms are not properly distinguished

@@ -25,7 +25,6 @@
 <script setup lang="ts">
 const { $io } = useNuxtApp();
 
-const router = useRouter();
 const gameCode = ref("");
 
 const createGame = () => {
@@ -34,9 +33,8 @@ const createGame = () => {
     $io?.emit("join-room", roomCode, (message: string) => {
       console.log(message);
     });
-    router.push({
-      name: "game-lobby",
-      params: { roomCode: roomCode },
+    navigateTo({
+      path: `/game/${roomCode}/lobby`,
     });
   });
 };
@@ -45,9 +43,8 @@ const joinGame = () => {
   let room = gameCode.value.toString().toUpperCase();
   $io?.emit("join-room", room, (res: any) => {
     if (res.status === true) {
-      router.push({
-        name: "game-lobby",
-        params: { roomCode: room },
+      navigateTo({
+        path: `/game/${room}/lobby`,
       });
     } else {
       alert("This room doesn't exist");
