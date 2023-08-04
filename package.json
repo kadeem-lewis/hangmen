@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kadeem-lewis/hangman.git"
+    "url": "git+https://github.com/kadeem-lewis/hangmen.git"
   },
   "keywords": [],
   "author": "Kadeem Lewis",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kadeem-lewis/hangman/issues"
+    "url": "https://github.com/kadeem-lewis/hangmen/issues"
   },
-  "homepage": "https://github.com/kadeem-lewis/hangman#readme",
+  "homepage": "https://github.com/kadeem-lewis/hangmen#readme",
   "dependencies": {
     "@dicebear/collection": "^6.0.4",
     "@dicebear/core": "^6.0.4",
