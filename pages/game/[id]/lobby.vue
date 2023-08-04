@@ -17,7 +17,7 @@
       </button>
     </div>
   </div>
-  <PlayerList />
+  <AppPlayerList />
   <div class="flex">
     <button
       class="rounded-full bg-red-600 py-2 hover:bg-red-500 m-2 font-semibold text-xl w-1/2"
@@ -34,9 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import SocketIoService from "../../../services/SocketIoService";
-import { Socket } from "socket.io-client";
-import PlayerList from "../../components/App/PlayerList.vue";
+const { $io } = useNuxtApp();
 import {
   ClipboardIcon,
   ClipboardDocumentCheckIcon,
@@ -44,12 +42,10 @@ import {
 
 const route = useRoute();
 const router = useRouter();
-const socket = ref<Socket | null>(null);
 const roomCode = ref("");
 const isCopied = ref(false);
 
 onMounted(() => {
-  socket.value = SocketIoService.setupSocketConnection();
   roomCode.value = route.params.roomCode as string;
 });
 

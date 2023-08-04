@@ -23,21 +23,15 @@
 </template>
 
 <script setup lang="ts">
-import SocketIoService from "../services/SocketIoService";
-import { Socket } from "socket.io-client";
+const { $io } = useNuxtApp();
 
-const socket = ref<Socket | null>(null);
 const router = useRouter();
 const gameCode = ref("");
 
-onMounted(() => {
-  socket.value = SocketIoService.setupSocketConnection();
-});
-
 const createGame = () => {
-  socket.value?.emit("request-room-code");
-  socket.value?.on("create-room", (roomCode) => {
-    socket.value?.emit("join-room", roomCode, (message: string) => {
+  $io?.emit("request-room-code");
+  $io?.on("create-room", (roomCode) => {
+    $io?.emit("join-room", roomCode, (message: string) => {
       console.log(message);
     });
     router.push({
@@ -49,7 +43,7 @@ const createGame = () => {
 
 const joinGame = () => {
   let room = gameCode.value.toString().toUpperCase();
-  socket.value?.emit("join-room", room, (res: any) => {
+  $io?.emit("join-room", room, (res: any) => {
     if (res.status === true) {
       router.push({
         name: "game-lobby",

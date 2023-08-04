@@ -9,14 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import SocketIoService from "../../services/SocketIoService";
-import { Socket } from "socket.io-client";
-
-const socket = ref<Socket | null>(null);
-
-onMounted(() => {
-  socket.value = SocketIoService.setupSocketConnection();
-});
+const { $io } = useNuxtApp();
 
 // onBeforeRouteEnter((to, from, next) => {
 //   if (from.name === "game-mode") {

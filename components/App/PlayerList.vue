@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import SocketIoService from "../../services/SocketIoService";
+const { $io } = useNuxtApp();
 import { Socket } from "socket.io-client";
 type Player = {
   id: string;
@@ -18,14 +18,13 @@ const socket = ref<Socket | null>(null);
 const players = ref<Player[]>([]);
 
 onMounted(() => {
-  socket.value = SocketIoService.setupSocketConnection();
-  socket.value.on("new-player", (player, playersList) => {
+  $io.on("new-player", (player, playersList) => {
     players.value = playersList;
   });
 });
 
 onUpdated(() => {
-  socket.value?.on("player-leave-room", (user, playersList) => {
+  $io?.on("player-leave-room", (user, playersList) => {
     players.value = playersList;
   });
 });

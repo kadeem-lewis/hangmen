@@ -14,16 +14,10 @@
   </form>
 </template>
 <script setup lang="ts">
-import SocketIoService from "../../services/SocketIoService";
+const { $io } = useNuxtApp();
 import { PaperAirplaneIcon } from "@heroicons/vue/24/solid";
-import { Socket } from "socket.io-client";
 
-const socket = ref<Socket | null>(null);
 const chatInput = ref("");
-
-onMounted(() => {
-  socket.value = SocketIoService.setupSocketConnection();
-});
 
 const getId = () => {
   const timestamp = Date.now();
@@ -32,7 +26,7 @@ const getId = () => {
 };
 
 const sendMessage = () => {
-  socket.value?.emit("send-message", getId(), chatInput.value);
+  $io?.emit("send-message", getId(), chatInput.value);
   chatInput.value = "";
 };
 </script>

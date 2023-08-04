@@ -2,7 +2,7 @@
   <div class="bg-dark-mode-500 p-4 overflow-y-auto h-64">
     <button @click="leaveGame()">Leave Game</button>
     <div>
-      <ChatBubble
+      <AppChatBubble
         v-for="message in messages"
         :key="message.id"
         :sender="message.sender"
@@ -12,25 +12,21 @@
   </div>
 </template>
 <script setup lang="ts">
-import ChatBubble from "./ChatBubble.vue";
-import SocketIoService from "../../services/SocketIoService";
-import { Socket } from "socket.io-client";
+const { $io } = useNuxtApp();
 
 type Message = {
   id: string;
   sender: string;
   text: string;
 };
-const socket = ref<Socket | null>(null);
 const messages = ref<Message[]>([]);
 const roomCode = ref("");
 
 onMounted(() => {
-  socket.value = SocketIoService.setupSocketConnection();
-  socket.value.on("receive-message", (message) => {
+  $io.on("receive-message", (message) => {
     messages.value.push(message);
   });
-  socket.value.on("new-player", (player, players) => {
+  $io.on("new-player", (player, players) => {
     const message = {
       id: `${Date.now()}-${Math.floor(Math.random() * 9) + 1}`,
       sender: player.username,
@@ -41,7 +37,7 @@ onMounted(() => {
 });
 
 onUpdated(() => {
-  socket.value?.on("player-leave-room", (player, playersList) => {
+  $io?.on("player-leave-room", (player, playersList) => {
     const message = {
       id: `${Date.now()}-${Math.floor(Math.random() * 9) + 1}`,
       sender: player.username,
@@ -57,7 +53,7 @@ roomCode.value = route.params.roomCode as string;
 
 const leaveGame = () => {
   console.log(roomCode.value);
-  socket.value?.emit("leave-room", roomCode.value, (response: any) => {
+  $io?.emit("leave-room", roomCode.value, (response: any) => {
     if (response.status === "ok") {
       router.push({ name: "game-mode" });
     } else {

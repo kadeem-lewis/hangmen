@@ -40,13 +40,11 @@
 </template>
 
 <script setup lang="ts">
-import SocketIoService from "../services/SocketIoService";
-import { Socket } from "socket.io-client";
+const { $io } = useNuxtApp();
 import { PlayIcon, ArrowPathIcon } from "@heroicons/vue/24/solid";
 import { createAvatar } from "@dicebear/core";
 import { adventurerNeutral } from "@dicebear/collection";
 
-const socket = ref<Socket | null>(null);
 const username = ref("");
 const userId = ref("");
 const router = useRouter();
@@ -54,7 +52,6 @@ const avatar = ref("");
 const seed = ref("");
 
 onMounted(() => {
-  socket.value = SocketIoService.setupSocketConnection();
   if (localStorage.getItem("username") !== null) {
     username.value = localStorage.getItem("username") as string;
   }
@@ -69,7 +66,7 @@ const register = () => {
   }
   localStorage.setItem("username", username.value);
   localStorage.setItem("userSeed", seed.value);
-  socket.value?.emit("register", username.value, userId.value);
+  $io?.emit("register", username.value, userId.value);
   router.push("/mode");
 };
 const generateAvatar = () => {
