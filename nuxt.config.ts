@@ -8,4 +8,14 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  runtimeConfig: {
+    public: {
+      socketPort: 3001,
+      url: "http://localhost",
+    },
+  },
+  plugins: ["./plugins/socket.io"],
+  nitro: {
+    plugins: ["./plugins/socket.io.server"],
+  },
 });

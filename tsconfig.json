@@ -1,18 +1,4 @@
 {
-  "compilerOptions": {
-    "target": "ESNext",
-    "allowJs": false,
-    "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true,
-    "strict": true
-  },
-  "references": [
-    {
-      "path": "client"
-    },
-    {
-      "path": "server"
-    }
-  ],
-  "exclude": ["node_modules"]
+  // https://nuxt.com/docs/guide/concepts/typescript
+  "extends": "./.nuxt/tsconfig.json"
 }

@@ -7,6 +7,7 @@
   </div>
 </template>
 <script setup lang="ts">
+const { $io } = useNuxtApp();
 import SocketIoService from "./services/SocketIoService";
 const socket = ref();
 
