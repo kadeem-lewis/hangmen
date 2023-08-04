@@ -34,8 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
-import SocketIoService from "../../services/SocketIoService";
+import SocketIoService from "../../../services/SocketIoService";
 import { Socket } from "socket.io-client";
 import PlayerList from "../../components/App/PlayerList.vue";
 import {
