@@ -41,16 +41,15 @@ import {
 } from "@heroicons/vue/24/solid";
 
 const route = useRoute();
-const router = useRouter();
 const roomCode = ref("");
 const isCopied = ref(false);
 
 onMounted(() => {
-  roomCode.value = route.params.roomCode as string;
+  roomCode.value = route.params.id as string;
 });
 
 const startGame = () => {
-  router.push("/game/play");
+  navigateTo({ path: `/game/${roomCode.value}/play` });
 };
 
 const copyCode = () => {
