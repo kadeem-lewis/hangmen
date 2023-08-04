@@ -8,16 +8,8 @@
 </template>
 <script setup lang="ts">
 const { $io } = useNuxtApp();
-import SocketIoService from "./services/SocketIoService";
-const socket = ref();
 
-onMounted(() => {
-  socket.value = SocketIoService.setupSocketConnection();
-
-  socket.value.on("connect", () => {
-    console.log("user connected");
-  });
-});
+$io.connect();
 </script>
 <style>
 *,
