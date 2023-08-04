@@ -1,1 +1,1 @@
-export { SocketEvent } from "../../utils/SocketEvent";
+export { ServerEvents, ClientEvents } from "../../utils/SocketEvent";
