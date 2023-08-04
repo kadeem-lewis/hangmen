@@ -1,4 +1,4 @@
-export enum SocketEvent {
+export enum ServerEvents {
   register = "register",
   request_room_code = "request-room-code",
   join_room = "join-room",
@@ -7,3 +7,4 @@ export enum SocketEvent {
   rejoin_room = "rejoin-room",
   disconnect = "disconnect",
 }
+export enum ClientEvents {}
