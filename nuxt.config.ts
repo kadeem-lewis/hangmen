@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       socketPort: 3001,
-      url: "http://localhost",
+      url: process.env.URL || "http://localhost",
     },
   },
   plugins: ["./plugins/socket.io"],
