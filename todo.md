@@ -7,3 +7,4 @@ this app is a test essentially to make sure I better understand socket.io. Goal 
 - create a event timeline of how the game will work ( high level first and then go into greater details as I figure them out)
 - players can still be present in the same room multiple times so all their messages are duplicated
 - rooms are not properly distinguished
+- work on improving the socket connection one part at a time so right now the focus is on making sure that players can easily join and leave rooms
