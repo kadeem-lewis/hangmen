@@ -47,7 +47,6 @@ import { adventurerNeutral } from "@dicebear/collection";
 
 const username = ref("");
 const userId = ref("");
-const router = useRouter();
 const avatar = ref("");
 const seed = ref("");
 
@@ -67,7 +66,7 @@ const register = () => {
   localStorage.setItem("username", username.value);
   localStorage.setItem("userSeed", seed.value);
   $io?.emit("register", username.value, userId.value);
-  router.push("/mode");
+  navigateTo({ path: "/mode" });
 };
 const generateAvatar = () => {
   const svg = createAvatar(adventurerNeutral, {
