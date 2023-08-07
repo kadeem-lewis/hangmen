@@ -40,7 +40,7 @@ export default defineNitroPlugin((nitroApp) => {
         io.to(roomCode).emit(
           ServerEvents.NEW_PLAYER,
           users[socket.id],
-          activeRooms[roomCode].players
+          activeRooms[roomCode].getPlayers()
         );
         status = true;
         console.log(activeRooms[roomCode]);

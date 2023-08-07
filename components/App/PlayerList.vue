@@ -21,7 +21,7 @@ const players = ref<Player[]>([]);
 onMounted(() => {
   $io.on("new-player", (_, playersList) => {
     console.log("New player event received", playersList);
-    players.value = Object.values(playersList);
+    players.value = playersList;
   });
   $io.on("player-leave-room", ({ userId }) => {
     players.value = players.value.filter((p) => p.userId !== userId);
