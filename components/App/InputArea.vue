@@ -16,7 +16,8 @@
 <script setup lang="ts">
 const { $io } = useNuxtApp();
 import { PaperAirplaneIcon } from "@heroicons/vue/24/solid";
-
+const route = useRoute();
+const roomCode = ref(route.params.id);
 const chatInput = ref("");
 
 const getId = () => {
@@ -26,7 +27,7 @@ const getId = () => {
 };
 
 const sendMessage = () => {
-  $io?.emit("send-message", getId(), chatInput.value);
+  $io?.emit("send-message", getId(), chatInput.value, roomCode.value);
   chatInput.value = "";
 };
 </script>
