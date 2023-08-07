@@ -12,6 +12,7 @@
   </div>
 </template>
 <script setup lang="ts">
+import { nanoid } from "nanoid";
 const { $io } = useNuxtApp();
 
 type Message = {
@@ -33,7 +34,7 @@ onMounted(() => {
   });
   $io.on("new-player", (player, players) => {
     const message = {
-      id: `${Date.now()}-${Math.floor(Math.random() * 9) + 1}`,
+      id: nanoid(),
       sender: player.username,
       text: `has joined the game`,
     };
@@ -44,7 +45,7 @@ onMounted(() => {
 onUpdated(() => {
   $io?.on("player-leave-room", (player, playersList) => {
     const message = {
-      id: `${Date.now()}-${Math.floor(Math.random() * 9) + 1}`,
+      id: nanoid(),
       sender: player.username,
       text: "has left the room",
     };

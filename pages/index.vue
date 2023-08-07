@@ -40,6 +40,7 @@
 </template>
 
 <script setup lang="ts">
+import { nanoid } from "nanoid";
 const { $io } = useNuxtApp();
 import { PlayIcon, ArrowPathIcon } from "@heroicons/vue/24/solid";
 import { createAvatar } from "@dicebear/core";
@@ -60,7 +61,7 @@ const register = () => {
   if (localStorage.getItem("userId") !== null) {
     userId.value = localStorage.getItem("userId") as string;
   } else {
-    userId.value = generateId();
+    userId.value = nanoid();
     localStorage.setItem("userId", userId.value);
   }
   localStorage.setItem("username", username.value);
@@ -87,12 +88,4 @@ onMounted(() => {
   }
   generateAvatar();
 });
-const generateId = () => {
-  return (
-    Date.now().toString(36) +
-    Math.floor(
-      Math.pow(10, 12) + Math.random() * 9 * Math.pow(10, 12)
-    ).toString(36)
-  );
-};
 </script>
