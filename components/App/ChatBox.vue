@@ -12,6 +12,7 @@
   </div>
 </template>
 <script setup lang="ts">
+import { nanoid } from "nanoid";
 const { $io } = useNuxtApp();
 
 type Message = {
@@ -19,49 +20,42 @@ type Message = {
   sender: string;
   text: string;
 };
+const route = useRoute();
 const messages = ref<Message[]>([]);
-const roomCode = ref("");
+const roomCode = ref(route.params.id);
 
 onMounted(() => {
   $io.on("receive-message", (message) => {
     messages.value.push(message);
   });
-  $io.on("new-player", (player, players) => {
+  $io.on("new-player", (player, _) => {
     const message = {
-      id: `${Date.now()}-${Math.floor(Math.random() * 9) + 1}`,
+      id: nanoid(),
       sender: player.username,
-      text: `has joined the game`,
+      text: `has joined the game.`,
     };
     messages.value.push(message);
   });
-});
-
-onUpdated(() => {
-  $io?.on("player-leave-room", (player, playersList) => {
+  $io.on("player-leave-room", ({ username }) => {
     const message = {
-      id: `${Date.now()}-${Math.floor(Math.random() * 9) + 1}`,
-      sender: player.username,
+      id: nanoid(),
+      sender: username,
       text: "has left the room",
     };
     messages.value.push(message);
   });
 });
-
-const router = useRouter();
-const route = useRoute();
-roomCode.value = route.params.roomCode as string;
-
 const leaveGame = () => {
-  console.log(roomCode.value);
-  $io?.emit("leave-room", roomCode.value, (response: any) => {
+  $io.emit("leave-room", roomCode.value, (response: any) => {
     if (response.status === "ok") {
-      router.push({ name: "game-mode" });
+      navigateTo({ path: "/mode" });
     } else {
-      console.log("An error has occurred");
+      console.error("An error has occurred");
     }
   });
 };
 
+//find some way to listen for when a player joins a new room and clear out messages
 onBeforeUnmount(() => {
   messages.value = [];
 });
