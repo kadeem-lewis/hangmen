@@ -19,11 +19,16 @@ type Message = {
   sender: string;
   text: string;
 };
+const route = useRoute();
 const messages = ref<Message[]>([]);
-const roomCode = ref("");
+const roomCode = ref(route.params.id);
 
 onMounted(() => {
   $io.on("receive-message", (message) => {
+    messages.value.push(message);
+  });
+  //! Temporary non global state solution
+  $io.on("message-sent", (message) => {
     messages.value.push(message);
   });
   $io.on("new-player", (player, players) => {
@@ -47,15 +52,11 @@ onUpdated(() => {
   });
 });
 
-const router = useRouter();
-const route = useRoute();
-roomCode.value = route.params.roomCode as string;
-
 const leaveGame = () => {
   console.log(roomCode.value);
   $io?.emit("leave-room", roomCode.value, (response: any) => {
     if (response.status === "ok") {
-      router.push({ name: "game-mode" });
+      navigateTo({ path: "/mode" });
     } else {
       console.log("An error has occurred");
     }
