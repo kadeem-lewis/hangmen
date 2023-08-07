@@ -7,44 +7,38 @@ export default defineNitroPlugin((nitroApp) => {
     serveClient: false,
     cors: {
       origin: "*",
+      credentials: true,
     },
   });
 
   interface Users {
     [key: string]: User;
   }
-
-  interface Messages {
-    // You can replace 'any' with a specific type if you have one
-    [key: string]: any;
-  }
-
   interface ActiveRooms {
     [key: string]: Room;
   }
   const users: Users = {};
-  const messages: Messages = {};
   const activeRooms: ActiveRooms = {};
 
   io.on("connection", (socket) => {
-    console.log(socket.id);
-    socket.on("register", (username, userId) => {
+    console.log(`User Connected: ${socket.id}`);
+    socket.on(ClientEvents.register, (username, userId) => {
       users[socket.id] = new User(username, userId);
     });
 
-    socket.on("request-room-code", () => {
+    socket.on(ClientEvents.request_room_code, () => {
       const room = new Room();
       activeRooms[room.code] = room;
-      io.emit("create-room", room.code);
+      io.emit(ServerEvents.create_room, room.code);
     });
-    socket.on("join-room", (roomCode, callback) => {
+    socket.on(ClientEvents.join_room, (roomCode, callback) => {
       let status = false;
       if (activeRooms[roomCode]) {
         socket.join(roomCode);
         activeRooms[roomCode].addPlayer(socket.id, users[socket.id]);
         users[socket.id].currentRoom = roomCode;
         io.to(roomCode).emit(
-          "new-player",
+          ServerEvents.new_player,
           users[socket.id],
           activeRooms[roomCode].players
         );
@@ -55,14 +49,7 @@ export default defineNitroPlugin((nitroApp) => {
       }
       callback({ status });
 
-      socket.on("send-message", (id, text) => {
-        io.to(roomCode).emit("receive-message", {
-          id: id,
-          sender: users[socket.id].username,
-          text: text,
-        });
-      });
-      socket.on("leave-room", (callback) => {
+      socket.on(ClientEvents.leave_room, (callback) => {
         //! on leave room remove the player from the room, remove the room from the players current room and delete the room if the player count is 0.
         delete activeRooms[roomCode].players[socket.id];
         users[socket.id].currentRoom = "";
@@ -75,12 +62,25 @@ export default defineNitroPlugin((nitroApp) => {
             status: "ok",
           });
         }
-        io.emit("player-leave-room", users[socket.id]);
+        io.emit(ServerEvents.player_leave_room, users[socket.id]);
       });
     });
-    socket.on("rejoin-room", (roomCode, cb) => {});
+    socket.on(ClientEvents.rejoin_room, (roomCode, cb) => {});
+    socket.on(ClientEvents.send_message, (id, text, roomCode) => {
+      socket.to(roomCode).emit(ServerEvents.receive_message, {
+        id,
+        sender: users[socket.id].username,
+        text,
+      });
+      //! Emitting event to self because frontend currently doesn't contain any state
+      socket.emit("message-sent", {
+        id,
+        sender: users[socket.id].username,
+        text,
+      });
+    });
     socket.on("disconnect", () => {
-      console.log("client disconnected");
+      console.log("User Disconnected:", socket.id);
     });
   });
 });
