@@ -1,13 +1,15 @@
 <template>
-  <div class="bg-dark-mode-500 p-4 overflow-y-auto h-64">
-    <button @click="leaveGame()">Leave Game</button>
-    <div>
-      <AppChatBubble
-        v-for="message in messages"
-        :key="message.id"
-        :sender="message.sender"
-        :message="message.text"
-      />
+  <div class="overflow-y-auto bg-dark-mode-500">
+    <div class="p-4 h-64">
+      <button @click="leaveGame()">Leave Game</button>
+      <div>
+        <AppChatBubble
+          v-for="message in messages"
+          :key="message.id"
+          :sender="message.sender"
+          :message="message.text"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -57,6 +59,9 @@ const leaveGame = () => {
 
 //find some way to listen for when a player joins a new room and clear out messages
 onBeforeUnmount(() => {
+  $io.off("player-leave-room");
+  $io.off("new-player");
+  $io.off("receive-message");
   messages.value = [];
 });
 </script>
