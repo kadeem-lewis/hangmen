@@ -28,10 +28,6 @@ onMounted(() => {
   $io.on("receive-message", (message) => {
     messages.value.push(message);
   });
-  //! Temporary non global state solution
-  $io.on("message-sent", (message) => {
-    messages.value.push(message);
-  });
   $io.on("new-player", (player, players) => {
     const message = {
       id: nanoid(),

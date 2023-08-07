@@ -67,13 +67,8 @@ export default defineNitroPlugin((nitroApp) => {
     });
     socket.on(ClientEvents.rejoin_room, (roomCode, cb) => {});
     socket.on(ClientEvents.send_message, (id, text, roomCode) => {
-      socket.to(roomCode).emit(ServerEvents.receive_message, {
-        id,
-        sender: users[socket.id].username,
-        text,
-      });
-      //! Emitting event to self because frontend currently doesn't contain any state
-      socket.emit("message-sent", {
+      //this works fine for now but I need to add a timestamp and determine if to keep io functionality or not
+      io.to(roomCode).emit(ServerEvents.receive_message, {
         id,
         sender: users[socket.id].username,
         text,
