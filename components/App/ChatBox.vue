@@ -27,10 +27,10 @@ const messages = ref<Message[]>([]);
 const roomCode = ref(route.params.id);
 
 onMounted(() => {
-  $io.on("receive-message", (message) => {
+  $io.on(ServerEvents.RECEIVE_MESSAGE, (message) => {
     messages.value.push(message);
   });
-  $io.on("new-player", (player, _) => {
+  $io.on(ServerEvents.NEW_PLAYER, (player, _) => {
     const message = {
       id: nanoid(),
       sender: player.username,
@@ -38,7 +38,7 @@ onMounted(() => {
     };
     messages.value.push(message);
   });
-  $io.on("player-leave-room", ({ username }) => {
+  $io.on(ServerEvents.PLAYER_LEAVE_ROOM, ({ username }) => {
     const message = {
       id: nanoid(),
       sender: username,
@@ -48,7 +48,7 @@ onMounted(() => {
   });
 });
 const leaveGame = () => {
-  $io.emit("leave-room", roomCode.value, (response: any) => {
+  $io.emit(ClientEvents.LEAVE_ROOM, roomCode.value, (response: any) => {
     if (response.status === "ok") {
       navigateTo({ path: "/mode" });
     } else {
@@ -59,9 +59,9 @@ const leaveGame = () => {
 
 //find some way to listen for when a player joins a new room and clear out messages
 onBeforeUnmount(() => {
-  $io.off("player-leave-room");
-  $io.off("new-player");
-  $io.off("receive-message");
+  $io.off(ServerEvents.PLAYER_LEAVE_ROOM);
+  $io.off(ServerEvents.NEW_PLAYER);
+  $io.off(ServerEvents.RECEIVE_MESSAGE);
   messages.value = [];
 });
 </script>

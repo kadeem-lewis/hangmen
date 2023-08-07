@@ -22,7 +22,7 @@ const roomCode = ref(route.params.id);
 const chatInput = ref("");
 
 const sendMessage = () => {
-  $io?.emit("send-message", nanoid, chatInput.value, roomCode.value);
+  $io.emit(ClientEvents.SEND_MESSAGE, nanoid, chatInput.value, roomCode.value);
   chatInput.value = "";
 };
 </script>
