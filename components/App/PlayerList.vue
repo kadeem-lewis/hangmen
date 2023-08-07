@@ -1,6 +1,6 @@
 <template>
   <ul class="grid grid-cols-2">
-    <li class="p-2 text-center" v-for="player in players" :key="player.id">
+    <li class="p-2 text-center" v-for="player in players" :key="player.userId">
       {{ player.username }}
     </li>
   </ul>
@@ -8,28 +8,27 @@
 
 <script setup lang="ts">
 const { $io } = useNuxtApp();
-import { Socket } from "socket.io-client";
+
 type Player = {
-  id: string;
+  userId: string;
   username: string;
+  isHost: boolean;
+  currentRoom: string;
 };
 
-const socket = ref<Socket | null>(null);
 const players = ref<Player[]>([]);
 
 onMounted(() => {
-  $io.on("new-player", (player, playersList) => {
-    players.value = playersList;
+  $io.on("new-player", (_, playersList) => {
+    console.log("New player event received", playersList);
+    players.value = Object.values(playersList);
+  });
+  $io.on("player-leave-room", ({ userId }) => {
+    players.value = players.value.filter((p) => p.userId !== userId);
   });
 });
-
-onUpdated(() => {
-  $io?.on("player-leave-room", (user, playersList) => {
-    players.value = playersList;
-  });
-});
-
 onBeforeUnmount(() => {
-  players.value = [];
+  $io.off("new-player");
+  $io.off("player-leave-room");
 });
 </script>

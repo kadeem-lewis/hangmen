@@ -28,38 +28,34 @@ onMounted(() => {
   $io.on("receive-message", (message) => {
     messages.value.push(message);
   });
-  $io.on("new-player", (player, players) => {
+  $io.on("new-player", (player, _) => {
     const message = {
       id: nanoid(),
       sender: player.username,
-      text: `has joined the game`,
+      text: `has joined the game.`,
     };
     messages.value.push(message);
   });
-});
-
-onUpdated(() => {
-  $io?.on("player-leave-room", (player, playersList) => {
+  $io.on("player-leave-room", ({ username }) => {
     const message = {
       id: nanoid(),
-      sender: player.username,
+      sender: username,
       text: "has left the room",
     };
     messages.value.push(message);
   });
 });
-
 const leaveGame = () => {
-  console.log(roomCode.value);
-  $io?.emit("leave-room", roomCode.value, (response: any) => {
+  $io.emit("leave-room", roomCode.value, (response: any) => {
     if (response.status === "ok") {
       navigateTo({ path: "/mode" });
     } else {
-      console.log("An error has occurred");
+      console.error("An error has occurred");
     }
   });
 };
 
+//find some way to listen for when a player joins a new room and clear out messages
 onBeforeUnmount(() => {
   messages.value = [];
 });
