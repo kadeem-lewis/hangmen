@@ -40,6 +40,7 @@
 </template>
 
 <script setup lang="ts">
+import { nanoid } from "nanoid";
 const { $io } = useNuxtApp();
 import { PlayIcon, ArrowPathIcon } from "@heroicons/vue/24/solid";
 import { createAvatar } from "@dicebear/core";
@@ -47,7 +48,6 @@ import { adventurerNeutral } from "@dicebear/collection";
 
 const username = ref("");
 const userId = ref("");
-const router = useRouter();
 const avatar = ref("");
 const seed = ref("");
 
@@ -61,13 +61,13 @@ const register = () => {
   if (localStorage.getItem("userId") !== null) {
     userId.value = localStorage.getItem("userId") as string;
   } else {
-    userId.value = generateId();
+    userId.value = nanoid();
     localStorage.setItem("userId", userId.value);
   }
   localStorage.setItem("username", username.value);
   localStorage.setItem("userSeed", seed.value);
-  $io?.emit("register", username.value, userId.value);
-  router.push("/mode");
+  $io.emit(ClientEvents.REGISTER, username.value, userId.value);
+  navigateTo({ path: "/mode" });
 };
 const generateAvatar = () => {
   const svg = createAvatar(adventurerNeutral, {
@@ -88,12 +88,4 @@ onMounted(() => {
   }
   generateAvatar();
 });
-const generateId = () => {
-  return (
-    Date.now().toString(36) +
-    Math.floor(
-      Math.pow(10, 12) + Math.random() * 9 * Math.pow(10, 12)
-    ).toString(36)
-  );
-};
 </script>

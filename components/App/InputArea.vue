@@ -14,19 +14,15 @@
   </form>
 </template>
 <script setup lang="ts">
+import { nanoid } from "nanoid";
 const { $io } = useNuxtApp();
 import { PaperAirplaneIcon } from "@heroicons/vue/24/solid";
-
+const route = useRoute();
+const roomCode = ref(route.params.id);
 const chatInput = ref("");
 
-const getId = () => {
-  const timestamp = Date.now();
-  const random = Math.floor(Math.random() * 9) + 1;
-  return `${timestamp}-${random}`;
-};
-
 const sendMessage = () => {
-  $io?.emit("send-message", getId(), chatInput.value);
+  $io.emit(ClientEvents.SEND_MESSAGE, nanoid, chatInput.value, roomCode.value);
   chatInput.value = "";
 };
 </script>
