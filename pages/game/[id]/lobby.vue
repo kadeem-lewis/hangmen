@@ -22,9 +22,15 @@
     <AppPlayerList />
     <div class="flex">
       <button
-        class="rounded-full bg-red-600 py-2 hover:bg-red-500 m-2 font-semibold text-xl w-1/2"
+        @click="readyUp"
+        class="rounded-full m-2 font-semibold text-xl w-1/2 transition-colors"
+        :class="
+          isReady
+            ? 'bg-green-600 hover:bg-green-500'
+            : 'bg-red-600 py-2 hover:bg-red-500'
+        "
       >
-        Not Ready
+        {{ isReady ? "Ready" : "Not Ready" }}
       </button>
       <button
         @click="startGame"
@@ -46,7 +52,7 @@ import {
 const route = useRoute();
 const roomCode = ref("");
 const isCopied = ref(false);
-
+const isReady = ref(false);
 onMounted(() => {
   roomCode.value = route.params.id as string;
 });
@@ -54,7 +60,10 @@ onMounted(() => {
 const startGame = () => {
   navigateTo({ path: `/game/${roomCode.value}/play` });
 };
-
+const readyUp = () => {
+  isReady.value = !isReady.value;
+  $io.emit(ClientEvents.PLAYER_READY, isReady.value);
+};
 const copyCode = () => {
   navigator.clipboard.writeText(roomCode.value);
   isCopied.value = true;

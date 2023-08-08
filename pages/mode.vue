@@ -28,7 +28,7 @@ const { $io } = useNuxtApp();
 const gameCode = ref("");
 // Create a separate function for the create-room event listener callback
 const createRoomListener = (roomCode: string) => {
-  $io.emit("join-room", roomCode, (message: string) => {
+  $io.emit(ClientEvents.JOIN_ROOM, roomCode, (message: string) => {
     console.log(message);
   });
   navigateTo({
@@ -38,22 +38,22 @@ const createRoomListener = (roomCode: string) => {
 
 // Set up event listener on component mount
 onMounted(() => {
-  $io.on("create-room", createRoomListener);
+  $io.on(ServerEvents.CREATE_ROOM, createRoomListener);
 });
 
 // Remove event listener on component unmount
 onUnmounted(() => {
-  $io.off("create-room", createRoomListener);
+  $io.off(ServerEvents.CREATE_ROOM, createRoomListener);
 });
 const createGame = () => {
   console.count();
-  $io.emit("request-room-code");
+  $io.emit(ClientEvents.REQUEST_ROOM_CODE);
 };
 
 const joinGame = () => {
   console.count();
   let room = gameCode.value.toString().toUpperCase();
-  $io.emit("join-room", room, (res: any) => {
+  $io.emit(ClientEvents.JOIN_ROOM, room, (res: any) => {
     if (res.status === true) {
       navigateTo({
         path: `/game/${room}/lobby`,

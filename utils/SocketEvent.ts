@@ -11,4 +11,5 @@ export enum ClientEvents {
   SEND_MESSAGE = "send-message",
   LEAVE_ROOM = "leave-room",
   REJOIN_ROOM = "rejoin-room",
+  PLAYER_READY = "player-ready",
 }

@@ -19,16 +19,16 @@ type Player = {
 const players = ref<Player[]>([]);
 
 onMounted(() => {
-  $io.on("new-player", (_, playersList) => {
+  $io.on(ServerEvents.NEW_PLAYER, (_, playersList) => {
     console.log("New player event received", playersList);
-    players.value = Object.values(playersList);
+    players.value = playersList;
   });
-  $io.on("player-leave-room", ({ userId }) => {
+  $io.on(ServerEvents.PLAYER_LEAVE_ROOM, ({ userId }) => {
     players.value = players.value.filter((p) => p.userId !== userId);
   });
 });
 onBeforeUnmount(() => {
-  $io.off("new-player");
-  $io.off("player-leave-room");
+  $io.off(ServerEvents.NEW_PLAYER);
+  $io.off(ServerEvents.PLAYER_LEAVE_ROOM);
 });
 </script>

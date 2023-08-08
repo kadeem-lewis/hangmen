@@ -23,12 +23,18 @@ this app is a test essentially to make sure I better understand socket.io. Goal 
 socket.io improvement tips
 
 - [x] instead of having the send message events nested in the join room event, have them separate and pass the roomCode aas part of the message?
-- figure out if to use spread or .push() for updating arrays
+- [x] figure out if to use spread or .push() for updating arrays
 - when players try to join a room, there should be checks in place to make sure that the player is not part of any room already ( outside of their default id room) and that the room isn't at capacity
 - if someone enters the url for a room, the app should get the code from the url, prompt the user to enter a username if one isn't yet set and add them to the room if it isnt full
 - set messages to an empty array whenever join room happens so only messages for this room is shown to socket
+- send timestamps in message
+- functional ready checks
+- setting isHost
+- create setting component
+- [x] scroll on chatbox
+- scroll to bottom on chatbox
 
-bugs
+## Bugs
 
 - [x] if two people click on create room, the second create room overrides the first and puts both people in the same room **socket.emit instead of io.emit**
 - if someone tries to play from a vscode live share ( only version tested so far) they get a cors error

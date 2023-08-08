@@ -66,7 +66,7 @@ const register = () => {
   }
   localStorage.setItem("username", username.value);
   localStorage.setItem("userSeed", seed.value);
-  $io?.emit("register", username.value, userId.value);
+  $io.emit(ClientEvents.REGISTER, username.value, userId.value);
   navigateTo({ path: "/mode" });
 };
 const generateAvatar = () => {
