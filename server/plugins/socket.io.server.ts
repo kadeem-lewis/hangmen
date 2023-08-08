@@ -44,6 +44,7 @@ export default defineNitroPlugin((nitroApp) => {
         );
         status = true;
         console.log(activeRooms[roomCode]);
+        console.log(socket.rooms);
       } else {
         status = false;
       }
