@@ -12,4 +12,5 @@ export enum ClientEvents {
   LEAVE_ROOM = "leave-room",
   REJOIN_ROOM = "rejoin-room",
   PLAYER_READY = "player-ready",
+  GAME_SETTINGS = "game-settings",
 }
