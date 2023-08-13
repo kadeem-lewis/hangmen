@@ -42,3 +42,4 @@ socket.io improvement tips
 - [x] when second user leaves, user list disappears
 - [x] user list is being called everytime the component mounts
 - only first player can see playerlist
+- neither heroku or render deployment is working
