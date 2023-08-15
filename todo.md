@@ -33,6 +33,8 @@ socket.io improvement tips
 - create setting component
 - [x] scroll on chatbox
 - scroll to bottom on chatbox
+- add min and max values to setting
+- typing the data that should be sent in each event
 
 ## Bugs
 
@@ -42,4 +44,4 @@ socket.io improvement tips
 - [x] when second user leaves, user list disappears
 - [x] user list is being called everytime the component mounts
 - only first player can see playerlist
-- neither heroku or render deployment is working
+- [x] neither heroku or render deployment is working
