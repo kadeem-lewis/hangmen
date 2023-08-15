@@ -4,10 +4,8 @@
       <img src="../assets/logo.svg" alt="Hangman Logo" class="h-12" />
     </NuxtLink>
     <button class="md:hidden">
-      <ExclamationCircleIcon class="h-8 w-8" />
+      <Icon name="fa6-solid:circle-exclamation" size="2rem" />
     </button>
   </header>
 </template>
-<script setup lang="ts">
-import { ExclamationCircleIcon } from "@heroicons/vue/24/solid";
-</script>
+<script setup lang="ts"></script>
