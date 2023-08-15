@@ -8,7 +8,7 @@
             class="absolute bottom-0 right-0 bg-blue-600 hover:bg-blue-500 rounded-full p-1"
             @click="changeAvatar"
           >
-            <ArrowPathIcon class="h-6 w-6" />
+            <Icon name="heroicons:arrow-path" size="1.5rem" />
           </button>
         </span>
         <div class="w-full mx-16 md:space-y-4 text-left">
@@ -28,7 +28,7 @@
         @click="register"
         class="rounded-lg pl-4 flex items-center gap-x-4 bg-blue-600 py-2 hover:bg-blue-500 mt-8 font-semibold text-xl w-1/2 mx-auto"
       >
-        <PlayIcon class="h-6 w-6 flex-none" />
+        <Icon name="heroicons:play-solid" size="1.5rem" />
         <span class="flex-grow uppercase">Play</span>
       </button>
     </div>
@@ -42,7 +42,6 @@
 <script setup lang="ts">
 import { nanoid } from "nanoid";
 const { $io } = useNuxtApp();
-import { PlayIcon, ArrowPathIcon } from "@heroicons/vue/24/solid";
 import { createAvatar } from "@dicebear/core";
 import { adventurerNeutral } from "@dicebear/collection";
 

@@ -14,8 +14,8 @@
           @click="copyCode()"
           class="rounded-lg p-2 bg-sky-600 hover:bg-sky-500"
         >
-          <ClipboardIcon v-if="!isCopied" class="h-6 w-6" />
-          <ClipboardDocumentCheckIcon v-else class="h-6 w-6" />
+          <Icon v-if="!isCopied" name="mdi:clipboard" size="1.5rem" />
+          <Icon v-else name="mdi:clipboard-check" size="1.5rem" />
         </button>
       </div>
     </div>
@@ -44,10 +44,6 @@
 
 <script setup lang="ts">
 const { $io } = useNuxtApp();
-import {
-  ClipboardIcon,
-  ClipboardDocumentCheckIcon,
-} from "@heroicons/vue/24/solid";
 
 const route = useRoute();
 const roomCode = ref("");

@@ -9,14 +9,13 @@
     <button
       class="absolute right-2 p-1 rounded-md hover:bg-dark-mode-600 top-1/2 -translate-y-1/2"
     >
-      <PaperAirplaneIcon class="h-6 w-6" />
+      <Icon name="material-symbols:send" size="1.5rem" />
     </button>
   </form>
 </template>
 <script setup lang="ts">
 import { nanoid } from "nanoid";
 const { $io } = useNuxtApp();
-import { PaperAirplaneIcon } from "@heroicons/vue/24/solid";
 const route = useRoute();
 const roomCode = ref(route.params.id);
 const chatInput = ref("");
