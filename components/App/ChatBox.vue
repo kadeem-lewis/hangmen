@@ -24,7 +24,7 @@ type Message = {
 };
 const route = useRoute();
 const messages = ref<Message[]>([]);
-const roomCode = ref(route.params.id);
+const roomCode = ref(route.params.id[0]);
 
 onMounted(() => {
   $io.on(ServerEvents.RECEIVE_MESSAGE, (message) => {
