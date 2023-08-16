@@ -38,6 +38,7 @@ socket.io improvement tips
 - [x] leave room whenever user navigates away from [id] routes
 - figure out how to break up server code and how to get it game functionality on server
 - figure out what way the hangman game will be built( svg, canvas etc)
+- automate pushing to heroku
 
 ## Bugs
 
