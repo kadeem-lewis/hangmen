@@ -28,7 +28,7 @@ const { $io } = useNuxtApp();
 const gameCode = ref("");
 // Create a separate function for the create-room event listener callback
 const createRoomListener = (roomCode: string) => {
-  $io.emit(ClientEvents.JOIN_ROOM, roomCode, (message: string) => {
+  $io.emit(ClientEvents.JOIN_ROOM, roomCode, (message) => {
     console.log(message);
   });
   navigateTo({
