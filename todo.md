@@ -34,7 +34,8 @@ socket.io improvement tips
 - [x] scroll on chatbox
 - scroll to bottom on chatbox
 - add min and max values to setting
-- typing the data that should be sent in each event
+- [x] typing the data that should be sent in each event
+- [x] leave room whenever user navigates away from [id] routes
 
 ## Bugs
 
