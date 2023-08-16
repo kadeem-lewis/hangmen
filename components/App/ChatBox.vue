@@ -48,7 +48,7 @@ onMounted(() => {
   });
 });
 const leaveGame = () => {
-  $io.emit(ClientEvents.LEAVE_ROOM, roomCode.value, (response: any) => {
+  $io.emit(ClientEvents.LEAVE_ROOM, roomCode.value as string, (response) => {
     if (response.status === "ok") {
       navigateTo({ path: "/mode" });
     } else {
