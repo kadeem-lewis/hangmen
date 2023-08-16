@@ -60,7 +60,7 @@ export default defineNitroPlugin((nitroApp) => {
       callback({ status });
     });
     socket.on(ClientEvents.LEAVE_ROOM, (roomCode, callback) => {
-      //! on leave room remove the player from the room, remove the room from the players current room and delete the room if the player count is 0.
+      //on leave room remove the player from the room, remove the room from the players current room and delete the room if the player count is 0.
       if (
         roomCode in activeRooms &&
         socket.id in activeRooms[roomCode].players

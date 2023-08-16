@@ -8,6 +8,7 @@ export default defineNuxtPlugin(() => {
     `${config.url}:${config.socketPort}`,
     {
       autoConnect: false,
+      withCredentials: true,
     }
   );
 
