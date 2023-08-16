@@ -1,13 +1,13 @@
-this app is a test essentially to make sure I better understand socket.io. Goal should be some sort of good looking MVP. Users can choose their icon aand username, enter a room or create a room and play customizable rounds of hangman. There wont be any user accounts, multiple modes ( besides maybe singleplayer mode), detailed faq
+this app is a test essentially to make sure I better understand socket.io. Goal should be some sort of good looking MVP. Users can choose their icon and username, enter a room or create a room and play customizable rounds of hangman. There wont be any user accounts, multiple modes ( besides maybe singleplayer mode), detailed faq
 
-- fix dynamic route not accept game code from server and breaking app
+- [x] fix dynamic route not accept game code from server and breaking app
 - begin watching guides on how to properly setup the initial socket.io events so they are completely stable, error free ( as much as possible ) and typesafe
 - update styling and add dark mode toggle ( maybe for later )
 - create figma mockups of what the pages will look like before coding them
 - create a event timeline of how the game will work ( high level first and then go into greater details as I figure them out)
-- players can still be present in the same room multiple times so all their messages are duplicated
-- rooms are not properly distinguished
-- work on improving the socket connection one part at a time so right now the focus is on making sure that players can easily join and leave rooms
+- [x] players can still be present in the same room multiple times so all their messages are duplicated
+- [x] rooms are not properly distinguished
+- [x] work on improving the socket connection one part at a time so right now the focus is on making sure that players can easily join and leave rooms
 - figure out how to fix cors error for non host
 - figure out state to be able to share username, messages and other data between components that require it
   List of Changes I made since start
@@ -36,6 +36,8 @@ socket.io improvement tips
 - add min and max values to setting
 - [x] typing the data that should be sent in each event
 - [x] leave room whenever user navigates away from [id] routes
+- figure out how to break up server code and how to get it game functionality on server
+- figure out what way the hangman game will be built( svg, canvas etc)
 
 ## Bugs
 
