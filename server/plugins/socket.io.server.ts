@@ -1,15 +1,24 @@
 import { Server } from "socket.io";
 import { Room } from "../classes/Room";
 import { User } from "../classes/User";
+import {
+  ClientEvents,
+  ClientPayloads,
+  ServerEvents,
+  ServerPayloads,
+} from "../utils/SocketEvent";
 
 export default defineNitroPlugin((nitroApp) => {
-  const io = new Server(useRuntimeConfig().public.socketPort, {
-    serveClient: false,
-    cors: {
-      origin: "*",
-      credentials: true,
-    },
-  });
+  const io = new Server<ClientPayloads, ServerPayloads>(
+    useRuntimeConfig().public.socketPort,
+    {
+      serveClient: false,
+      cors: {
+        origin: "*",
+        credentials: true,
+      },
+    }
+  );
 
   interface Users {
     [key: string]: User;

@@ -1,1 +1,6 @@
-export { ServerEvents, ClientEvents } from "../../utils/SocketEvent";
+export {
+  ServerEvents,
+  ClientEvents,
+  ServerPayloads,
+  ClientPayloads,
+} from "../../utils/SocketEvent";

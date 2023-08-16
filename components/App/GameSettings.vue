@@ -34,9 +34,9 @@ const isHardMode = ref(false);
 //maybe even create a reactive with multiple fields or just store the refs to a data object from spending or even just wrap in an object
 const handleGameSettings = () => {
   $io.emit(ClientEvents.GAME_SETTINGS, {
-    wordsPerGame,
-    minWordLength,
-    isHardMode,
+    wordsPerGame: wordsPerGame.value,
+    minWordLength: minWordLength.value,
+    isHardMode: isHardMode.value,
   });
 };
 </script>
