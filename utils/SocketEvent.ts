@@ -1,4 +1,3 @@
-import { Server } from "http";
 import { User } from "server/classes/User";
 export enum ServerEvents {
   CREATE_ROOM = "create-room",
@@ -17,43 +16,42 @@ export enum ClientEvents {
   GAME_SETTINGS = "game-settings",
 }
 
-export type ServerPayloads = {
-  [ServerEvents.CREATE_ROOM]: {
-    roomCode: string;
-  };
-  [ServerEvents.NEW_PLAYER]: {
-    user: User;
-    playerList: User[];
-  };
-  [ServerEvents.RECEIVE_MESSAGE]: {
+export interface ServerPayloads {
+  [ServerEvents.CREATE_ROOM]: (roomCode: string) => void;
+  [ServerEvents.NEW_PLAYER]: (user: User, playerList: User[]) => void;
+
+  [ServerEvents.RECEIVE_MESSAGE]: (Object: {
     id: string;
     sender: string;
     text: string;
-  };
-  [ServerEvents.PLAYER_LEAVE_ROOM]: {
-    user: User;
-  };
-};
-export type ClientPayloads = {
-  [ClientEvents.REGISTER]: {
-    username: string;
-    userId: string;
-  };
+  }) => void;
+
+  [ServerEvents.PLAYER_LEAVE_ROOM]: (user: User) => void;
+}
+export interface ClientPayloads {
+  [ClientEvents.REGISTER]: (username: string, userId: string) => void;
   [ClientEvents.REQUEST_ROOM_CODE]: {};
-  [ClientEvents.JOIN_ROOM]: {
-    roomCode: string;
-  };
-  [ClientEvents.SEND_MESSAGE]: {
-    id: string;
-    text: string;
-    roomCode: string;
-  };
-  [ClientEvents.LEAVE_ROOM]: {
-    roomCode: string;
-  };
-  [ClientEvents.REJOIN_ROOM]: {};
-  [ClientEvents.PLAYER_READY]: {};
-  [ClientEvents.GAME_SETTINGS]: {
-    settings: Object;
-  };
-};
+  [ClientEvents.JOIN_ROOM]: (
+    roomCode: string,
+    callback: (response: { status: boolean }) => Object
+  ) => void;
+
+  [ClientEvents.SEND_MESSAGE]: (
+    id: string,
+    text: string,
+    roomCode: string
+  ) => void;
+
+  [ClientEvents.LEAVE_ROOM]: (
+    roomCode: string,
+    callback: (response: { status: string; message?: string }) => void
+  ) => void;
+
+  [ClientEvents.REJOIN_ROOM]: (roomCode: string, callback: () => void) => void;
+  [ClientEvents.PLAYER_READY]: (isReady: boolean) => void;
+  [ClientEvents.GAME_SETTINGS]: (Object: {
+    wordsPerGame: number;
+    minWordLength: number;
+    isHardMode: boolean;
+  }) => void;
+}
