@@ -39,6 +39,7 @@ socket.io improvement tips
 - figure out how to break up server code and how to get it game functionality on server
 - figure out what way the hangman game will be built( svg, canvas etc)
 - automate pushing to heroku
+- get words from api ( figure out how words api works)
 
 ## Bugs
 
