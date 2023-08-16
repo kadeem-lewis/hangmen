@@ -4,13 +4,10 @@ import { ClientPayloads, ServerPayloads } from "utils/SocketEvent";
 export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig().public;
 
-  const socket: Socket<ServerPayloads, ClientPayloads> = io(
-    `${config.url}:${config.socketPort}`,
-    {
-      autoConnect: false,
-      withCredentials: true,
-    }
-  );
+  const socket: Socket<ServerPayloads, ClientPayloads> = io(`${config.url}`, {
+    autoConnect: false,
+    withCredentials: true,
+  });
 
   return {
     provide: {
