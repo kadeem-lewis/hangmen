@@ -30,10 +30,10 @@ export interface ServerPayloads {
 }
 export interface ClientPayloads {
   [ClientEvents.REGISTER]: (username: string, userId: string) => void;
-  [ClientEvents.REQUEST_ROOM_CODE]: {};
+  [ClientEvents.REQUEST_ROOM_CODE]: () => void;
   [ClientEvents.JOIN_ROOM]: (
     roomCode: string,
-    callback: (response: { status: boolean }) => Object
+    callback: (response: { status: boolean }) => void
   ) => void;
 
   [ClientEvents.SEND_MESSAGE]: (
