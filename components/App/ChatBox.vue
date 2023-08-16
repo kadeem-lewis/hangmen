@@ -24,7 +24,7 @@ type Message = {
 };
 const route = useRoute();
 const messages = ref<Message[]>([]);
-const roomCode = ref(route.params.id);
+const roomCode = ref(route.params.id[0]);
 
 onMounted(() => {
   $io.on(ServerEvents.RECEIVE_MESSAGE, (message) => {
@@ -48,7 +48,7 @@ onMounted(() => {
   });
 });
 const leaveGame = () => {
-  $io.emit(ClientEvents.LEAVE_ROOM, roomCode.value, (response: any) => {
+  $io.emit(ClientEvents.LEAVE_ROOM, roomCode.value as string, (response) => {
     if (response.status === "ok") {
       navigateTo({ path: "/mode" });
     } else {
