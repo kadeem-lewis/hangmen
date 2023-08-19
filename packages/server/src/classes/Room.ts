@@ -1,4 +1,3 @@
-import { customAlphabet } from "nanoid";
 export class Room {
   code: string;
   players: { [id: string]: any };
@@ -23,9 +22,13 @@ export class Room {
     return Object.values(this.players);
   }
   createNewCode() {
+    let roomId = "";
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    const nanoid = customAlphabet(characters, 5);
-    const roomId = nanoid();
+    for (let i = 0; i < 5; i++) {
+      roomId += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
+    }
     return roomId;
   }
 }
