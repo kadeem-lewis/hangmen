@@ -1,9 +1,4 @@
-type User = {
-  username: string;
-  userId: string;
-  isHost: boolean;
-  currentRoom: string;
-};
+import { User } from "../classes/User";
 export enum ServerEvents {
   CREATE_ROOM = "create-room",
   NEW_PLAYER = "new-player",

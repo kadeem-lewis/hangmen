@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "esModuleInterop": true,
+    "composite": true,
+    "outDir": "dist"
+  },
+  "include": ["src/**/*.ts"]
+}
