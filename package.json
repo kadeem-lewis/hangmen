@@ -19,6 +19,7 @@
   "homepage": "https://github.com/kadeem-lewis/hangmen#readme",
   "dependencies": {
     "@types/node": "^20.5.1",
-    "nanoid": "^4.0.2"
+    "nanoid": "^4.0.2",
+    "typescript": "^5.1.6"
   }
 }
