@@ -1,5 +1,5 @@
 {
-  "name": "hangmen",
+  "name": "@hangmen/shared",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -18,8 +18,6 @@
   },
   "homepage": "https://github.com/kadeem-lewis/hangmen#readme",
   "dependencies": {
-    "@types/node": "^20.5.1",
-    "nanoid": "^4.0.2",
-    "typescript": "^5.1.6"
+    "nanoid": "^4.0.2"
   }
 }
