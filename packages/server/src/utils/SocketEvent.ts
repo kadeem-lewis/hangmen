@@ -1,4 +1,4 @@
-import { User } from "../classes/User";
+import { User } from "../classes/User.ts";
 export enum ServerEvents {
   CREATE_ROOM = "create-room",
   NEW_PLAYER = "new-player",

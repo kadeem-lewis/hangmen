@@ -5,7 +5,8 @@
     "moduleResolution": "nodenext",
     "esModuleInterop": true,
     "composite": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "allowImportingTsExtensions": true
   },
   "include": ["src/**/*.ts"]
 }
