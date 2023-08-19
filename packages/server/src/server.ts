@@ -3,18 +3,16 @@ import http from "http";
 import express from "express";
 import { Server } from "socket.io";
 import cors from "cors";
-import dotenv from "dotenv";
+import "dotenv/config";
 import {
   ClientEvents,
   ClientPayloads,
   ServerEvents,
   ServerPayloads,
-} from "./utils/SocketEvent";
+} from "./utils/SocketEvent.ts";
 
-dotenv.config();
-
-import { Room } from "./classes/Room";
-import { User } from "./classes/User";
+import { Room } from "./classes/Room.ts";
+import { User } from "./classes/User.ts";
 const app = express();
 
 app.use(cors());
