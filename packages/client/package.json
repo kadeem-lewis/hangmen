@@ -15,6 +15,7 @@
   "dependencies": {
     "@dicebear/collection": "^6.0.4",
     "@dicebear/core": "^6.0.4",
+    "@hangmen/shared": "workspace:^",
     "socket.io-client": "^4.7.2"
   },
   "devDependencies": {

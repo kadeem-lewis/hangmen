@@ -9,7 +9,7 @@ import {
   ClientPayloads,
   ServerEvents,
   ServerPayloads,
-} from "./utils/SocketEvent";
+} from "@hangmen/shared/types/SocketEvent";
 
 import { Room } from "./classes/Room";
 import { User } from "./classes/User";
