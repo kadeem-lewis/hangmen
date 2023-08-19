@@ -9,10 +9,10 @@ import {
   ClientPayloads,
   ServerEvents,
   ServerPayloads,
-} from "./utils/SocketEvent.ts";
+} from "./utils/SocketEvent";
 
-import { Room } from "./classes/Room.ts";
-import { User } from "./classes/User.ts";
+import { Room } from "./classes/Room";
+import { User } from "./classes/User";
 const app = express();
 
 app.use(cors());
