@@ -8,10 +8,10 @@
   },
   "references": [
     {
-      "path": "shared"
+      "path": "packages/shared"
     },
     {
-      "path": "server"
+      "path": "packages/server"
     }
   ],
   "exclude": ["node_modules"]
