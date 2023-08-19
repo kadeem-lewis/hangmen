@@ -50,3 +50,4 @@ socket.io improvement tips
 - [x] user list is being called everytime the component mounts
 - only first player can see playerlist
 - [x] neither heroku or render deployment is working
+- [x] nuxt socket.io doesn't work when deployed
