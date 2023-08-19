@@ -1,13 +1,11 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "module": "NodeNext",
+    "module": "NodeNext", //nodenext recommended in ts docs
     "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     "composite": true,
-    "outDir": "dist",
-    "allowImportingTsExtensions": true,
-    "noEmit": true
+    "outDir": "dist"
   },
   "include": ["src/**/*.ts"]
 }
