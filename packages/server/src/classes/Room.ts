@@ -2,6 +2,8 @@ export class Room {
   code: string;
   players: { [id: string]: any };
   maxPlayers: number;
+  readyPlayers: Set<string> = new Set();
+
   constructor() {
     this.code = this.createNewCode();
     this.players = {};
@@ -20,6 +22,17 @@ export class Room {
   }
   getPlayers() {
     return Object.values(this.players);
+  }
+  setPlayerReady(playerId: string) {
+    this.readyPlayers.add(playerId);
+  }
+
+  unsetPlayerReady(playerId: string) {
+    this.readyPlayers.delete(playerId);
+  }
+
+  allPlayersReady(): boolean {
+    return this.readyPlayers.size === Object.keys(this.players).length;
   }
   createNewCode() {
     let roomId = "";

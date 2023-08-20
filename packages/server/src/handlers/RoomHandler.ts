@@ -1,4 +1,9 @@
-import { ClientEvents, ServerEvents } from "@hangmen/shared/types/SocketEvent";
+import {
+  ClientEvents,
+  ServerEvents,
+  ClientPayloads,
+  ServerPayloads,
+} from "@hangmen/shared/types/SocketEvent";
 import { Socket, Server } from "socket.io";
 import { Room } from "../classes/Room";
 import { users } from "./UserHandler";
@@ -9,7 +14,10 @@ interface ActiveRooms {
 
 export const activeRooms: ActiveRooms = {};
 
-export const roomHandler = (io: Server, socket: Socket) => {
+export const roomHandler = (
+  io: Server<ClientPayloads, ServerPayloads>,
+  socket: Socket<ClientPayloads, ServerPayloads>
+) => {
   socket.on(ClientEvents.REQUEST_ROOM_CODE, () => {
     const room = new Room();
     activeRooms[room.code] = room;
@@ -29,19 +37,24 @@ export const roomHandler = (io: Server, socket: Socket) => {
           activeRooms[roomCode].getPlayers()
         );
       });
-      status = true;
+
       console.log(activeRooms[roomCode]);
       console.log(socket.rooms);
+      callback({
+        status: "ok",
+      });
     } else {
-      status = false;
+      callback({
+        status: "error",
+        message: "This room doesn't exist",
+      });
     }
-    callback({ status });
   });
   socket.on(ClientEvents.LEAVE_ROOM, (roomCode, callback) => {
     //on leave room remove the player from the room, remove the room from the players current room and delete the room if the player count is 0.
     if (roomCode in activeRooms && socket.id in activeRooms[roomCode].players) {
       delete activeRooms[roomCode].players[socket.id];
-      users[socket.id].currentRoom = "";
+      users[socket.id].resetUser();
       if (Object.keys(activeRooms[roomCode].players).length === 0) {
         delete activeRooms[roomCode];
       }
@@ -69,5 +82,19 @@ export const roomHandler = (io: Server, socket: Socket) => {
       sender: users[socket.id].username,
       text,
     });
+  });
+  socket.on(ClientEvents.PLAYER_READY, (isReady) => {
+    const roomCode = users[socket.id].currentRoom;
+    if (isReady) {
+      activeRooms[roomCode].setPlayerReady(socket.id);
+      users[socket.id].isReady = true;
+    } else {
+      activeRooms[roomCode].unsetPlayerReady(socket.id);
+      users[socket.id].isReady = false;
+    }
+    io.to(roomCode).emit(
+      ServerEvents.READY_PLAYERS,
+      activeRooms[roomCode].readyPlayers //client does have access to have id system
+    );
   });
 };

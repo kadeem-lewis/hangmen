@@ -1,14 +1,13 @@
-type User = {
-  username: string;
-  userId: string;
-  isHost: boolean;
-  currentRoom: string;
-};
+import { User } from "@hangmen/server/src/classes/User";
+import { Server } from "http";
+
 export enum ServerEvents {
   CREATE_ROOM = "create-room",
   NEW_PLAYER = "new-player",
   RECEIVE_MESSAGE = "receive-message",
   PLAYER_LEAVE_ROOM = "player-leave-room",
+  READY_PLAYERS = "ready-players",
+  GAME_START = "game-start",
 }
 export enum ClientEvents {
   REGISTER = "register",
@@ -19,6 +18,7 @@ export enum ClientEvents {
   REJOIN_ROOM = "rejoin-room",
   PLAYER_READY = "player-ready",
   GAME_SETTINGS = "game-settings",
+  START_GAME = "start-game",
 }
 
 export interface ServerPayloads {
@@ -32,13 +32,15 @@ export interface ServerPayloads {
   }) => void;
 
   [ServerEvents.PLAYER_LEAVE_ROOM]: (user: User) => void;
+  [ServerEvents.READY_PLAYERS]: (readyPlayers: Set<string>) => void;
+  [ServerEvents.GAME_START]: () => void;
 }
 export interface ClientPayloads {
   [ClientEvents.REGISTER]: (username: string, userId: string) => void;
   [ClientEvents.REQUEST_ROOM_CODE]: () => void;
   [ClientEvents.JOIN_ROOM]: (
     roomCode: string,
-    callback: (response: { status: boolean }) => void
+    callback: (response: { status: string; message?: string }) => void
   ) => void;
 
   [ClientEvents.SEND_MESSAGE]: (id: string, text: string) => void;
@@ -55,4 +57,5 @@ export interface ClientPayloads {
     minWordLength: number;
     isHardMode: boolean;
   }) => void;
+  [ClientEvents.START_GAME]: () => void;
 }

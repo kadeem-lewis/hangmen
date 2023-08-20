@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/kadeem-lewis/hangmen#readme",
   "dependencies": {
+    "@hangmen/server": "workspace:^",
     "nanoid": "^4.0.2"
   }
 }
