@@ -55,7 +55,7 @@ const joinGame = () => {
         path: `/game/${room}/lobby`,
       });
     } else {
-      alert("This room doesn't exist");
+      alert(res.message);
     }
   });
 };
