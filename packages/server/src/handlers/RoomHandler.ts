@@ -30,7 +30,7 @@ export const roomHandler = (
         //temporary fix to issue
         activeRooms[roomCode].addPlayer(socket.id, users[socket.id]);
         users[socket.id].currentRoom = roomCode;
-        io.to(roomCode).emit(
+        io.in(roomCode).emit(
           ServerEvents.NEW_PLAYER,
           users[socket.id],
           activeRooms[roomCode].getPlayers()
@@ -65,7 +65,7 @@ export const roomHandler = (
           status: "ok",
         });
       }
-      io.to(roomCode).emit(ServerEvents.PLAYER_LEAVE_ROOM, users[socket.id]);
+      io.in(roomCode).emit(ServerEvents.PLAYER_LEAVE_ROOM, users[socket.id]);
     } else {
       callback({
         status: "error",
@@ -76,7 +76,7 @@ export const roomHandler = (
   socket.on(ClientEvents.REJOIN_ROOM, (roomCode, cb) => {});
   socket.on(ClientEvents.SEND_MESSAGE, (id, text) => {
     //this works fine for now but I need to add a timestamp and determine if to keep io functionality or not
-    io.to(users[socket.id].currentRoom).emit(ServerEvents.RECEIVE_MESSAGE, {
+    io.in(users[socket.id].currentRoom).emit(ServerEvents.RECEIVE_MESSAGE, {
       id,
       sender: users[socket.id].username,
       text,
@@ -91,7 +91,7 @@ export const roomHandler = (
       activeRooms[roomCode].unsetPlayerReady(socket.id);
       users[socket.id].isReady = false;
     }
-    io.to(roomCode).emit(
+    io.in(roomCode).emit(
       ServerEvents.READY_PLAYERS,
       activeRooms[roomCode].readyPlayers //client does have access to have id system
     );
