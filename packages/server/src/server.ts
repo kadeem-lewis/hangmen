@@ -25,6 +25,7 @@ const server = http.createServer(app);
 
 const io = new Server<ClientPayloads, ServerPayloads>(server, {
   serveClient: false,
+  cookie: true,
   cors: {
     origin: process.env.CLIENT_URL,
     credentials: true,
