@@ -44,7 +44,7 @@ const activeRooms: ActiveRooms = {};
 io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
   socket.on(ClientEvents.REGISTER, (username, userId) => {
-    users[socket.id] = new User(username, userId);
+    users[socket.id] = new User(username, userId); //TODO: on new user creation
   });
 
   socket.on(ClientEvents.REQUEST_ROOM_CODE, () => {
@@ -96,9 +96,9 @@ io.on("connection", (socket) => {
     }
   });
   socket.on(ClientEvents.REJOIN_ROOM, (roomCode, cb) => {});
-  socket.on(ClientEvents.SEND_MESSAGE, (id, text, roomCode) => {
+  socket.on(ClientEvents.SEND_MESSAGE, (id, text) => {
     //this works fine for now but I need to add a timestamp and determine if to keep io functionality or not
-    io.to(roomCode).emit(ServerEvents.RECEIVE_MESSAGE, {
+    io.to(users[socket.id].currentRoom).emit(ServerEvents.RECEIVE_MESSAGE, {
       id,
       sender: users[socket.id].username,
       text,

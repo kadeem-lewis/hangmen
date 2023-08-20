@@ -41,11 +41,7 @@ export interface ClientPayloads {
     callback: (response: { status: boolean }) => void
   ) => void;
 
-  [ClientEvents.SEND_MESSAGE]: (
-    id: string,
-    text: string,
-    roomCode: string
-  ) => void;
+  [ClientEvents.SEND_MESSAGE]: (id: string, text: string) => void;
 
   [ClientEvents.LEAVE_ROOM]: (
     roomCode: string,
