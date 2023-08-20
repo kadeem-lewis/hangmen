@@ -4,14 +4,11 @@ import express from "express";
 import { Server } from "socket.io";
 import cors from "cors";
 import "dotenv/config";
+
 import {
   ClientPayloads,
   ServerPayloads,
 } from "@hangmen/shared/types/SocketEvent";
-
-import { Room } from "./classes/Room";
-import { User } from "./classes/User";
-
 import { userHandler } from "./handlers/UserHandler";
 import { roomHandler } from "./handlers/RoomHandler";
 import { gameHandler } from "./handlers/GameHandler";
@@ -35,10 +32,10 @@ const io = new Server<ClientPayloads, ServerPayloads>(server, {
 });
 
 io.on("connection", (socket) => {
+  console.log(`User Connected: ${socket.id}`);
   userHandler(io, socket);
   roomHandler(io, socket);
   gameHandler(io, socket);
-  console.log(`User Connected: ${socket.id}`);
 
   socket.on("disconnect", () => {
     console.log("User Disconnected:", socket.id);
