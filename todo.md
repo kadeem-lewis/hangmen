@@ -15,9 +15,9 @@ this app is a test essentially to make sure I better understand socket.io. Goal 
 - changed from options api to composition api
 - changed from vanillajs to typescript
 - changed from vue3 to nuxt3
-- changed from express server to nuxt server
-- changed from npm workspaces to pnpm
-- changed from fontawesome to heroicons
+- changed from express server to nuxt server back to express server
+- changed from npm workspaces to pnpm to pnpm workspaces
+- changed from fontawesome to heroicons to nuxt-icons
 - changed from socket.io service function to vue plugin to nuxt plugin
 
 socket.io improvement tips
