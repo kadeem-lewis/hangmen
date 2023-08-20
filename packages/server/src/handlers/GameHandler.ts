@@ -14,7 +14,7 @@ export const gameHandler = (
 ) => {
   socket.on(ClientEvents.START_GAME, () => {
     const roomCode = users[socket.id].currentRoom;
-    io.to(roomCode).emit(ServerEvents.GAME_START);
+    io.in(roomCode).emit(ServerEvents.GAME_START);
   });
   socket.on(ClientEvents.GAME_SETTINGS, () => {});
 };

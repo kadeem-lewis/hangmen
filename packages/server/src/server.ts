@@ -2,6 +2,7 @@ import http from "http";
 
 import express from "express";
 import { Server } from "socket.io";
+import { instrument } from "@socket.io/admin-ui";
 import cors from "cors";
 import "dotenv/config";
 
@@ -28,6 +29,14 @@ const io = new Server<ClientPayloads, ServerPayloads>(server, {
   cors: {
     origin: process.env.CLIENT_URL,
     credentials: true,
+  },
+});
+
+instrument(io, {
+  auth: {
+    type: "basic",
+    username: "klewis",
+    password: process.env.ADMIN_PASSWORD as string, //probably use process.env or something
   },
 });
 
