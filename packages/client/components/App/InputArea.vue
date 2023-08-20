@@ -16,17 +16,10 @@
 <script setup lang="ts">
 import { nanoid } from "nanoid";
 const { $io } = useNuxtApp();
-const route = useRoute();
-const roomCode = ref(route.params.id);
 const chatInput = ref("");
 
 const sendMessage = () => {
-  $io.emit(
-    ClientEvents.SEND_MESSAGE,
-    nanoid(),
-    chatInput.value,
-    roomCode.value as string
-  );
+  $io.emit(ClientEvents.SEND_MESSAGE, nanoid(), chatInput.value);
   chatInput.value = "";
 };
 </script>
