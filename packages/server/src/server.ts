@@ -2,6 +2,7 @@ import http from "http";
 
 import express from "express";
 import { Server } from "socket.io";
+import { instrument } from "@socket.io/admin-ui";
 import cors from "cors";
 import "dotenv/config";
 
@@ -29,6 +30,10 @@ const io = new Server<ClientPayloads, ServerPayloads>(server, {
     origin: process.env.CLIENT_URL,
     credentials: true,
   },
+});
+
+instrument(io, {
+  auth: false,
 });
 
 io.on("connection", (socket) => {
