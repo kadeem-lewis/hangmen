@@ -86,10 +86,10 @@ export const roomHandler = (
   socket.on(ClientEvents.PLAYER_READY, (isReady) => {
     const roomCode = users[socket.id].currentRoom;
     if (isReady) {
-      activeRooms[roomCode].markPlayerReady(socket.id);
+      activeRooms[roomCode].setPlayerReady(socket.id);
       users[socket.id].isReady = true;
     } else {
-      activeRooms[roomCode].unmarkPlayerReady(socket.id);
+      activeRooms[roomCode].unsetPlayerReady(socket.id);
       users[socket.id].isReady = false;
     }
     io.to(roomCode).emit(

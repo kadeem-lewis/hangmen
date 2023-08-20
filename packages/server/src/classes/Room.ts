@@ -23,11 +23,11 @@ export class Room {
   getPlayers() {
     return Object.values(this.players);
   }
-  markPlayerReady(playerId: string) {
+  setPlayerReady(playerId: string) {
     this.readyPlayers.add(playerId);
   }
 
-  unmarkPlayerReady(playerId: string) {
+  unsetPlayerReady(playerId: string) {
     this.readyPlayers.delete(playerId);
   }
 
