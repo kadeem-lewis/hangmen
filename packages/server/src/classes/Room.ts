@@ -21,6 +21,7 @@ export class Room {
     }
   }
   getPlayers() {
+    //getter to change object values to an array
     return Object.values(this.players);
   }
   setPlayerReady(playerId: string) {
