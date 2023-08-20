@@ -33,7 +33,11 @@ const io = new Server<ClientPayloads, ServerPayloads>(server, {
 });
 
 instrument(io, {
-  auth: false,
+  auth: {
+    type: "basic",
+    username: "klewis",
+    password: process.env.ADMIN_PASSWORD as string, //probably use process.env or something
+  },
 });
 
 io.on("connection", (socket) => {
