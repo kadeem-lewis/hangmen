@@ -1,14 +1,11 @@
-type User = {
-  username: string;
-  userId: string;
-  isHost: boolean;
-  currentRoom: string;
-};
+import { User } from "@hangmen/server/src/classes/User";
+
 export enum ServerEvents {
   CREATE_ROOM = "create-room",
   NEW_PLAYER = "new-player",
   RECEIVE_MESSAGE = "receive-message",
   PLAYER_LEAVE_ROOM = "player-leave-room",
+  READY_PLAYERS = "ready-players",
 }
 export enum ClientEvents {
   REGISTER = "register",
@@ -32,13 +29,14 @@ export interface ServerPayloads {
   }) => void;
 
   [ServerEvents.PLAYER_LEAVE_ROOM]: (user: User) => void;
+  [ServerEvents.READY_PLAYERS]: (readyPlayers: Set<string>) => void;
 }
 export interface ClientPayloads {
   [ClientEvents.REGISTER]: (username: string, userId: string) => void;
   [ClientEvents.REQUEST_ROOM_CODE]: () => void;
   [ClientEvents.JOIN_ROOM]: (
     roomCode: string,
-    callback: (response: { status: boolean }) => void
+    callback: (response: { status: string; message?: string }) => void
   ) => void;
 
   [ClientEvents.SEND_MESSAGE]: (id: string, text: string) => void;
