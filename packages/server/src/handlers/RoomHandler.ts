@@ -7,7 +7,7 @@ interface ActiveRooms {
   [key: string]: Room;
 }
 
-const activeRooms: ActiveRooms = {};
+export const activeRooms: ActiveRooms = {};
 
 export const roomHandler = (io: Server, socket: Socket) => {
   socket.on(ClientEvents.REQUEST_ROOM_CODE, () => {
