@@ -24,7 +24,6 @@ export const roomHandler = (
     socket.emit(ServerEvents.CREATE_ROOM, room.code);
   });
   socket.on(ClientEvents.JOIN_ROOM, (roomCode, callback) => {
-    let status = false;
     if (activeRooms[roomCode]) {
       socket.join(roomCode);
       setTimeout(() => {
