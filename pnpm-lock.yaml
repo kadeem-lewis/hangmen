@@ -76,6 +76,9 @@ importers:
 
   packages/shared:
     dependencies:
+      '@hangmen/server':
+        specifier: workspace:^
+        version: link:../server
       nanoid:
         specifier: ^4.0.2
         version: 4.0.2
