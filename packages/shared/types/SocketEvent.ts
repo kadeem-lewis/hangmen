@@ -1,4 +1,5 @@
 import { User } from "@hangmen/server/src/classes/User";
+import { Server } from "http";
 
 export enum ServerEvents {
   CREATE_ROOM = "create-room",
@@ -6,6 +7,7 @@ export enum ServerEvents {
   RECEIVE_MESSAGE = "receive-message",
   PLAYER_LEAVE_ROOM = "player-leave-room",
   READY_PLAYERS = "ready-players",
+  GAME_START = "game-start",
 }
 export enum ClientEvents {
   REGISTER = "register",
@@ -16,6 +18,7 @@ export enum ClientEvents {
   REJOIN_ROOM = "rejoin-room",
   PLAYER_READY = "player-ready",
   GAME_SETTINGS = "game-settings",
+  START_GAME = "start-game",
 }
 
 export interface ServerPayloads {
@@ -30,6 +33,7 @@ export interface ServerPayloads {
 
   [ServerEvents.PLAYER_LEAVE_ROOM]: (user: User) => void;
   [ServerEvents.READY_PLAYERS]: (readyPlayers: Set<string>) => void;
+  [ServerEvents.GAME_START]: () => void;
 }
 export interface ClientPayloads {
   [ClientEvents.REGISTER]: (username: string, userId: string) => void;
@@ -53,4 +57,5 @@ export interface ClientPayloads {
     minWordLength: number;
     isHardMode: boolean;
   }) => void;
+  [ClientEvents.START_GAME]: () => void;
 }
