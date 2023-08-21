@@ -9,10 +9,10 @@ import "dotenv/config";
 import {
   ClientPayloads,
   ServerPayloads,
-} from "@hangmen/shared/types/SocketEvent";
-import { userHandler } from "./handlers/UserHandler";
-import { roomHandler } from "./handlers/RoomHandler";
-import { gameHandler } from "./handlers/GameHandler";
+} from "@hangmen/shared/types/SocketEvent.js";
+import { userHandler } from "./handlers/UserHandler.js";
+import { roomHandler } from "./handlers/RoomHandler.js";
+import { gameHandler } from "./handlers/GameHandler.js";
 const app = express();
 
 app.use(cors());
