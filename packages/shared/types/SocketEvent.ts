@@ -1,6 +1,10 @@
-import { User } from "@hangmen/server/src/classes/User";
-import { Server } from "http";
-
+type User = {
+  username: string;
+  userId: string;
+  isHost: boolean;
+  isReady: boolean;
+  currentRoom: string;
+};
 export enum ServerEvents {
   CREATE_ROOM = "create-room",
   NEW_PLAYER = "new-player",
