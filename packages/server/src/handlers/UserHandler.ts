@@ -3,8 +3,8 @@ import {
   ServerEvents,
   ClientPayloads,
   ServerPayloads,
-} from "@hangmen/shared/types/SocketEvent";
-import { User } from "../classes/User";
+} from "@hangmen/shared/types/SocketEvent.js";
+import { User } from "../classes/User.js";
 import { Socket, Server } from "socket.io";
 
 interface Users {

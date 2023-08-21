@@ -4,9 +4,9 @@ import {
   ServerEvents,
   ClientPayloads,
   ServerPayloads,
-} from "@hangmen/shared/types/SocketEvent";
-import { users } from "./UserHandler";
-import { activeRooms } from "./RoomHandler";
+} from "@hangmen/shared/types/SocketEvent.js";
+import { users } from "./UserHandler.js";
+import { activeRooms } from "./RoomHandler.js";
 
 export const gameHandler = (
   io: Server<ClientPayloads, ServerPayloads>,

@@ -3,10 +3,10 @@ import {
   ServerEvents,
   ClientPayloads,
   ServerPayloads,
-} from "@hangmen/shared/types/SocketEvent";
+} from "@hangmen/shared/types/SocketEvent.js";
 import { Socket, Server } from "socket.io";
-import { Room } from "../classes/Room";
-import { users } from "./UserHandler";
+import { Room } from "../classes/Room.js";
+import { users } from "./UserHandler.js";
 
 interface ActiveRooms {
   [key: string]: Room;
