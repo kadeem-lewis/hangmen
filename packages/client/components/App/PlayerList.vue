@@ -1,5 +1,5 @@
 <template>
-  <ul class="grid grid-cols-2">
+  <ul class="flex flex-col">
     <li class="p-2 text-center" v-for="(slot, index) in 4" :key="index">
       <div v-if="players[index]">
         <Icon v-if="players[index].isHost" name="mdi:crown" />
@@ -12,7 +12,7 @@
       <div v-else>
         Waiting for player
 
-        <button @click="removePlayerSlot">X</button>
+        <button @click="removePlayerSlot">Close Slot</button>
       </div>
       <!-- TODO: add way to check if the current person is the host and let them see different things on screen -->
     </li>

@@ -1,9 +1,7 @@
 <template>
   <div>
     <AppGameSettings />
-    <div>
-      <p class="text-center text-3xl">Waiting...</p>
-    </div>
+
     <div>
       <p class="font-bold text-lg">Room Code:</p>
       <div class="py-2 text-2xl">
@@ -19,7 +17,6 @@
         </button>
       </div>
     </div>
-    <AppPlayerList />
     <div class="flex">
       <button
         @click="readyUp"
