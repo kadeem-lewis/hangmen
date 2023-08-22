@@ -4,6 +4,7 @@
       <div v-if="players[index]">
         <Icon v-if="players[index].isHost" name="mdi:crown" />
         {{ players[index].username }}
+        <!-- TODO: show (You) next to the player, show points, avatar and show rankings -->
         <Icon
           v-if="players[index].isReady"
           name="material-symbols:check-circle"
