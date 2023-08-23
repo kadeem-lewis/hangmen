@@ -4,7 +4,7 @@ import {
   ServerEvents,
   ClientPayloads,
   ServerPayloads,
-} from "@hangmen/shared/types/SocketEvent.js";
+} from "@hangmen/shared";
 import { users } from "./UserHandler.js";
 import { activeRooms } from "./RoomHandler.js";
 

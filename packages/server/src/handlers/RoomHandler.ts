@@ -3,7 +3,7 @@ import {
   ServerEvents,
   ClientPayloads,
   ServerPayloads,
-} from "@hangmen/shared/types/SocketEvent.js";
+} from "@hangmen/shared";
 import { Socket, Server } from "socket.io";
 import { Room } from "../classes/Room.js";
 import { users } from "./UserHandler.js";
