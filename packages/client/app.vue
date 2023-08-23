@@ -1,10 +1,7 @@
 <template>
-  <div>
-    <NavBar />
-    <main class="mt-16 max-w-md md:max-w-5xl m-auto">
-      <NuxtPage />
-    </main>
-  </div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>
 <script setup lang="ts">
 useHead({
