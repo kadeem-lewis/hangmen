@@ -6,10 +6,7 @@ import { instrument } from "@socket.io/admin-ui";
 import cors from "cors";
 import "dotenv/config";
 
-import {
-  ClientPayloads,
-  ServerPayloads,
-} from "@hangmen/shared/types/SocketEvent.js";
+import { ClientPayloads, ServerPayloads } from "@hangmen/shared";
 import { userHandler } from "./handlers/UserHandler.js";
 import { roomHandler } from "./handlers/RoomHandler.js";
 import { gameHandler } from "./handlers/GameHandler.js";
@@ -25,7 +22,6 @@ const server = http.createServer(app);
 
 const io = new Server<ClientPayloads, ServerPayloads>(server, {
   serveClient: false,
-  cookie: true,
   cors: {
     origin: process.env.CLIENT_URL,
     credentials: true,
@@ -33,11 +29,8 @@ const io = new Server<ClientPayloads, ServerPayloads>(server, {
 });
 
 instrument(io, {
-  auth: {
-    type: "basic",
-    username: "klewis",
-    password: process.env.ADMIN_PASSWORD as string, //probably use process.env or something
-  },
+  auth: false,
+  mode: "development",
 });
 
 io.on("connection", (socket) => {

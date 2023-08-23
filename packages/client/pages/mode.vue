@@ -1,9 +1,9 @@
 <template>
-  <h2 class="text-2xl text-center font-bold">Choose Mode</h2>
+  <h2 class="text-center text-2xl font-bold">Choose Mode</h2>
   <div class="flex flex-col gap-4">
     <button
       @click="createGame"
-      class="rounded-lg bg-purple-600 py-2 hover:bg-purple-500 mt-2 font-semibold text-xl w-3/4 mx-auto"
+      class="mx-auto mt-2 w-3/4 rounded-lg bg-purple-600 py-2 text-xl font-semibold hover:bg-purple-500"
     >
       Create Game
     </button>
@@ -11,11 +11,11 @@
       type="text"
       v-model="gameCode"
       placeholder="Enter Room Code"
-      class="bg-dark-mode-400 rounded-md px-4 py-2 outline-none mx-2"
+      class="mx-2 rounded-md bg-dark-mode-400 px-4 py-2 outline-none"
     />
     <button
       @click="joinGame"
-      class="rounded-lg bg-blue-600 py-2 hover:bg-blue-500 font-semibold text-xl w-3/4 mx-auto"
+      class="mx-auto w-3/4 rounded-lg bg-blue-600 py-2 text-xl font-semibold hover:bg-blue-500"
     >
       Join Game
     </button>
@@ -50,7 +50,7 @@ const createGame = () => {
 const joinGame = () => {
   let room = gameCode.value.toString().toUpperCase();
   $io.emit(ClientEvents.JOIN_ROOM, room, (res: any) => {
-    if (res.status === true) {
+    if (res.status === "ok") {
       navigateTo({
         path: `/game/${room}/lobby`,
       });
