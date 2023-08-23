@@ -1,11 +1,4 @@
 <template>
-  <div class="flex flex-col">
-    <div>
-      <span> <Icon name="heroicons:clock-solid" size="1.5rem" /></span>
-      <span>{{ "30" }}s</span>
-    </div>
-    <p class="text-center text-3xl">{{ "Player's" }} Turn</p>
-  </div>
   <div>The Game</div>
   <div class="flex">
     <button

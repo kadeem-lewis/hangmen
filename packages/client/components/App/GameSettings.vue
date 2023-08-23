@@ -1,28 +1,38 @@
 <template>
   <div>
     <form>
-      <div>
-        <label for="hard-mode">Hard Mode</label>
+      <div class="flex gap-4 justify-between">
+        <label for="hard-mode">Hard Mode:</label>
         <input type="checkbox" name="hard-mode" id="hard-mode" />
       </div>
-      <div>
-        <label for="">Max word Length</label>
-        <div class="flex">
-          <span @click="minWordLength--" class="border rounded-md">-</span>
-          <div>{{ minWordLength }}</div>
-          <span @click="minWordLength++" class="border rounded-md">+</span>
+      <div class="flex gap-4 justify-between">
+        <label for="">Max word Length:</label>
+        <div class="flex gap-2">
+          <span @click="minWordLength--" class="border flex items-center"
+            ><Icon name="akar-icons:triangle-left"
+          /></span>
+          <div class="bg-dark-mode-400">{{ minWordLength }}</div>
+          <span @click="minWordLength++" class="border flex items-center"
+            ><Icon name="akar-icons:triangle-right"
+          /></span>
         </div>
       </div>
-      <div>
-        <label for="">Number of Words per Game</label>
-        <div class="flex">
-          <span @click="wordsPerGame--" class="border rounded-md">-</span>
-          <div>{{ wordsPerGame }}</div>
-          <span @click="wordsPerGame++" class="border rounded-md">+</span>
+      <div class="flex gap-4 justify-between">
+        <label for="">Number of Words per Game:</label>
+        <div class="flex gap-2">
+          <span @click="wordsPerGame--" class="border flex items-center"
+            ><Icon name="akar-icons:triangle-left"
+          /></span>
+          <div class="bg-dark-mode-400">{{ wordsPerGame }}</div>
+          <span @click="wordsPerGame++" class="border flex items-center"
+            ><Icon name="akar-icons:triangle-right"
+          /></span>
         </div>
       </div>
     </form>
+    <div><slot /></div>
   </div>
+  <!-- TODO: add a slot in settings to wrap and style game code  -->
 </template>
 
 <script setup lang="ts">

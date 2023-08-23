@@ -2,6 +2,10 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "module": "NodeNext",
-    "moduleResolution": "NodeNext"
-  }
+    "moduleResolution": "NodeNext",
+    "esModuleInterop": true,
+    "composite": true,
+    "outDir": "dist"
+  },
+  "include": ["types/*.ts"]
 }

@@ -1,25 +1,23 @@
 <template>
   <div>
-    <AppGameSettings />
-    <div>
-      <p class="text-center text-3xl">Waiting...</p>
-    </div>
-    <div>
-      <p class="font-bold text-lg">Room Code:</p>
-      <div class="py-2 text-2xl">
-        <span class="p-2 rounded-lg bg-dark-mode-400 mr-2 font-bold">{{
-          roomCode
-        }}</span>
-        <button
-          @click="copyCode()"
-          class="rounded-lg p-2 bg-sky-600 hover:bg-sky-500"
-        >
-          <Icon v-if="!isCopied" name="mdi:clipboard" size="1.5rem" />
-          <Icon v-else name="mdi:clipboard-check" size="1.5rem" />
-        </button>
+    <AppGameSettings>
+      <div>
+        <p class="font-bold text-lg">Room Code:</p>
+        <div class="py-2 text-2xl">
+          <span class="p-2 rounded-lg bg-dark-mode-400 mr-2 font-bold">{{
+            roomCode
+          }}</span>
+          <button
+            @click="copyCode()"
+            class="rounded-lg p-2 bg-sky-600 hover:bg-sky-500"
+          >
+            <Icon v-if="!isCopied" name="mdi:clipboard" size="1.5rem" />
+            <Icon v-else name="mdi:clipboard-check" size="1.5rem" />
+          </button>
+        </div>
       </div>
-    </div>
-    <AppPlayerList />
+    </AppGameSettings>
+
     <div class="flex">
       <button
         @click="readyUp"

@@ -1,15 +1,12 @@
 <template>
   <div class="overflow-y-auto bg-dark-mode-500">
     <div class="p-4 h-64">
-      <button @click="leaveGame()">Leave Game</button>
-      <div>
-        <AppChatBubble
-          v-for="message in messages"
-          :key="message.id"
-          :sender="message.sender"
-          :message="message.text"
-        />
-      </div>
+      <AppChatBubble
+        v-for="message in messages"
+        :key="message.id"
+        :sender="message.sender"
+        :message="message.text"
+      />
     </div>
   </div>
 </template>
@@ -22,9 +19,8 @@ type Message = {
   sender: string;
   text: string;
 };
-const route = useRoute();
+
 const messages = ref<Message[]>([]);
-const roomCode = ref(route.params.id);
 
 onMounted(() => {
   $io.on(ServerEvents.RECEIVE_MESSAGE, (message) => {
@@ -47,15 +43,6 @@ onMounted(() => {
     messages.value.push(message);
   });
 });
-const leaveGame = () => {
-  $io.emit(ClientEvents.LEAVE_ROOM, roomCode.value as string, (response) => {
-    if (response.status === "ok") {
-      navigateTo({ path: "/mode" });
-    } else {
-      console.error("An error has occurred");
-    }
-  });
-};
 
 //find some way to listen for when a player joins a new room and clear out messages
 onBeforeUnmount(() => {

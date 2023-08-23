@@ -51,3 +51,5 @@ socket.io improvement tips
 - only first player can see playerlist
 - [x] neither heroku or render deployment is working
 - [x] nuxt socket.io doesn't work when deployed
+
+- Host only sees start button which is greyed out until all the other players are ready, host is automatically assumed as ready
