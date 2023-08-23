@@ -1,12 +1,8 @@
 <template>
   <div class="grid grid-cols-4 gap-2">
     <AppGameBar class="col-span-4" />
-    <div class="h-full col-span-1">
-      <AppPlayerList />
-    </div>
-    <div class="col-span-2">
-      <NuxtPage />
-    </div>
+    <AppPlayerList class="h-full col-span-1" />
+    <NuxtPage class="col-span-2 bg-dark-mode-500 p-2" />
     <div class="h-full grid-col-span-1">
       <AppChatBox />
       <AppInputArea />

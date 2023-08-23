@@ -1,9 +1,31 @@
 <template>
-  <ul class="flex flex-col">
-    <li class="p-2 text-center" v-for="(slot, index) in 4" :key="index">
-      <div v-if="players[index]">
-        <Icon v-if="players[index].isHost" name="mdi:crown" />
-        {{ players[index].username }}
+  <ul class="flex flex-col gap-y-2">
+    <li
+      class="p-2 text-center rounded-md bg-dark-mode-500"
+      v-for="(slot, index) in 4"
+      :key="index"
+    >
+      <div v-if="players[index]" class="flex flex-row justify-between">
+        <div>
+          <div class="font-bold">#{{ 1 }}</div>
+          <Icon v-if="players[index].isHost" name="mdi:crown" />
+        </div>
+        <div>
+          <div>
+            <span class="font-bold">
+              {{ players[index].username }}
+            </span>
+            <span v-if="true">
+              <!-- TODO: show this player is the current socket -->
+              ( You )
+            </span>
+          </div>
+          <div>{{ 0 }} points</div>
+        </div>
+        <div>
+          <img :src="avatar" alt="player avatar" />
+        </div>
+
         <!-- TODO: show (You) next to the player, show points, avatar and show rankings -->
         <Icon
           v-if="players[index].isReady"
@@ -11,18 +33,24 @@
         />
       </div>
       <div v-else>
-        Waiting for player
+        Waiting for player...
 
-        <button @click="removePlayerSlot">Close Slot</button>
+        <button
+          @click="removePlayerSlot"
+          class="bg-blue-600 py-1 px-2 rounded-lg text-sm font-medium"
+        >
+          Close Slot
+        </button>
       </div>
       <!-- TODO: add way to check if the current person is the host and let them see different things on screen -->
     </li>
   </ul>
-  <!-- Add a player slot button -->
-  <button v-if="players.length < 4" @click="addPlayerSlot">Add Player</button>
 </template>
 
 <script setup lang="ts">
+import { createAvatar } from "@dicebear/core";
+import { adventurerNeutral } from "@dicebear/collection";
+
 const { $io } = useNuxtApp();
 
 type Player = {
@@ -59,6 +87,14 @@ const addPlayerSlot = () => {
     // Do something to add a new player or just increase the size of the room on the server.
   }
 };
+
+const svg = createAvatar(adventurerNeutral, {
+  size: 42,
+  radius: 50,
+  scale: 90,
+}).toDataUriSync();
+
+const avatar = ref(svg);
 
 onBeforeUnmount(() => {
   $io.off(ServerEvents.NEW_PLAYER);
