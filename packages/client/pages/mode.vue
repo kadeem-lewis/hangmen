@@ -50,7 +50,7 @@ const createGame = () => {
 const joinGame = () => {
   let room = gameCode.value.toString().toUpperCase();
   $io.emit(ClientEvents.JOIN_ROOM, room, (res: any) => {
-    if (res.status === true) {
+    if (res.status === "ok") {
       navigateTo({
         path: `/game/${room}/lobby`,
       });
