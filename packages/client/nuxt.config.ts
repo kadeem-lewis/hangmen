@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss", "nuxt-icon"],
+  modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxtjs/google-fonts"],
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -14,4 +14,11 @@ export default defineNuxtConfig({
     },
   },
   plugins: ["./plugins/socket.io"],
+  googleFonts: {
+    families: {
+      "Open+Sans": true,
+      "Short+Stack": true,
+    },
+    display: "swap",
+  },
 });
