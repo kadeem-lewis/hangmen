@@ -69,4 +69,5 @@ export interface SocketData {
   username: string;
   userId: string;
   isHost: boolean;
+  points: number;
 }
