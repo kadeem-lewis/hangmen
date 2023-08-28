@@ -58,7 +58,6 @@ type Player = {
   username: string;
   isHost: boolean;
   isReady: boolean;
-  currentRoom: string;
 };
 
 const players = ref<Player[]>([]);
