@@ -67,4 +67,6 @@ export interface SocketData {
   roomId: string;
   isReady: boolean;
   username: string;
+  userId: string;
+  isHost: boolean;
 }
