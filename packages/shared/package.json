@@ -2,8 +2,8 @@
   "name": "@hangmen/shared",
   "type": "module",
   "version": "1.0.0",
-  "main": "dist/types/SocketEvent.js",
-  "types": "dist/types/SocketEvent.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc"
   }
