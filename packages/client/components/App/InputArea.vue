@@ -1,15 +1,15 @@
 <template>
-  <form class="flex relative" @submit.prevent="sendMessage">
+  <form class="relative flex" @submit.prevent="sendMessage">
     <input
       type="text"
-      class="grow rounded-sm px-4 py-2 outline-none bg-dark-mode-400"
+      class="grow rounded-sm bg-dark-mode-400 px-4 py-2 outline-none"
       placeholder="Enter Message..."
       v-model="chatInput"
     />
     <button
-      class="absolute right-2 p-1 rounded-md hover:bg-dark-mode-600 top-1/2 -translate-y-1/2"
+      class="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1 hover:bg-dark-mode-600"
     >
-      <Icon name="material-symbols:send" size="1.5rem" />
+      <Icon name="material-symbols:send" size="24" />
     </button>
   </form>
 </template>

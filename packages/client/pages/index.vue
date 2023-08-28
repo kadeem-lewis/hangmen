@@ -8,7 +8,7 @@
             class="absolute bottom-0 right-0 rounded-full bg-blue-600 p-1 hover:bg-blue-500"
             @click="changeAvatar"
           >
-            <Icon name="heroicons:arrow-path" size="1.5rem" />
+            <Icon name="heroicons:arrow-path" size="24" />
           </button>
         </span>
         <div class="mx-16 w-full text-left md:space-y-4">
@@ -28,7 +28,7 @@
         @click="register"
         class="mx-auto mt-8 flex w-1/2 items-center gap-x-4 rounded-lg bg-blue-600 py-2 pl-4 text-xl font-semibold hover:bg-blue-500"
       >
-        <Icon name="heroicons:play-solid" size="1.5rem" />
+        <Icon name="heroicons:play-solid" size="24" />
         <span class="flex-grow uppercase">Play</span>
       </button>
     </div>
