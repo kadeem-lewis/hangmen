@@ -1,7 +1,7 @@
 <template>
   <ul class="flex flex-col gap-y-2">
     <li
-      class="p-2 text-center rounded-md bg-dark-mode-500"
+      class="rounded-md bg-dark-mode-500 p-2 text-center"
       v-for="(slot, index) in 4"
       :key="index"
     >
@@ -37,7 +37,7 @@
 
         <button
           @click="removePlayerSlot"
-          class="bg-blue-600 py-1 px-2 rounded-lg text-sm font-medium"
+          class="rounded-lg bg-red-600 px-2 py-1 text-sm font-medium"
         >
           Close Slot
         </button>
