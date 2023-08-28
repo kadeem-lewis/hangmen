@@ -1,8 +1,5 @@
 import { io, Socket } from "socket.io-client";
-import {
-  ClientPayloads,
-  ServerPayloads,
-} from "@hangmen/shared/types/SocketEvent";
+import { ClientPayloads, ServerPayloads } from "@hangmen/shared";
 
 export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig().public;
