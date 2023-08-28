@@ -3,6 +3,8 @@ import {
   ServerEvents,
   ClientPayloads,
   ServerPayloads,
+  InterServerEvents,
+  SocketData,
 } from "@hangmen/shared";
 import { Socket, Server } from "socket.io";
 import { Room } from "../classes/Room.js";
@@ -15,8 +17,8 @@ interface ActiveRooms {
 export const activeRooms: ActiveRooms = {};
 
 export const roomHandler = (
-  io: Server<ClientPayloads, ServerPayloads>,
-  socket: Socket<ClientPayloads, ServerPayloads>
+  io: Server<ClientPayloads, ServerPayloads, InterServerEvents, SocketData>,
+  socket: Socket<ClientPayloads, ServerPayloads, InterServerEvents, SocketData>
 ) => {
   socket.on(ClientEvents.REQUEST_ROOM_CODE, () => {
     const room = new Room();
@@ -29,7 +31,7 @@ export const roomHandler = (
       setTimeout(() => {
         //temporary fix to issue
         activeRooms[roomCode].addPlayer(socket.id, users[socket.id]);
-        users[socket.id].currentRoom = roomCode;
+        socket.data.roomId = roomCode;
         io.in(roomCode).emit(
           ServerEvents.NEW_PLAYER,
           users[socket.id],
@@ -54,6 +56,7 @@ export const roomHandler = (
     if (roomCode in activeRooms && socket.id in activeRooms[roomCode].players) {
       delete activeRooms[roomCode].players[socket.id];
       users[socket.id].resetUser();
+      socket.data.roomId = "";
       if (Object.keys(activeRooms[roomCode].players).length === 0) {
         delete activeRooms[roomCode];
       }
@@ -76,20 +79,20 @@ export const roomHandler = (
   socket.on(ClientEvents.REJOIN_ROOM, (roomCode, cb) => {});
   socket.on(ClientEvents.SEND_MESSAGE, (id, text) => {
     //this works fine for now but I need to add a timestamp and determine if to keep io functionality or not
-    io.in(users[socket.id].currentRoom).emit(ServerEvents.RECEIVE_MESSAGE, {
+    io.in(socket.data.roomId).emit(ServerEvents.RECEIVE_MESSAGE, {
       id,
       sender: users[socket.id].username,
       text,
     });
   });
   socket.on(ClientEvents.PLAYER_READY, (isReady) => {
-    const roomCode = users[socket.id].currentRoom;
+    const roomCode = socket.data.roomId;
     if (isReady) {
       activeRooms[roomCode].setPlayerReady(socket.id);
-      users[socket.id].isReady = true;
+      socket.data.isReady = true;
     } else {
       activeRooms[roomCode].unsetPlayerReady(socket.id);
-      users[socket.id].isReady = false;
+      socket.data.isReady = false;
     }
     io.in(roomCode).emit(
       ServerEvents.READY_PLAYERS,
