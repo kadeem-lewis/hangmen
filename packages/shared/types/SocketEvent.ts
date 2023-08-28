@@ -63,3 +63,7 @@ export interface ClientPayloads {
   }) => void;
   [ClientEvents.START_GAME]: () => void;
 }
+export interface InterServerEvents {}
+export interface SocketData {
+  username: string;
+}

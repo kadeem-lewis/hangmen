@@ -6,7 +6,12 @@ import { instrument } from "@socket.io/admin-ui";
 import cors from "cors";
 import "dotenv/config";
 
-import { ClientPayloads, ServerPayloads } from "@hangmen/shared";
+import {
+  ClientPayloads,
+  ServerPayloads,
+  SocketData,
+  InterServerEvents,
+} from "@hangmen/shared";
 import { userHandler } from "./handlers/UserHandler.js";
 import { roomHandler } from "./handlers/RoomHandler.js";
 import { gameHandler } from "./handlers/GameHandler.js";
@@ -20,7 +25,12 @@ app.get("/health", (req, res) => {
 
 const server = http.createServer(app);
 
-const io = new Server<ClientPayloads, ServerPayloads>(server, {
+const io = new Server<
+  ClientPayloads,
+  ServerPayloads,
+  InterServerEvents,
+  SocketData
+>(server, {
   serveClient: false,
   cors: {
     origin: process.env.CLIENT_URL,
