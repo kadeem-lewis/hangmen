@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex h-full flex-col justify-between">
     <AppGameSettings>
       <div>
         <p class="text-lg font-bold">Room Code:</p>
