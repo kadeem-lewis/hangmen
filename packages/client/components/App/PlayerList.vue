@@ -15,7 +15,7 @@
             <span class="font-bold">
               {{ players[index].username }}
             </span>
-            <span v-if="true">
+            <span v-if="$io.id">
               <!-- TODO: show this player is the current socket -->
               ( You )
             </span>
@@ -67,6 +67,7 @@ onMounted(() => {
   $io.on(ServerEvents.NEW_PLAYER, (_, playersList) => {
     console.log("New player event received", playersList);
     players.value = playersList;
+    //TODO: Since playersList is an array it doesn't contain the socket.io to compare to the client side version
   });
   $io.on(ServerEvents.PLAYER_LEAVE_ROOM, ({ userId }) => {
     players.value = players.value.filter((p) => p.userId !== userId);
