@@ -7,5 +7,6 @@
     "composite": true,
     "outDir": "dist"
   },
-  "include": ["types/*.ts"]
+  "include": ["."],
+  "exclude": ["dist", "node_modules"]
 }
