@@ -64,7 +64,6 @@ const players = ref<Player[]>([]);
 
 onMounted(() => {
   $io.on(ServerEvents.NEW_PLAYER, (_, playersList) => {
-    console.log("New player event received", playersList);
     players.value = playersList;
     //TODO: Since playersList is an array it doesn't contain the socket.io to compare to the client side version
   });
