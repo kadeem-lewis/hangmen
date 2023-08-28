@@ -5,7 +5,6 @@ import {
   ClientPayloads,
   ServerPayloads,
 } from "@hangmen/shared";
-import { users } from "./UserHandler.js";
 import { activeRooms } from "./RoomHandler.js";
 
 export const gameHandler = (

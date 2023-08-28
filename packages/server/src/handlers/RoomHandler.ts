@@ -8,7 +8,6 @@ import {
 } from "@hangmen/shared";
 import { Socket, Server } from "socket.io";
 import { Room } from "../classes/Room.js";
-import { users } from "./UserHandler.js";
 
 interface ActiveRooms {
   [key: string]: Room;
@@ -30,11 +29,11 @@ export const roomHandler = (
       socket.join(roomCode);
       setTimeout(() => {
         //temporary fix to issue
-        activeRooms[roomCode].addPlayer(socket.id, users[socket.id]);
+        activeRooms[roomCode].addPlayer(socket.id, socket.data);
         socket.data.roomId = roomCode;
         io.in(roomCode).emit(
           ServerEvents.NEW_PLAYER,
-          users[socket.id],
+          socket.data,
           activeRooms[roomCode].getPlayers()
         );
       });
@@ -55,7 +54,6 @@ export const roomHandler = (
     //on leave room remove the player from the room, remove the room from the players current room and delete the room if the player count is 0.
     if (roomCode in activeRooms && socket.id in activeRooms[roomCode].players) {
       delete activeRooms[roomCode].players[socket.id];
-      users[socket.id].resetUser();
       socket.data.roomId = "";
       if (Object.keys(activeRooms[roomCode].players).length === 0) {
         delete activeRooms[roomCode];
@@ -68,7 +66,7 @@ export const roomHandler = (
           status: "ok",
         });
       }
-      io.in(roomCode).emit(ServerEvents.PLAYER_LEAVE_ROOM, users[socket.id]);
+      io.in(roomCode).emit(ServerEvents.PLAYER_LEAVE_ROOM, socket.data);
     } else {
       callback({
         status: "error",
@@ -81,7 +79,7 @@ export const roomHandler = (
     //this works fine for now but I need to add a timestamp and determine if to keep io functionality or not
     io.in(socket.data.roomId).emit(ServerEvents.RECEIVE_MESSAGE, {
       id,
-      sender: users[socket.id].username,
+      sender: socket.data.username,
       text,
     });
   });
