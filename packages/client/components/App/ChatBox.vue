@@ -1,6 +1,6 @@
 <template>
   <div class="overflow-y-auto bg-dark-mode-500">
-    <div class="p-4 h-64">
+    <div class="h-64 p-4">
       <AppChatBubble
         v-for="message in messages"
         :key="message.id"
@@ -44,7 +44,7 @@ onMounted(() => {
   });
 });
 
-//find some way to listen for when a player joins a new room and clear out messages
+//TODO: find some way to listen for when a player joins a new room and clear out messages
 onBeforeUnmount(() => {
   $io.off(ServerEvents.PLAYER_LEAVE_ROOM);
   $io.off(ServerEvents.NEW_PLAYER);
