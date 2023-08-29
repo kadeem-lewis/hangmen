@@ -7,7 +7,7 @@
     >
       <div v-if="players[index]" class="flex flex-row justify-between">
         <div>
-          <div class="font-bold">#{{ 1 }}</div>
+          <div class="font-bold">#{{ index + 1 }}</div>
           <Icon v-if="players[index].isHost" name="mdi:crown" />
         </div>
         <div>
@@ -15,7 +15,7 @@
             <span class="font-bold">
               {{ players[index].username }}
             </span>
-            <span v-if="true">
+            <span v-if="$io.id">
               <!-- TODO: show this player is the current socket -->
               ( You )
             </span>
@@ -58,15 +58,14 @@ type Player = {
   username: string;
   isHost: boolean;
   isReady: boolean;
-  currentRoom: string;
 };
 
 const players = ref<Player[]>([]);
 
 onMounted(() => {
   $io.on(ServerEvents.NEW_PLAYER, (_, playersList) => {
-    console.log("New player event received", playersList);
     players.value = playersList;
+    //TODO: Since playersList is an array it doesn't contain the socket.io to compare to the client side version
   });
   $io.on(ServerEvents.PLAYER_LEAVE_ROOM, ({ userId }) => {
     players.value = players.value.filter((p) => p.userId !== userId);

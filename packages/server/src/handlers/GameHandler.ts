@@ -5,7 +5,6 @@ import {
   ClientPayloads,
   ServerPayloads,
 } from "@hangmen/shared";
-import { users } from "./UserHandler.js";
 import { activeRooms } from "./RoomHandler.js";
 
 export const gameHandler = (
@@ -13,7 +12,7 @@ export const gameHandler = (
   socket: Socket<ClientPayloads, ServerPayloads>
 ) => {
   socket.on(ClientEvents.START_GAME, () => {
-    const roomCode = users[socket.id].currentRoom;
+    const roomCode = socket.data.roomId;
     io.in(roomCode).emit(ServerEvents.GAME_START);
   });
   socket.on(ClientEvents.GAME_SETTINGS, () => {});

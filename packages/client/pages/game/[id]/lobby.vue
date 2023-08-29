@@ -9,10 +9,11 @@
           }}</span>
           <button
             @click="copyCode()"
-            class="rounded-lg bg-sky-600 p-2 hover:bg-sky-500"
+            class="rounded-lg p-2"
+            :class="isCopied ? 'bg-green-600' : 'bg-sky-600  hover:bg-sky-500'"
           >
-            <Icon v-if="!isCopied" name="mdi:clipboard" size="1.5rem" />
-            <Icon v-else name="mdi:clipboard-check" size="1.5rem" />
+            <Icon v-if="!isCopied" name="mdi:clipboard" size="24" />
+            <Icon v-else name="mdi:clipboard-check" size="24" />
           </button>
         </div>
       </div>

@@ -3,7 +3,6 @@ type User = {
   userId: string;
   isHost: boolean;
   isReady: boolean;
-  currentRoom: string;
 };
 export enum ServerEvents {
   CREATE_ROOM = "create-room",
@@ -62,4 +61,13 @@ export interface ClientPayloads {
     isHardMode: boolean;
   }) => void;
   [ClientEvents.START_GAME]: () => void;
+}
+export interface InterServerEvents {}
+export interface SocketData {
+  roomId: string;
+  isReady: boolean;
+  username: string;
+  userId: string;
+  isHost: boolean;
+  points: number;
 }
