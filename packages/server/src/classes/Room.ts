@@ -19,9 +19,24 @@ export class Room {
       Object.keys(this.players).length < this.maxPlayers &&
       !this.players[id]
     ) {
+      if (Object.keys(this.players).length === 0) {
+        player.isHost = true;
+      }
+
       this.players[id] = player;
     }
   }
+  removePlayer(id: string) {
+    const wasHost = this.players[id]?.isHost;
+    delete this.players[id];
+
+    // If the player leaving was the host, reassign the host to another player
+    if (wasHost && Object.keys(this.players).length > 0) {
+      const nextPlayerId = Object.keys(this.players)[0]; // Get the first available player's ID
+      this.players[nextPlayerId].isHost = true;
+    }
+  }
+
   getPlayers() {
     //getter to change object values to an array
     return Object.values(this.players);
