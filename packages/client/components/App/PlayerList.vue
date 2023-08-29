@@ -7,7 +7,7 @@
     >
       <div v-if="players[index]" class="flex flex-row justify-between">
         <div>
-          <div class="font-bold">#{{ 1 }}</div>
+          <div class="font-bold">#{{ index + 1 }}</div>
           <Icon v-if="players[index].isHost" name="mdi:crown" />
         </div>
         <div>
