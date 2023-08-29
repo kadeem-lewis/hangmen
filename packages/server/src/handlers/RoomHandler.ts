@@ -29,6 +29,7 @@ export const roomHandler = (
       socket.join(roomCode);
       setTimeout(() => {
         //temporary fix to issue
+        console.log(socket.data);
         activeRooms[roomCode].addPlayer(socket.id, socket.data);
         socket.data.roomId = roomCode;
         io.in(roomCode).emit(
@@ -40,6 +41,7 @@ export const roomHandler = (
 
       console.log(activeRooms[roomCode]);
       console.log(socket.rooms);
+      console.log(activeRooms[roomCode].getPlayers());
       callback({
         status: "ok",
       });
@@ -53,7 +55,7 @@ export const roomHandler = (
   socket.on(ClientEvents.LEAVE_ROOM, (roomCode, callback) => {
     //on leave room remove the player from the room, remove the room from the players current room and delete the room if the player count is 0.
     if (roomCode in activeRooms && socket.id in activeRooms[roomCode].players) {
-      delete activeRooms[roomCode].players[socket.id];
+      activeRooms[roomCode].removePlayer(socket.id);
       socket.data.roomId = "";
       if (Object.keys(activeRooms[roomCode].players).length === 0) {
         delete activeRooms[roomCode];
