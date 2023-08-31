@@ -7,7 +7,7 @@
           <UButton
             icon="i-heroicons-arrow-path"
             :ui="{ rounded: 'rounded-full' }"
-            class="absolute bottom-0 right-0 rounded-full bg-blue-600 p-1 hover:bg-blue-500"
+            class="absolute bottom-0 right-0"
             @click="changeAvatar"
           />
         </span>
@@ -16,7 +16,7 @@
             Choose a character and a nickname
           </p>
           <UInput
-            class="mx-4 w-full rounded-md bg-dark-mode-400 px-4 py-2 text-xl font-semibold outline-none"
+            class="mx-4 w-full px-4 py-2 text-xl font-semibold outline-none"
             type="text"
             name="username"
             placeholder="Enter a username"
@@ -27,12 +27,12 @@
       <UButton
         icon="i-heroicons-play-solid"
         @click="register"
-        class="mx-auto mt-8 flex w-1/2 items-center gap-x-4 rounded-lg py-2 pl-4 text-xl font-semibold"
+        class="mx-auto mt-8 w-1/2 items-center py-2 pl-4 text-xl font-semibold"
       >
         <span class="flex-grow uppercase">Play</span>
       </UButton>
     </div>
-    <div class="hidden md:block">
+    <div class="hidden lg:block">
       <h4 class="text-2xl">How to play</h4>
       <p>Guess the word or something. Idk, why are you asking me??</p>
     </div>

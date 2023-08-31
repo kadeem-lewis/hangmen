@@ -11,12 +11,9 @@
       type="text"
       v-model="gameCode"
       placeholder="Enter Room Code"
-      class="mx-2 rounded-md bg-dark-mode-400 px-4 py-2 outline-none"
+      class="mx-2 px-4 py-2 outline-none"
     />
-    <UButton
-      @click="joinGame"
-      class="mx-auto w-3/4 rounded-lg bg-blue-600 py-2 text-xl font-semibold hover:bg-blue-500"
-    >
+    <UButton @click="joinGame" class="mx-auto w-3/4 py-2 text-xl font-semibold">
       Join Game
     </UButton>
   </div>
