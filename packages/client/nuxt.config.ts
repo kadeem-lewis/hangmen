@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxtjs/google-fonts"],
+  modules: ["nuxt-icon", "@nuxtjs/google-fonts", "@nuxthq/ui"],
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -20,5 +20,8 @@ export default defineNuxtConfig({
       "Short+Stack": true,
     },
     display: "swap",
+  },
+  colorMode: {
+    preference: "system",
   },
 });
