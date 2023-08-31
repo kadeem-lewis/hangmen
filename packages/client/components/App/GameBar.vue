@@ -1,11 +1,11 @@
 <template>
   <div class="flex flex-row justify-between bg-dark-mode-500 p-2">
     <div>
-      <span> <Icon name="heroicons:clock-solid" size="24" /></span>
+      <UIcon name="i-heroicons-clock-solid" />
       <span>{{ "30" }}s</span>
     </div>
     <p class="text-center text-3xl">Waiting...</p>
-    <UButton icon="i-heroicons-home" variant="ghost" @click="leaveGame" />
+    <UButton icon="i-heroicons-home-solid" variant="ghost" @click="leaveGame" />
   </div>
 </template>
 

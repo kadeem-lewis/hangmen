@@ -12,7 +12,7 @@
       >
         <div>
           <div class="font-bold">#{{ index + 1 }}</div>
-          <Icon v-if="players[index].isHost" name="mdi:crown" />
+          <UIcon v-if="players[index].isHost" name="i-mdi-crown" />
         </div>
         <div>
           <div>
@@ -31,10 +31,7 @@
         </div>
 
         <!-- TODO: show (You) next to the player, show points, avatar and show rankings -->
-        <Icon
-          v-if="players[index].isReady"
-          name="material-symbols:check-circle"
-        />
+        <UIcon v-if="players[index].isReady" name="i-heroicons-check-circle" />
         <UModal v-model="playerClick">Yo Yo Yo</UModal>
       </div>
       <div v-else>

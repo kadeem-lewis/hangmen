@@ -16,7 +16,7 @@
                 ? 'border-gray-400 text-gray-400'
                 : ''
             "
-            ><Icon name="akar-icons:triangle-left"
+            ><UIcon name="i-heroicons-chevron-left"
           /></span>
           <div class="bg-dark-mode-400">{{ wordLength }}</div>
           <span
@@ -27,7 +27,7 @@
                 ? 'border-gray-400 text-gray-400'
                 : ''
             "
-            ><Icon name="akar-icons:triangle-right"
+            ><UIcon name="i-heroicons-chevron-right"
           /></span>
         </div>
       </div>
@@ -38,14 +38,14 @@
             @click="changeWordsPerGame('decrement')"
             class="flex items-center border"
             :class="wordsPerGame === 3 ? 'border-gray-400 text-gray-400' : ''"
-            ><Icon name="akar-icons:triangle-left"
+            ><UIcon name="i-heroicons-chevron-left"
           /></span>
           <div class="bg-dark-mode-400">{{ wordsPerGame }}</div>
           <span
             @click="changeWordsPerGame('increment')"
             class="flex items-center border"
             :class="wordsPerGame === 9 ? 'border-gray-400 text-gray-400' : ''"
-            ><Icon name="akar-icons:triangle-right"
+            ><UIcon name="i-heroicons-chevron-right"
           /></span>
         </div>
       </div>
