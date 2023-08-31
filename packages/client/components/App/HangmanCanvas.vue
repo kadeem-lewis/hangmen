@@ -29,12 +29,14 @@ const initialDrawing = () => {
   if (ctx) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.strokeStyle = "#fff";
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 5;
     ctx.beginPath();
-    drawLine(10, 130, 130, 130);
-    drawLine(10, 10, 10, 131);
-    drawLine(10, 10, 70, 10);
-    drawLine(70, 10, 70, 20);
+    drawLine(10, 130, 130, 130); //base plank
+    drawLine(10, 5, 10, 131); //beam
+    drawLine(10, 10, 70, 10); //horizontal top plank
+    //need to draw another line for the diagonal connecting wood
+    ctx.lineWidth = 2;
+    drawLine(70, 10, 70, 20); //rope
   }
 };
 
