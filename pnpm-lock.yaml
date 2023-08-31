@@ -37,6 +37,9 @@ importers:
         specifier: ^4.7.2
         version: 4.7.2
     devDependencies:
+      '@iconify-json/mdi':
+        specifier: ^1.1.54
+        version: 1.1.54
       '@nuxt/devtools':
         specifier: latest
         version: 0.8.2(nuxt@3.6.5)(vite@4.4.9)
@@ -49,9 +52,6 @@ importers:
       nuxt:
         specifier: ^3.6.5
         version: 3.6.5(@types/node@20.5.1)(typescript@5.1.6)
-      nuxt-icon:
-        specifier: ^0.5.0
-        version: 0.5.0(vue@3.3.4)
       prettier-plugin-tailwindcss:
         specifier: ^0.5.3
         version: 0.5.3(prettier@3.0.2)
@@ -1226,6 +1226,12 @@ packages:
       '@iconify/types': 2.0.0
     dev: true
 
+  /@iconify-json/mdi@1.1.54:
+    resolution: {integrity: sha512-3QAsxte90EalbN2e8J30OqSSZz9qN2x+kmykQwsPahoW2dOtSvj+BR9YdiUd9A5XKk2nuU4UH5Gj/cq6WZ6CzQ==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
   /@iconify/types@2.0.0:
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
     dev: true
@@ -1241,15 +1247,6 @@ packages:
       local-pkg: 0.4.3
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /@iconify/vue@4.1.1(vue@3.3.4):
-    resolution: {integrity: sha512-RL85Bm/DAe8y6rT6pux7D2FJSiUEM/TPfyK7GrbAOfTSwrhvwJW+S5yijdGcmtXouA8MtuH9C7l4hiSE4mLMjg==}
-    peerDependencies:
-      vue: '>=3'
-    dependencies:
-      '@iconify/types': 2.0.0
-      vue: 3.3.4
     dev: true
 
   /@ioredis/commands@1.2.0:
@@ -6410,17 +6407,6 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.2
-    dev: true
-
-  /nuxt-icon@0.5.0(vue@3.3.4):
-    resolution: {integrity: sha512-ND4yh8kW4VyIbORP3cWjgVrOAvy6QSDFDTJltakdqmxVfVysNIs/bx2NzlkHeR1EOS8E/jVcemfTPmRsJ7WUVw==}
-    dependencies:
-      '@iconify/vue': 4.1.1(vue@3.3.4)
-      '@nuxt/kit': 3.6.5
-    transitivePeerDependencies:
-      - rollup
-      - supports-color
-      - vue
     dev: true
 
   /nuxt@3.6.5(@types/node@20.5.1)(typescript@5.1.6):
