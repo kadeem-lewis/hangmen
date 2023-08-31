@@ -7,7 +7,7 @@
     >
       Create Game
     </UButton>
-    <input
+    <UInput
       type="text"
       v-model="gameCode"
       placeholder="Enter Room Code"

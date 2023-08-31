@@ -3,7 +3,7 @@
     <form>
       <div class="flex justify-between gap-4">
         <label for="hard-mode">Hard Mode:</label>
-        <input type="checkbox" name="hard-mode" id="hard-mode" />
+        <UCheckbox v-model="isHardMode" name="hard-mode" id="hard-mode" />
       </div>
       <div class="flex justify-between gap-4">
         <label for="">Max word Length:</label>

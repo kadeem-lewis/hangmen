@@ -15,7 +15,7 @@
           <p class="hidden text-lg font-semibold uppercase md:block">
             Choose a character and a nickname
           </p>
-          <input
+          <UInput
             class="mx-4 w-full rounded-md bg-dark-mode-400 px-4 py-2 text-xl font-semibold outline-none"
             type="text"
             name="username"
