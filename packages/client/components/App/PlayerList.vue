@@ -5,7 +5,11 @@
       v-for="(slot, index) in 4"
       :key="index"
     >
-      <div v-if="players[index]" class="flex flex-row justify-between">
+      <div
+        v-if="players[index]"
+        class="flex flex-row justify-between"
+        @click="playerClick = true"
+      >
         <div>
           <div class="font-bold">#{{ index + 1 }}</div>
           <Icon v-if="players[index].isHost" name="mdi:crown" />
@@ -31,6 +35,7 @@
           v-if="players[index].isReady"
           name="material-symbols:check-circle"
         />
+        <UModal v-model="playerClick">Yo Yo Yo</UModal>
       </div>
       <div v-else>
         Waiting for player...
@@ -84,6 +89,7 @@ const addPlayerSlot = () => {
   }
 };
 
+const playerClick = ref(false);
 const svg = createAvatar(adventurerNeutral, {
   size: 42,
   radius: 50,
