@@ -4,9 +4,10 @@
       <div>
         <p class="text-lg font-bold">Room Code:</p>
         <div class="py-2 text-2xl">
-          <span class="mr-2 rounded-lg bg-gray-800 p-2 font-bold">{{
-            roomCode
-          }}</span>
+          <span
+            class="mr-2 rounded-lg bg-gray-200 p-2 font-bold dark:bg-gray-800"
+            >{{ roomCode }}</span
+          >
           <UButton
             @click="copyCode()"
             class="rounded-lg p-2"

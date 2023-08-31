@@ -1,6 +1,10 @@
 <template>
   <div>
-    <p :class="[sender === 'Announcer' ? 'text-red-500' : 'text-white']">
+    <p
+      :class="[
+        sender === 'Announcer' ? 'text-red-500' : ' text-black dark:text-white',
+      ]"
+    >
       <strong>{{ sender }}:</strong
       ><span class="break-words">&nbsp;{{ message }}</span>
     </p>

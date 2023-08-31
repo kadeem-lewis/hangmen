@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-y-auto bg-gray-900">
+  <div class="overflow-y-auto bg-gray-100 dark:bg-gray-900">
     <div class="h-64 p-4">
       <AppChatBubble
         v-for="message in messages"

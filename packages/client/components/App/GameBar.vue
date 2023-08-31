@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-between bg-gray-900 p-2">
+  <div class="flex justify-between bg-gray-100 p-2 dark:bg-gray-900">
     <div class="flex items-center justify-center gap-1">
       <UIcon name="i-heroicons-clock-solid" />
       <span>{{ "30" }}s</span>

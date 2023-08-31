@@ -14,7 +14,8 @@ useHead({
     },
   ],
   bodyAttrs: {
-    class: " bg-gray-950 min-h-screen box-border text-white",
+    class:
+      "bg-gray-50 dark:bg-gray-950 min-h-screen box-border text-black dark:text-white",
   },
 });
 const { $io } = useNuxtApp();
