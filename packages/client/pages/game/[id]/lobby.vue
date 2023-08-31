@@ -20,7 +20,8 @@
     </AppGameSettings>
 
     <div class="flex">
-      <button
+      <UButton
+        :color="isReady ? 'green' : 'red'"
         @click="readyUp"
         class="m-2 w-1/2 rounded-full text-xl font-semibold transition-colors"
         :class="
@@ -30,13 +31,14 @@
         "
       >
         {{ isReady ? "Ready" : "Not Ready" }}
-      </button>
-      <button
+      </UButton>
+      <UButton
+        :disabled="false"
         @click="startGame"
-        class="m-2 w-1/2 rounded-full bg-blue-600 py-2 text-xl font-semibold hover:bg-blue-500"
+        class="m-2 w-1/2 rounded-full py-2 text-xl font-semibold"
       >
         Start
-      </button>
+      </UButton>
     </div>
   </div>
 </template>

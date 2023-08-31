@@ -5,9 +5,7 @@
       <span>{{ "30" }}s</span>
     </div>
     <p class="text-center text-3xl">Waiting...</p>
-    <button @click="leaveGame">
-      <Icon name="material-symbols:house" size="24" />
-    </button>
+    <UButton icon="i-heroicons-home" variant="ghost" @click="leaveGame" />
   </div>
 </template>
 

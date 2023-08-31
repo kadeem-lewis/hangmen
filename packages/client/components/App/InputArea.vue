@@ -6,11 +6,12 @@
       placeholder="Enter Message..."
       v-model="chatInput"
     />
-    <button
+    <UButton
+      variant="ghost"
+      icon="i-heroicons-paper-airplane"
       class="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1 hover:bg-dark-mode-600"
     >
-      <Icon name="material-symbols:send" size="24" />
-    </button>
+    </UButton>
   </form>
 </template>
 <script setup lang="ts">

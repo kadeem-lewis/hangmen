@@ -35,12 +35,9 @@
       <div v-else>
         Waiting for player...
 
-        <button
-          @click="removePlayerSlot"
-          class="rounded-lg bg-red-600 px-2 py-1 text-sm font-medium"
-        >
+        <UButton size="xs" color="red" @click="removePlayerSlot">
           Close Slot
-        </button>
+        </UButton>
       </div>
       <!-- TODO: add way to check if the current person is the host and let them see different things on screen -->
     </li>

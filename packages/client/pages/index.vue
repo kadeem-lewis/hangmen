@@ -4,12 +4,12 @@
       <div class="flex flex-col items-center gap-y-4 md:flex-row">
         <span class="relative">
           <img :src="avatar" alt="Avatar" />
-          <button
+          <UButton
+            icon="i-heroicons-arrow-path"
+            :ui="{ rounded: 'rounded-full' }"
             class="absolute bottom-0 right-0 rounded-full bg-blue-600 p-1 hover:bg-blue-500"
             @click="changeAvatar"
-          >
-            <Icon name="heroicons:arrow-path" size="24" />
-          </button>
+          />
         </span>
         <div class="mx-16 w-full text-left md:space-y-4">
           <p class="hidden text-lg font-semibold uppercase md:block">
@@ -24,13 +24,13 @@
           />
         </div>
       </div>
-      <button
+      <UButton
+        icon="i-heroicons-play-solid"
         @click="register"
-        class="mx-auto mt-8 flex w-1/2 items-center gap-x-4 rounded-lg bg-blue-600 py-2 pl-4 text-xl font-semibold hover:bg-blue-500"
+        class="mx-auto mt-8 flex w-1/2 items-center gap-x-4 rounded-lg py-2 pl-4 text-xl font-semibold"
       >
-        <Icon name="heroicons:play-solid" size="24" />
         <span class="flex-grow uppercase">Play</span>
-      </button>
+      </UButton>
     </div>
     <div class="hidden md:block">
       <h4 class="text-2xl">How to play</h4>
