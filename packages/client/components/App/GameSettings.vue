@@ -18,7 +18,7 @@
             "
             ><UIcon name="i-heroicons-chevron-left"
           /></span>
-          <div class="bg-dark-mode-400">{{ wordLength }}</div>
+          <div class="bg-gray-800">{{ wordLength }}</div>
           <span
             @click="changeMinWordLength('increment')"
             class="flex items-center border"
@@ -40,7 +40,7 @@
             :class="wordsPerGame === 3 ? 'border-gray-400 text-gray-400' : ''"
             ><UIcon name="i-heroicons-chevron-left"
           /></span>
-          <div class="bg-dark-mode-400">{{ wordsPerGame }}</div>
+          <div class="bg-gray-800">{{ wordsPerGame }}</div>
           <span
             @click="changeWordsPerGame('increment')"
             class="flex items-center border"

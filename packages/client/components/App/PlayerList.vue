@@ -1,7 +1,7 @@
 <template>
   <ul class="flex flex-col gap-y-2">
     <li
-      class="rounded-md bg-dark-mode-500 p-2 text-center"
+      class="rounded-md bg-gray-900 p-2 text-center"
       v-for="(slot, index) in 4"
       :key="index"
     >

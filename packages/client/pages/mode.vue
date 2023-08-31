@@ -3,7 +3,7 @@
   <div class="flex flex-col gap-4">
     <UButton
       @click="createGame"
-      class="mx-auto mt-2 w-3/4 rounded-lg bg-purple-600 py-2 text-xl font-semibold hover:bg-purple-500"
+      class="mx-auto mt-2 w-3/4 rounded-lg py-2 text-xl font-semibold"
     >
       Create Game
     </UButton>

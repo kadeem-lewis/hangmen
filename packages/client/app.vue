@@ -14,7 +14,7 @@ useHead({
     },
   ],
   bodyAttrs: {
-    class: " bg-dark-mode-600 min-h-screen box-border text-white",
+    class: " bg-gray-950 min-h-screen box-border text-white",
   },
 });
 const { $io } = useNuxtApp();

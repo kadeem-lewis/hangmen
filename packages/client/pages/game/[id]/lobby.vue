@@ -4,7 +4,7 @@
       <div>
         <p class="text-lg font-bold">Room Code:</p>
         <div class="py-2 text-2xl">
-          <span class="mr-2 rounded-lg bg-dark-mode-400 p-2 font-bold">{{
+          <span class="mr-2 rounded-lg bg-gray-800 p-2 font-bold">{{
             roomCode
           }}</span>
           <UButton
