@@ -1,9 +1,9 @@
 <template>
   <div>
     <NavBar />
-    <main class="m-auto mt-16 max-w-md md:max-w-5xl">
+    <UContainer as="main" class="mt-16">
       <slot />
-    </main>
+    </UContainer>
   </div>
 </template>
 

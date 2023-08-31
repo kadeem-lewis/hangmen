@@ -4,40 +4,37 @@
       <div>
         <p class="text-lg font-bold">Room Code:</p>
         <div class="py-2 text-2xl">
-          <span class="mr-2 rounded-lg bg-dark-mode-400 p-2 font-bold">{{
-            roomCode
-          }}</span>
-          <button
+          <span
+            class="mr-2 rounded-lg bg-gray-200 p-2 font-bold dark:bg-gray-800"
+            >{{ roomCode }}</span
+          >
+          <UButton
             @click="copyCode()"
             class="rounded-lg p-2"
-            :class="isCopied ? 'bg-green-600' : 'bg-sky-600  hover:bg-sky-500'"
+            :icon="!isCopied ? 'i-mdi-clipboard' : 'i-mdi-clipboard-check'"
+            :color="!isCopied ? 'blue' : 'green'"
           >
-            <Icon v-if="!isCopied" name="mdi:clipboard" size="24" />
-            <Icon v-else name="mdi:clipboard-check" size="24" />
-          </button>
+          </UButton>
         </div>
       </div>
     </AppGameSettings>
 
-    <div class="flex">
-      <button
-        @click="readyUp"
-        class="m-2 w-1/2 rounded-full text-xl font-semibold transition-colors"
-        :class="
-          isReady
-            ? 'bg-green-600 hover:bg-green-500'
-            : 'bg-red-600 py-2 hover:bg-red-500'
-        "
-      >
-        {{ isReady ? "Ready" : "Not Ready" }}
-      </button>
-      <button
-        @click="startGame"
-        class="m-2 w-1/2 rounded-full bg-blue-600 py-2 text-xl font-semibold hover:bg-blue-500"
-      >
-        Start
-      </button>
-    </div>
+    <UButton
+      v-if="false"
+      :color="isReady ? 'green' : 'red'"
+      @click="readyUp"
+      class="m-2 text-xl font-semibold transition-colors"
+    >
+      {{ isReady ? "Ready" : "Not Ready" }}
+    </UButton>
+    <UButton
+      v-else
+      :disabled="false"
+      @click="startGame"
+      class="m-2 py-2 text-xl font-semibold"
+    >
+      Start
+    </UButton>
   </div>
 </template>
 
