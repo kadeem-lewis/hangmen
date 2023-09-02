@@ -36,10 +36,13 @@
                 >
                   {{ title }}
                 </HeadlessDialogTitle>
+                <button @click="closeModal" class="absolute right-6 top-6">
+                  <Icon name="heroicons:x-mark" />
+                </button>
                 <div class="mt-2">
-                  <p class="text-sm text-gray-500">
+                  <div>
                     <slot />
-                  </p>
+                  </div>
                 </div>
 
                 <div class="mt-4"></div>
