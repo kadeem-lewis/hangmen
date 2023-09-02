@@ -22,6 +22,9 @@ export enum ClientEvents {
   PLAYER_READY = "player-ready",
   GAME_SETTINGS = "game-settings",
   START_GAME = "start-game",
+  GUESS_LETTER = "guess-letter",
+  GUESS_WORD = "guess-word",
+  SKIP_TURN = "skip-turn",
 }
 
 export interface ServerPayloads {
@@ -61,6 +64,9 @@ export interface ClientPayloads {
     isHardMode: boolean;
   }) => void;
   [ClientEvents.START_GAME]: () => void;
+  [ClientEvents.GUESS_LETTER]: (letter: string) => void;
+  [ClientEvents.GUESS_WORD]: (word: string) => void;
+  [ClientEvents.SKIP_TURN]: () => void;
 }
 export interface InterServerEvents {}
 export interface SocketData {

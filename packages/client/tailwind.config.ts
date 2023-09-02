@@ -21,6 +21,9 @@ export default <Partial<Config>>{
           600: "hsl(0,0%,7%)",
         },
       },
+      fontFamily: {
+        "short-stack": ["Short Stack", "cursive"],
+      },
     },
   },
   plugins: [],

@@ -1,22 +1,22 @@
 <template>
   <div class="flex items-center justify-center">
     <div class="w-full">
-      <div class="flex flex-col items-center gap-y-4 md:flex-row">
+      <div class="flex flex-col items-center gap-y-4 lg:flex-row">
         <span class="relative">
           <img :src="avatar" alt="Avatar" />
-          <UButton
-            icon="i-heroicons-arrow-path"
-            :ui="{ rounded: 'rounded-full' }"
-            class="absolute bottom-0 right-0"
+          <button
+            class="absolute bottom-0 right-0 rounded-full bg-blue-600 p-1 hover:bg-blue-500"
             @click="changeAvatar"
-          />
+          >
+            <Icon name="heroicons:arrow-path" size="24" />
+          </button>
         </span>
-        <div class="mx-16 w-full text-left md:space-y-4">
-          <p class="hidden text-lg font-semibold uppercase md:block">
+        <div class="mx-16 w-full text-left lg:space-y-4">
+          <p class="hidden text-lg font-semibold uppercase lg:block">
             Choose a character and a nickname
           </p>
-          <UInput
-            class="mx-4 w-full px-4 py-2 text-xl font-semibold outline-none"
+          <input
+            class="mx-4 w-full rounded-md bg-dark-mode-400 px-4 py-2 text-xl font-semibold outline-none"
             type="text"
             name="username"
             placeholder="Enter a username"
@@ -24,13 +24,13 @@
           />
         </div>
       </div>
-      <UButton
-        icon="i-heroicons-play-solid"
+      <button
         @click="register"
-        class="mx-auto mt-8 w-1/2 items-center py-2 pl-4 text-xl font-semibold"
+        class="btn mx-auto mt-8 flex w-1/2 items-center gap-x-4 py-2 pl-4 text-xl font-semibold"
       >
+        <Icon name="heroicons:play-solid" size="24" />
         <span class="flex-grow uppercase">Play</span>
-      </UButton>
+      </button>
     </div>
     <div class="hidden lg:block">
       <h4 class="text-2xl">How to play</h4>

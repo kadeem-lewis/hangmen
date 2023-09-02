@@ -1,7 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@nuxtjs/google-fonts", "@nuxthq/ui"],
+  modules: [
+    "nuxt-icon",
+    "@nuxtjs/google-fonts",
+    "@nuxtjs/tailwindcss",
+    "@nuxtjs/color-mode",
+    "nuxt-headlessui",
+  ],
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -23,8 +29,5 @@ export default defineNuxtConfig({
   },
   colorMode: {
     preference: "system",
-  },
-  ui: {
-    icons: ["mdi"],
   },
 });

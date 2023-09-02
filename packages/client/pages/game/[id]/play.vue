@@ -2,28 +2,28 @@
   <div class="flex h-full flex-col justify-between">
     <AppHangmanWord />
     <AppHangmanCanvas />
-    <div class="flex">
-      <div>
-        <UButton
-          class="m-2 py-2 text-xl font-semibold"
-          @click="letterClick = true"
-        >
-          Guess Letter
-        </UButton>
-        <UModal v-model="letterClick">Hello</UModal>
+    <div class="flex justify-between gap-4">
+      <div class="w-full">
+        <button class="btn" @click="letterClick = true">Guess Letter</button>
+        <UiModal v-model="letterClick" title="Guess Letter">
+          <form @submit.prevent="guessLetter">
+            <label for="letter-guess">letter</label>
+            <input type="text" name="letter-guess" />
+            <button>Guess</button>
+          </form>
+        </UiModal>
       </div>
-      <div>
-        <UButton
-          class="m-2 py-2 text-xl font-semibold"
-          @click="wordClick = true"
-        >
-          Guess Word
-        </UButton>
-        <UModal v-model="wordClick">Howdy</UModal>
+      <div class="w-full">
+        <button class="btn" @click="wordClick = true">Guess Word</button>
+        <UiModal v-model="wordClick" title="Guess Word">
+          <form @submit.prevent="guessWord">
+            <label for="word-guess">Word</label>
+            <input type="text" name="word-guess" />
+            <button>Guess</button>
+          </form>
+        </UiModal>
       </div>
-      <UButton class="m-2 w-1/3 py-2 text-xl font-semibold" @click="skipTurn">
-        Skip Turn
-      </UButton>
+      <button class="btn" @click="skipTurn">Skip Turn</button>
     </div>
   </div>
 </template>
@@ -33,7 +33,24 @@ const { $io } = useNuxtApp();
 const letterClick = ref(false);
 const wordClick = ref(false);
 
-const guessLetter = () => {};
-const guessWord = () => {};
-const skipTurn = () => {};
+const guessedLetter = ref("");
+const guessedWord = ref("");
+
+const guessLetter = () => {
+  //get the guessed letter
+  //send the guessed letter to the server
+  $io.emit(ClientEvents.GUESS_LETTER, guessedLetter.value);
+  //close the modal
+  letterClick.value = false;
+  guessedLetter.value = "";
+};
+const guessWord = () => {
+  $io.emit(ClientEvents.GUESS_WORD, guessedWord.value);
+  //close the modal
+  wordClick.value = false;
+  guessedWord.value = "";
+};
+const skipTurn = () => {
+  $io.emit(ClientEvents.SKIP_TURN);
+};
 </script>

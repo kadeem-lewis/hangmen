@@ -3,7 +3,7 @@
     <form>
       <div class="flex justify-between gap-4">
         <label for="hard-mode">Hard Mode:</label>
-        <UCheckbox v-model="isHardMode" name="hard-mode" id="hard-mode" />
+        <input type="checkbox" name="hard-mode" id="hard-mode" />
       </div>
       <div class="flex justify-between gap-4">
         <label for="">Max word Length:</label>
@@ -16,9 +16,9 @@
                 ? 'border-gray-400 text-gray-400'
                 : ''
             "
-            ><UIcon name="i-heroicons-chevron-left"
+            ><Icon name="heroicons:chevron-left"
           /></span>
-          <div class="bg-gray-200 dark:bg-gray-800">{{ wordLength }}</div>
+          <div class="bg-dark-mode-400">{{ wordLength }}</div>
           <span
             @click="changeMinWordLength('increment')"
             class="flex items-center border"
@@ -27,7 +27,7 @@
                 ? 'border-gray-400 text-gray-400'
                 : ''
             "
-            ><UIcon name="i-heroicons-chevron-right"
+            ><Icon name="heroicons:chevron-right"
           /></span>
         </div>
       </div>
@@ -38,14 +38,14 @@
             @click="changeWordsPerGame('decrement')"
             class="flex items-center border"
             :class="wordsPerGame === 3 ? 'border-gray-400 text-gray-400' : ''"
-            ><UIcon name="i-heroicons-chevron-left"
+            ><Icon name="heroicons:chevron-left"
           /></span>
-          <div class="bg-gray-200 dark:bg-gray-800">{{ wordsPerGame }}</div>
+          <div class="bg-dark-mode-400">{{ wordsPerGame }}</div>
           <span
             @click="changeWordsPerGame('increment')"
             class="flex items-center border"
             :class="wordsPerGame === 9 ? 'border-gray-400 text-gray-400' : ''"
-            ><UIcon name="i-heroicons-chevron-right"
+            ><Icon name="heroicons:chevron-right"
           /></span>
         </div>
       </div>

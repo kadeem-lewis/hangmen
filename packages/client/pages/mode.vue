@@ -1,21 +1,24 @@
 <template>
   <h2 class="text-center text-2xl font-bold">Choose Mode</h2>
   <div class="flex flex-col gap-4">
-    <UButton
+    <button
       @click="createGame"
-      class="mx-auto mt-2 w-3/4 rounded-lg py-2 text-xl font-semibold"
+      class="btn mx-auto mt-2 w-3/4 rounded-lg py-2 text-xl font-semibold"
     >
       Create Game
-    </UButton>
-    <UInput
+    </button>
+    <input
       type="text"
       v-model="gameCode"
       placeholder="Enter Room Code"
-      class="mx-2 px-4 py-2 outline-none"
+      class="mx-2 rounded-md bg-dark-mode-400 px-4 py-2 outline-none"
     />
-    <UButton @click="joinGame" class="mx-auto w-3/4 py-2 text-xl font-semibold">
+    <button
+      @click="joinGame"
+      class="btn mx-auto w-3/4 py-2 text-xl font-semibold"
+    >
       Join Game
-    </UButton>
+    </button>
   </div>
 </template>
 

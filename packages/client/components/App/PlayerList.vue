@@ -1,7 +1,7 @@
 <template>
   <ul class="flex flex-col gap-y-2">
     <li
-      class="rounded-md bg-gray-100 p-2 text-center dark:bg-gray-900"
+      class="rounded-md bg-dark-mode-500 p-2 text-center"
       v-for="(slot, index) in 4"
       :key="index"
     >
@@ -12,7 +12,7 @@
       >
         <div>
           <div class="font-bold">#{{ index + 1 }}</div>
-          <UIcon v-if="players[index].isHost" name="i-mdi-crown" />
+          <Icon v-if="players[index].isHost" name="mdi:crown" />
         </div>
         <div>
           <div>
@@ -31,16 +31,23 @@
         </div>
 
         <!-- TODO: show (You) next to the player, show points, avatar and show rankings -->
-        <UIcon v-if="players[index].isReady" name="i-heroicons-check-circle" />
-        <UModal v-model="playerClick">Yo Yo Yo</UModal>
+        <Icon
+          v-if="players[index].isReady"
+          name="material-symbols:check-circle"
+        />
+        <UiModal v-model="playerClick">Hey Hey Hey</UiModal>
       </div>
       <div v-else>
         Waiting for player...
 
-        <UButton size="xs" color="red" @click="removePlayerSlot">
+        <button
+          @click="removePlayerSlot"
+          class="rounded-lg bg-red-600 px-2 py-1 text-sm font-medium"
+        >
           Close Slot
-        </UButton>
+        </button>
       </div>
+
       <!-- TODO: add way to check if the current person is the host and let them see different things on screen -->
     </li>
   </ul>
@@ -87,6 +94,7 @@ const addPlayerSlot = () => {
 };
 
 const playerClick = ref(false);
+
 const svg = createAvatar(adventurerNeutral, {
   size: 42,
   radius: 50,
