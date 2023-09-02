@@ -3,7 +3,7 @@
   <div class="flex flex-col gap-4">
     <button
       @click="createGame"
-      class="mx-auto mt-2 w-3/4 rounded-lg bg-purple-600 py-2 text-xl font-semibold hover:bg-purple-500"
+      class="btn mx-auto mt-2 w-3/4 rounded-lg py-2 text-xl font-semibold"
     >
       Create Game
     </button>
@@ -15,7 +15,7 @@
     />
     <button
       @click="joinGame"
-      class="mx-auto w-3/4 rounded-lg bg-blue-600 py-2 text-xl font-semibold hover:bg-blue-500"
+      class="btn mx-auto w-3/4 py-2 text-xl font-semibold"
     >
       Join Game
     </button>

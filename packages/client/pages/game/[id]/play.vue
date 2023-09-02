@@ -2,14 +2,9 @@
   <div class="flex h-full flex-col justify-between">
     <AppHangmanWord />
     <AppHangmanCanvas />
-    <div class="flex justify-between">
-      <div>
-        <button
-          class="rounded-lg border px-4 py-2 text-xl font-semibold hover:bg-white hover:text-black"
-          @click="letterClick = true"
-        >
-          Guess Letter
-        </button>
+    <div class="flex justify-between gap-4">
+      <div class="w-full">
+        <button class="btn" @click="letterClick = true">Guess Letter</button>
         <UiModal v-model="letterClick" title="Guess Letter">
           <form @submit.prevent="guessLetter">
             <label for="letter-guess">letter</label>
@@ -18,13 +13,8 @@
           </form>
         </UiModal>
       </div>
-      <div>
-        <button
-          class="rounded-lg border px-4 py-2 text-xl font-semibold hover:bg-white hover:text-black"
-          @click="wordClick = true"
-        >
-          Guess Word
-        </button>
+      <div class="w-full">
+        <button class="btn" @click="wordClick = true">Guess Word</button>
         <UiModal v-model="wordClick" title="Guess Word">
           <form @submit.prevent="guessWord">
             <label for="word-guess">Word</label>
@@ -33,12 +23,7 @@
           </form>
         </UiModal>
       </div>
-      <button
-        class="rounded-lg border px-4 py-2 text-xl font-semibold hover:bg-white hover:text-black"
-        @click="skipTurn"
-      >
-        Skip Turn
-      </button>
+      <button class="btn" @click="skipTurn">Skip Turn</button>
     </div>
   </div>
 </template>

@@ -19,18 +19,16 @@
       </div>
     </AppGameSettings>
 
-    <div class="flex">
-      <button
-        @click="readyUp"
-        class="m-2 w-1/2 rounded-lg border text-xl font-semibold transition-colors hover:bg-white hover:text-black"
-      >
-        {{ isReady ? "Ready" : "Not Ready" }}
+    <div>
+      <button v-if="true" :disabled="false" @click="startGame" class="btn">
+        Start
       </button>
       <button
-        @click="startGame"
-        class="m-2 w-1/2 rounded-lg border py-2 text-xl font-semibold hover:bg-white hover:text-black"
+        v-else
+        @click="readyUp"
+        class="rounded-lg border text-xl font-semibold transition-colors hover:bg-white hover:text-black"
       >
-        Start
+        {{ isReady ? "Ready" : "Not Ready" }}
       </button>
     </div>
   </div>

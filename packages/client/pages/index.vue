@@ -26,7 +26,7 @@
       </div>
       <button
         @click="register"
-        class="mx-auto mt-8 flex w-1/2 items-center gap-x-4 rounded-lg bg-blue-600 py-2 pl-4 text-xl font-semibold hover:bg-blue-500"
+        class="btn mx-auto mt-8 flex w-1/2 items-center gap-x-4 py-2 pl-4 text-xl font-semibold"
       >
         <Icon name="heroicons:play-solid" size="24" />
         <span class="flex-grow uppercase">Play</span>
