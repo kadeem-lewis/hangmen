@@ -4,19 +4,19 @@
       <div class="flex flex-col items-center gap-y-4 md:flex-row">
         <span class="relative">
           <img :src="avatar" alt="Avatar" />
-          <button
-            class="absolute bottom-0 right-0 rounded-full bg-blue-600 p-1 hover:bg-blue-500"
+          <UButton
+            icon="i-heroicons-arrow-path"
+            :ui="{ rounded: 'rounded-full' }"
+            class="absolute bottom-0 right-0"
             @click="changeAvatar"
-          >
-            <Icon name="heroicons:arrow-path" size="24" />
-          </button>
+          />
         </span>
         <div class="mx-16 w-full text-left md:space-y-4">
           <p class="hidden text-lg font-semibold uppercase md:block">
             Choose a character and a nickname
           </p>
-          <input
-            class="mx-4 w-full rounded-md bg-dark-mode-400 px-4 py-2 text-xl font-semibold outline-none"
+          <UInput
+            class="mx-4 w-full px-4 py-2 text-xl font-semibold outline-none"
             type="text"
             name="username"
             placeholder="Enter a username"
@@ -24,15 +24,15 @@
           />
         </div>
       </div>
-      <button
+      <UButton
+        icon="i-heroicons-play-solid"
         @click="register"
-        class="mx-auto mt-8 flex w-1/2 items-center gap-x-4 rounded-lg bg-blue-600 py-2 pl-4 text-xl font-semibold hover:bg-blue-500"
+        class="mx-auto mt-8 w-1/2 items-center py-2 pl-4 text-xl font-semibold"
       >
-        <Icon name="heroicons:play-solid" size="24" />
         <span class="flex-grow uppercase">Play</span>
-      </button>
+      </UButton>
     </div>
-    <div class="hidden md:block">
+    <div class="hidden lg:block">
       <h4 class="text-2xl">How to play</h4>
       <p>Guess the word or something. Idk, why are you asking me??</p>
     </div>

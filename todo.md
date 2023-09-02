@@ -29,16 +29,16 @@ socket.io improvement tips
 - set messages to an empty array whenever join room happens so only messages for this room is shown to socket
 - send timestamps in message
 - functional ready checks
-- setting isHost
-- create setting component
+- [x] setting isHost
+- [x] create setting component
 - [x] scroll on chatbox
 - scroll to bottom on chatbox
 - add min and max values to setting
 - [x] typing the data that should be sent in each event
 - [x] leave room whenever user navigates away from [id] routes
-- figure out how to break up server code and how to get it game functionality on server
-- figure out what way the hangman game will be built( svg, canvas etc)
-- automate pushing to heroku
+- [x] figure out how to break up server code and how to get it game functionality on server
+- [x] figure out what way the hangman game will be built( svg, canvas etc)
+- [x] automate pushing to heroku
 - get words from api ( figure out how words api works)
 
 ## Bugs
@@ -53,3 +53,7 @@ socket.io improvement tips
 - [x] nuxt socket.io doesn't work when deployed
 
 - Host only sees start button which is greyed out until all the other players are ready, host is automatically assumed as ready
+
+- focus on building out frontend functionality while watching more videos to learn more about socket.io
+
+- enter button doesnt submit input area
