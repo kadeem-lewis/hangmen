@@ -1,7 +1,7 @@
 <template>
   <div>
-    <NavBar class="hidden md:flex" />
-    <main class="m-auto max-w-md md:mt-8 md:max-w-5xl">
+    <NavBar class="hidden lg:flex" />
+    <main class="m-auto max-w-md lg:mt-8 lg:max-w-7xl">
       <slot />
     </main>
   </div>
