@@ -1,10 +1,10 @@
 <template>
-  <div class="flex flex-row justify-between bg-dark-mode-500 p-2">
-    <div>
+  <div class="flex justify-between bg-dark-mode-500 p-2">
+    <div class="flex items-center justify-center gap-1">
       <span> <Icon name="heroicons:clock" size="24" /></span>
       <span>{{ "30" }}s</span>
     </div>
-    <p class="text-center text-3xl">Waiting...</p>
+    <p class="text-center text-2xl">Waiting...</p>
     <button @click="leaveGame">
       <Icon name="heroicons:home" size="24" />
     </button>

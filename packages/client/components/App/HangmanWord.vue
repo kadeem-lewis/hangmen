@@ -3,7 +3,7 @@
     <span
       v-for="(letter, index) in word"
       :key="index"
-      class="border-b-2 border-solid border-current"
+      class="font-short-stack border-b-2 border-solid border-current"
     >
       <span :class="guessedLetters.includes(letter) ? 'visible' : 'invisible'">
         {{ letter }}</span
