@@ -1,33 +1,70 @@
 <template>
-  <Dialog :open="isOpen" @close="setIsOpen">
-    <DialogPanel>
-      <DialogTitle>Deactivate account</DialogTitle>
-      <DialogDescription>
-        This will permanently deactivate your account
-      </DialogDescription>
+  <ClientOnly>
+    <HeadlessTransitionRoot appear :show="modelValue" as="template">
+      <HeadlessDialog as="div" @close="closeModal" class="relative z-10">
+        <HeadlessTransitionChild
+          as="template"
+          enter="duration-300 ease-out"
+          enter-from="opacity-0"
+          enter-to="opacity-100"
+          leave="duration-200 ease-in"
+          leave-from="opacity-100"
+          leave-to="opacity-0"
+        >
+          <div class="fixed inset-0 bg-black bg-opacity-25" />
+        </HeadlessTransitionChild>
 
-      <p>
-        Are you sure you want to deactivate your account? All of your data will
-        be permanently removed. This action cannot be undone.
-      </p>
+        <div class="fixed inset-0 overflow-y-auto">
+          <div
+            class="flex min-h-full items-center justify-center p-4 text-center"
+          >
+            <HeadlessTransitionChild
+              as="template"
+              enter="duration-300 ease-out"
+              enter-from="opacity-0 scale-95"
+              enter-to="opacity-100 scale-100"
+              leave="duration-200 ease-in"
+              leave-from="opacity-100 scale-100"
+              leave-to="opacity-0 scale-95"
+            >
+              <HeadlessDialogPanel
+                class="w-full max-w-md transform overflow-hidden rounded-md bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-dark-mode-500"
+              >
+                <HeadlessDialogTitle
+                  as="h3"
+                  class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200"
+                >
+                  {{ title }}
+                </HeadlessDialogTitle>
+                <div class="mt-2">
+                  <p class="text-sm text-gray-500">
+                    <slot />
+                  </p>
+                </div>
 
-      <button @click="setIsOpen(false)">Deactivate</button>
-      <button @click="setIsOpen(false)">Cancel</button>
-    </DialogPanel>
-  </Dialog>
+                <div class="mt-4"></div>
+              </HeadlessDialogPanel>
+            </HeadlessTransitionChild>
+          </div>
+        </div>
+      </HeadlessDialog>
+    </HeadlessTransitionRoot>
+  </ClientOnly>
 </template>
 
-<script setup>
-import {
-  Dialog,
-  DialogPanel,
-  DialogTitle,
-  DialogDescription,
-} from "@headlessui/vue";
+<script setup lang="ts">
+defineProps({
+  title: String,
+  modelValue: Boolean, // For v-model
+});
 
-const isOpen = ref(true);
+const emit = defineEmits();
 
-function setIsOpen(value) {
-  isOpen.value = value;
-}
+const openModal = () => {
+  emit("update:modelValue", true);
+};
+
+const closeModal = () => {
+  emit("update:modelValue", false);
+};
 </script>
