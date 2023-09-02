@@ -22,18 +22,13 @@
     <div class="flex">
       <button
         @click="readyUp"
-        class="m-2 w-1/2 rounded-full text-xl font-semibold transition-colors"
-        :class="
-          isReady
-            ? 'bg-green-600 hover:bg-green-500'
-            : 'bg-red-600 py-2 hover:bg-red-500'
-        "
+        class="m-2 w-1/2 rounded-lg border text-xl font-semibold transition-colors hover:bg-white hover:text-black"
       >
         {{ isReady ? "Ready" : "Not Ready" }}
       </button>
       <button
         @click="startGame"
-        class="m-2 w-1/2 rounded-full bg-blue-600 py-2 text-xl font-semibold hover:bg-blue-500"
+        class="m-2 w-1/2 rounded-lg border py-2 text-xl font-semibold hover:bg-white hover:text-black"
       >
         Start
       </button>
