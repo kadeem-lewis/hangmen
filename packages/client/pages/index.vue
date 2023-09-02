@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center justify-center">
     <div class="w-full">
-      <div class="flex flex-col items-center gap-y-4 md:flex-row">
+      <div class="flex flex-col items-center gap-y-4 lg:flex-row">
         <span class="relative">
           <img :src="avatar" alt="Avatar" />
           <button
@@ -11,8 +11,8 @@
             <Icon name="heroicons:arrow-path" size="24" />
           </button>
         </span>
-        <div class="mx-16 w-full text-left md:space-y-4">
-          <p class="hidden text-lg font-semibold uppercase md:block">
+        <div class="mx-16 w-full text-left lg:space-y-4">
+          <p class="hidden text-lg font-semibold uppercase lg:block">
             Choose a character and a nickname
           </p>
           <input
@@ -32,7 +32,7 @@
         <span class="flex-grow uppercase">Play</span>
       </button>
     </div>
-    <div class="hidden md:block">
+    <div class="hidden lg:block">
       <h4 class="text-2xl">How to play</h4>
       <p>Guess the word or something. Idk, why are you asking me??</p>
     </div>

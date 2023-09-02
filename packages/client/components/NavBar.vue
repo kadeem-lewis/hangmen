@@ -1,5 +1,5 @@
 <template>
-  <header class="flex items-center justify-between md:justify-center">
+  <header class="flex items-center justify-center">
     <NuxtLink to="/">
       <img src="../assets/logo.svg" alt="Hangman Logo" class="h-12" />
     </NuxtLink>
