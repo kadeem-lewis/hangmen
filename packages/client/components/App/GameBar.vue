@@ -4,7 +4,7 @@
       <span> <Icon name="heroicons:clock" size="24" /></span>
       <span>{{ "30" }}s</span>
     </div>
-    <p class="text-center text-2xl">Waiting...</p>
+    <AppHangmanWord />
     <button @click="leaveGame">
       <Icon name="heroicons:home" size="24" />
     </button>
