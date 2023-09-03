@@ -4,6 +4,6 @@
 
 @layer components {
   .btn {
-    @apply font-short-stack w-full rounded-lg border px-4 py-2 text-xl font-semibold hover:bg-white hover:text-black;
+    @apply w-full rounded-lg border px-4 py-2 font-short-stack text-xl font-semibold hover:bg-white hover:text-black;
   }
 }
