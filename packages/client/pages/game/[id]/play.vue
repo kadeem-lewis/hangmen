@@ -1,31 +1,11 @@
 <template>
   <div class="flex h-full flex-col justify-between gap-4">
-    <AppHangmanCanvas />
+    <div class="grid gap-4">
+      <AppHangmanCanvas />
+      <input type="text" />
+      <AppGameKeyboard />
+    </div>
     <div class="flex justify-between gap-4">
-      <div class="w-full">
-        <button class="btn text-xs lg:text-base" @click="letterClick = true">
-          Guess Letter
-        </button>
-        <UiModal v-model="letterClick" title="Guess Letter">
-          <form @submit.prevent="guessLetter">
-            <label for="letter-guess">letter</label>
-            <input type="text" name="letter-guess" />
-            <button>Guess</button>
-          </form>
-        </UiModal>
-      </div>
-      <div class="w-full">
-        <button class="btn text-xs lg:text-base" @click="wordClick = true">
-          Guess Word
-        </button>
-        <UiModal v-model="wordClick" title="Guess Word">
-          <form @submit.prevent="guessWord">
-            <label for="word-guess">Word</label>
-            <input type="text" name="word-guess" />
-            <button>Guess</button>
-          </form>
-        </UiModal>
-      </div>
       <button class="btn text-xs lg:text-base" @click="skipTurn">
         Skip Turn
       </button>
@@ -35,26 +15,6 @@
 <script setup lang="ts">
 const { $io } = useNuxtApp();
 
-const letterClick = ref(false);
-const wordClick = ref(false);
-
-const guessedLetter = ref("");
-const guessedWord = ref("");
-
-const guessLetter = () => {
-  //get the guessed letter
-  //send the guessed letter to the server
-  $io.emit(ClientEvents.GUESS_LETTER, guessedLetter.value);
-  //close the modal
-  letterClick.value = false;
-  guessedLetter.value = "";
-};
-const guessWord = () => {
-  $io.emit(ClientEvents.GUESS_WORD, guessedWord.value);
-  //close the modal
-  wordClick.value = false;
-  guessedWord.value = "";
-};
 const skipTurn = () => {
   $io.emit(ClientEvents.SKIP_TURN);
 };
