@@ -4,10 +4,14 @@
       <span> <Icon name="heroicons:clock" size="24" /></span>
       <span>{{ "30" }}s</span>
     </div>
-    <div class="flex flex-col justify-center">
+    <div
+      v-if="route.path === `/game/${roomCode}/play`"
+      class="flex flex-col justify-center"
+    >
       <span class="text-xs">{{ "player" }} is guessing</span>
       <AppHangmanWord />
     </div>
+    <div v-else>Waiting...</div>
     <button @click="leaveGame">
       <Icon name="heroicons:home" size="24" />
     </button>
