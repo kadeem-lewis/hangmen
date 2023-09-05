@@ -1,14 +1,15 @@
 <template>
-  <div class="flex justify-center gap-1 text-2xl font-bold uppercase">
+  <div class="flex justify-center gap-1 text-lg font-bold uppercase">
     <span
       v-for="(letter, index) in word"
       :key="index"
-      class="font-short-stack border-b-2 border-solid border-current"
+      class="border-b-2 border-solid border-current font-short-stack"
     >
       <span :class="guessedLetters.includes(letter) ? 'visible' : 'invisible'">
         {{ letter }}</span
       >
     </span>
+    <span class="ml-2 text-xs">{{ word.length }}</span>
   </div>
 </template>
 

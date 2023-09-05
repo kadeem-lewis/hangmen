@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center">
+  <div class="flex">
     <canvas ref="canvas" class="border-2 border-current" />
   </div>
 </template>
@@ -31,12 +31,12 @@ const initialDrawing = () => {
     ctx.strokeStyle = "#fff";
     ctx.lineWidth = 5;
     ctx.beginPath();
-    drawLine(10, 130, 130, 130); //base plank
-    drawLine(10, 5, 10, 131); //beam
-    drawLine(10, 10, 70, 10); //horizontal top plank
-    //need to draw another line for the diagonal connecting wood
+    drawLine(70, 130, 130, 130); //base plank
+    drawLine(100, 10, 100, 130); //beam
+    drawLine(80, 10, 140, 10); //horizontal top plank
+    drawLine(100, 50, 130, 10);
     ctx.lineWidth = 2;
-    drawLine(70, 10, 70, 20); //rope
+    drawLine(135, 10, 135, 20); //rope
   }
 };
 

@@ -1,10 +1,13 @@
 <template>
-  <div class="flex justify-between bg-dark-mode-500 p-2">
-    <div class="flex items-center justify-center gap-1">
+  <div class="flex justify-between bg-dark-mode-500 px-2 py-1">
+    <div class="flex flex-col items-center justify-center gap-1 lg:flex-row">
       <span> <Icon name="heroicons:clock" size="24" /></span>
       <span>{{ "30" }}s</span>
     </div>
-    <p class="text-center text-2xl">Waiting...</p>
+    <div class="flex flex-col justify-center">
+      <span class="text-xs">{{ "player" }} is guessing</span>
+      <AppHangmanWord />
+    </div>
     <button @click="leaveGame">
       <Icon name="heroicons:home" size="24" />
     </button>

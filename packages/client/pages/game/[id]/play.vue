@@ -1,56 +1,72 @@
 <template>
-  <div class="flex h-full flex-col justify-between">
-    <AppHangmanWord />
-    <AppHangmanCanvas />
-    <div class="flex justify-between gap-4">
-      <div class="w-full">
-        <button class="btn" @click="letterClick = true">Guess Letter</button>
-        <UiModal v-model="letterClick" title="Guess Letter">
-          <form @submit.prevent="guessLetter">
-            <label for="letter-guess">letter</label>
-            <input type="text" name="letter-guess" />
-            <button>Guess</button>
-          </form>
-        </UiModal>
+  <div class="flex h-full flex-col justify-between gap-4">
+    <div class="grid gap-4">
+      <div class="flex justify-between">
+        <AppHangmanCanvas />
+        <button
+          class="btn w-fit self-start text-xs lg:text-base"
+          @click="skipTurn"
+        >
+          Skip Turn
+        </button>
       </div>
-      <div class="w-full">
-        <button class="btn" @click="wordClick = true">Guess Word</button>
-        <UiModal v-model="wordClick" title="Guess Word">
-          <form @submit.prevent="guessWord">
-            <label for="word-guess">Word</label>
-            <input type="text" name="word-guess" />
-            <button>Guess</button>
-          </form>
-        </UiModal>
+      <div class="m-auto flex gap-1">
+        <input
+          v-for="(input, index) in inputs"
+          :key="index"
+          type="text"
+          v-model="input.value"
+          ref="inputElements"
+          class="h-8 w-8 rounded-lg bg-dark-mode-400 text-center"
+          maxlength="1"
+          @keydown="handleKeydown($event, index)"
+        />
       </div>
-      <button class="btn" @click="skipTurn">Skip Turn</button>
+      <AppGameKeyboard />
     </div>
+    <div class="flex justify-between gap-4"></div>
   </div>
 </template>
 <script setup lang="ts">
 const { $io } = useNuxtApp();
 
-const letterClick = ref(false);
-const wordClick = ref(false);
+const word = ref("soon");
 
-const guessedLetter = ref("");
-const guessedWord = ref("");
+const inputs = ref(
+  Array(word.value.length)
+    .fill(0)
+    .map(() => ({ value: "" })),
+);
 
-const guessLetter = () => {
-  //get the guessed letter
-  //send the guessed letter to the server
-  $io.emit(ClientEvents.GUESS_LETTER, guessedLetter.value);
-  //close the modal
-  letterClick.value = false;
-  guessedLetter.value = "";
-};
-const guessWord = () => {
-  $io.emit(ClientEvents.GUESS_WORD, guessedWord.value);
-  //close the modal
-  wordClick.value = false;
-  guessedWord.value = "";
-};
+const inputElements = ref<HTMLInputElement[]>([]);
+
 const skipTurn = () => {
   $io.emit(ClientEvents.SKIP_TURN);
 };
+
+const handleKeydown = (event: KeyboardEvent, index: number) => {
+  if (event.key === "Backspace") {
+    inputs.value[index].value = "";
+    if (index !== 0) {
+      inputElements.value[index - 1].focus();
+    }
+  } else if (event.key.length === 1 && /[a-zA-Z]/.test(event.key)) {
+    event.preventDefault();
+    inputs.value[index].value = event.key;
+
+    // Use setTimeout to delay focus to next input
+    if (index !== inputs.value.length - 1) {
+      setTimeout(() => {
+        inputElements.value[index + 1].focus();
+      }, 0);
+    }
+  }
+};
+
+watch(word, (newValue) => {
+  // Reset inputs when the word changes
+  inputs.value = Array(newValue.length)
+    .fill(0)
+    .map(() => ({ value: "" }));
+});
 </script>
