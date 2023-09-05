@@ -3,7 +3,8 @@
     <span
       v-for="letter in alphabet"
       :key="letter"
-      class="rounded-lg border font-short-stack hover:bg-white hover:text-black"
+      :disabled="true"
+      class="rounded-lg border font-short-stack hover:bg-white hover:text-black disabled:border-gray-400"
       >{{ letter }}</span
     >
   </div>
