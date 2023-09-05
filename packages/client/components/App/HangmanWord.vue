@@ -9,6 +9,7 @@
         {{ letter }}</span
       >
     </span>
+    <span class="text-xs">{{ "4" }}</span>
   </div>
 </template>
 
