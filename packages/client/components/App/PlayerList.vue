@@ -11,7 +11,7 @@
         @click="playerClick = true"
       >
         <div>
-          <div class="font-bold">#{{ index + 1 }}</div>
+          <div class="font-bold">#{{ "1" }}</div>
           <Icon v-if="players[index].isHost" name="mdi:crown" />
         </div>
         <div>
@@ -37,15 +37,12 @@
         />
         <UiModal v-model="playerClick">Hey Hey Hey</UiModal>
       </div>
-      <div v-else>
-        Waiting for player...
-
-        <button
-          @click="removePlayerSlot"
-          class="rounded-lg bg-red-600 px-2 py-1 text-sm font-medium"
+      <div v-else class="flex justify-around">
+        <span
+          class="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-dark-mode-400"
         >
-          Close Slot
-        </button>
+          <Icon name="heroicons:user" /></span
+        ><span>Empty</span>
       </div>
 
       <!-- TODO: add way to check if the current person is the host and let them see different things on screen -->
@@ -78,20 +75,6 @@ onMounted(() => {
   });
   $io.on(ServerEvents.READY_PLAYERS, (playersList) => {});
 });
-
-// Function to remove a player slot
-const removePlayerSlot = () => {
-  if (players.value.length > 0) {
-    // emit the event to server to reduce the max size of the room if required.
-  }
-};
-
-// Function to add a player slot
-const addPlayerSlot = () => {
-  if (players.value.length < 4) {
-    // Do something to add a new player or just increase the size of the room on the server.
-  }
-};
 
 const playerClick = ref(false);
 
