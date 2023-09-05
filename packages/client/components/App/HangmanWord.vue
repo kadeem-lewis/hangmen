@@ -9,7 +9,7 @@
         {{ letter }}</span
       >
     </span>
-    <span class="text-xs">{{ "4" }}</span>
+    <span class="ml-2 text-xs">{{ word.length }}</span>
   </div>
 </template>
 
