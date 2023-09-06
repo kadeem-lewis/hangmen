@@ -5,7 +5,6 @@ export default defineNuxtConfig({
     "@nuxtjs/google-fonts",
     "@nuxtjs/tailwindcss",
     "@nuxtjs/color-mode",
-    "nuxt-headlessui",
   ],
   postcss: {
     plugins: {
