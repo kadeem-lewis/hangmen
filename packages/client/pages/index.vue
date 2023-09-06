@@ -10,7 +10,7 @@
           class="absolute bottom-0 right-0 rounded-full bg-blue-600 p-1 hover:bg-blue-500"
           @click="changeAvatar"
         >
-          <Icon name="heroicons:arrow-path" size="24" />
+          <Icon icon="heroicons:arrow-path" :inline="true" class="text-2xl" />
         </button>
       </span>
       <div class="mx-16 w-full text-left lg:space-y-4">
@@ -30,7 +30,7 @@
         @click="register"
         class="btn mx-auto mt-8 flex w-1/2 items-center gap-x-4 py-2 pl-4 text-xl font-semibold"
       >
-        <Icon name="heroicons:play-solid" size="24" />
+        <Icon icon="heroicons:play" :inline="true" class="text-2xl" />
         <span class="flex-grow uppercase">Play</span>
       </button>
     </div>
@@ -42,6 +42,7 @@
 </template>
 
 <script setup lang="ts">
+import { Icon } from "@iconify/vue";
 import { nanoid } from "nanoid";
 const { $io } = useNuxtApp();
 import { createAvatar } from "@dicebear/core";

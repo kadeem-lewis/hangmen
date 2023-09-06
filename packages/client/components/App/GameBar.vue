@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-between bg-dark-mode-500 px-2 py-1">
-    <div class="flex flex-col items-center justify-center gap-1 lg:flex-row">
-      <span> <Icon name="heroicons:clock" size="24" /></span>
+    <div class="flex flex-col items-center justify-center gap-px lg:flex-row">
+      <Icon icon="heroicons:clock" :inline="true" class="text-xl lg:text-2xl" />
       <span>{{ "30" }}s</span>
     </div>
     <div
@@ -13,12 +13,13 @@
     </div>
     <div v-else>Waiting...</div>
     <button @click="leaveGame">
-      <Icon name="heroicons:home" size="24" />
+      <Icon icon="heroicons:home" :inline="true" class="text-xl lg:text-2xl" />
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
+import { Icon } from "@iconify/vue";
 const { $io } = useNuxtApp();
 
 const route = useRoute();

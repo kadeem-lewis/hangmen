@@ -12,7 +12,7 @@
       >
         <div>
           <div class="font-bold">#{{ "1" }}</div>
-          <Icon v-if="players[index].isHost" name="mdi:crown" />
+          <Icon v-if="players[index].isHost" icon="mdi:crown" :inline="true" />
         </div>
         <div>
           <div>
@@ -33,7 +33,7 @@
         <!-- TODO: show (You) next to the player, show points, avatar and show rankings -->
         <Icon
           v-if="players[index].isReady"
-          name="material-symbols:check-circle"
+          icon="material-symbols:check-circle"
         />
         <UiModal v-model="playerClick">Hey Hey Hey</UiModal>
       </div>
@@ -41,7 +41,7 @@
         <span
           class="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-dark-mode-400"
         >
-          <Icon name="heroicons:user" /></span
+          <Icon icon="heroicons:user" :inline="true" /></span
         ><span>Empty</span>
       </div>
 
@@ -51,6 +51,7 @@
 </template>
 
 <script setup lang="ts">
+import { Icon } from "@iconify/vue";
 import { createAvatar } from "@dicebear/core";
 import { adventurerNeutral } from "@dicebear/collection";
 

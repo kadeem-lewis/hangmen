@@ -37,7 +37,7 @@
                   {{ title }}
                 </HeadlessDialogTitle>
                 <button @click="closeModal" class="absolute right-6 top-6">
-                  <Icon name="heroicons:x-mark" />
+                  <Icon icon="heroicons:x-mark" :inline="true" />
                 </button>
                 <div class="mt-2">
                   <div>
