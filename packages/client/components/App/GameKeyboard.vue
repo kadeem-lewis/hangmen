@@ -1,12 +1,13 @@
 <template>
   <div class="grid grid-cols-9 gap-2 text-center uppercase">
-    <span
+    <button
       v-for="letter in alphabet"
       :key="letter"
       :disabled="true"
       class="rounded-lg border font-short-stack hover:bg-white hover:text-black disabled:border-gray-400"
-      >{{ letter }}</span
     >
+      {{ letter }}
+    </button>
   </div>
 </template>
 

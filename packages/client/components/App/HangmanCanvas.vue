@@ -1,7 +1,5 @@
 <template>
-  <div class="flex">
-    <canvas ref="canvas" class="border-2 border-current" />
-  </div>
+  <canvas ref="canvas" class="border-2 border-current" />
 </template>
 
 <script setup lang="ts">
