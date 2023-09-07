@@ -1,25 +1,22 @@
 <template>
-  <div class="flex h-full flex-col justify-between gap-4">
-    <div class="grid gap-4">
-      <div class="flex justify-between">
-        <AppHangmanCanvas />
-      </div>
-      <div class="m-auto flex gap-1">
-        <input
-          v-for="(input, index) in inputs"
-          :key="index"
-          type="text"
-          v-model="input.value"
-          ref="inputElements"
-          class="h-8 w-8 rounded-lg bg-dark-mode-400 text-center"
-          maxlength="1"
-          @focus="setCurrentIndex(index)"
-          @keydown="handleKeydown($event, index)"
-        />
-      </div>
-      <AppGameKeyboard />
+  <div class="grid gap-4">
+    <AppHangmanCanvas />
+    <div class="m-auto flex gap-1">
+      <input
+        v-for="(input, index) in inputs"
+        :key="index"
+        type="text"
+        v-model="input.value"
+        ref="inputElements"
+        class="h-8 w-8 rounded-lg bg-dark-mode-400 text-center"
+        maxlength="1"
+        @focus="setCurrentIndex(index)"
+        @keydown="handleKeydown($event, index)"
+      />
     </div>
-    <!-- <div class="flex justify-between gap-4">
+    <AppGameKeyboard />
+  </div>
+  <!-- <div class="flex justify-between gap-4">
       <button
         class="btn w-fit self-start text-xs lg:text-base"
         @click="skipTurn"
@@ -27,7 +24,6 @@
         Skip Turn
       </button>
     </div> -->
-  </div>
 </template>
 <script setup lang="ts">
 const { $io } = useNuxtApp();
