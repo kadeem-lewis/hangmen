@@ -34,6 +34,7 @@
         <Icon
           v-if="players[index].isReady"
           icon="material-symbols:check-circle"
+          :inline="true"
         />
         <UiModal v-model="playerClick">Hey Hey Hey</UiModal>
       </div>
