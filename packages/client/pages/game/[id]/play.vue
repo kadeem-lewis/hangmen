@@ -3,12 +3,6 @@
     <div class="grid gap-4">
       <div class="flex justify-between">
         <AppHangmanCanvas />
-        <button
-          class="btn w-fit self-start text-xs lg:text-base"
-          @click="skipTurn"
-        >
-          Skip Turn
-        </button>
       </div>
       <div class="m-auto flex gap-1">
         <input
@@ -25,7 +19,14 @@
       </div>
       <AppGameKeyboard />
     </div>
-    <div class="flex justify-between gap-4"></div>
+    <!-- <div class="flex justify-between gap-4">
+      <button
+        class="btn w-fit self-start text-xs lg:text-base"
+        @click="skipTurn"
+      >
+        Skip Turn
+      </button>
+    </div> -->
   </div>
 </template>
 <script setup lang="ts">
