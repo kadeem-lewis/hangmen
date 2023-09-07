@@ -3,7 +3,8 @@
     <button
       v-for="letter in alphabet"
       :key="letter"
-      :disabled="true"
+      :disabled="false"
+      @click="updateInput(letter)"
       class="rounded-lg border font-short-stack hover:bg-white hover:text-black disabled:border-gray-400"
     >
       {{ letter }}
@@ -12,32 +13,19 @@
 </template>
 
 <script setup lang="ts">
-const alphabet = [
-  "a",
-  "b",
-  "c",
-  "d",
-  "e",
-  "f",
-  "g",
-  "h",
-  "i",
-  "j",
-  "k",
-  "l",
-  "m",
-  "n",
-  "o",
-  "p",
-  "q",
-  "r",
-  "s",
-  "t",
-  "u",
-  "v",
-  "w",
-  "x",
-  "y",
-  "z",
-];
+type Input = {
+  value: string;
+};
+const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+
+const inputs = useState<Input[]>("inputs");
+const currentIndex: Ref<number> = useState("index");
+
+const updateInput = (letter: string) => {
+  if (currentIndex.value < inputs.value.length) {
+    // Update the current input and move to the next one
+    inputs.value[currentIndex.value].value = letter;
+    currentIndex.value++;
+  }
+};
 </script>
