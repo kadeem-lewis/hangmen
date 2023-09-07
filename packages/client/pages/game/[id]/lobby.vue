@@ -12,8 +12,18 @@
             class="rounded-lg p-2"
             :class="isCopied ? 'bg-green-600' : 'bg-sky-600  hover:bg-sky-500'"
           >
-            <Icon v-if="!isCopied" name="mdi:clipboard" size="24" />
-            <Icon v-else name="mdi:clipboard-check" size="24" />
+            <Icon
+              v-if="!isCopied"
+              icon="mdi:clipboard"
+              :inline="true"
+              class="text-2xl"
+            />
+            <Icon
+              v-else
+              icon="mdi:clipboard-check"
+              :inline="true"
+              class="text-2xl"
+            />
           </button>
         </div>
       </div>
@@ -35,6 +45,7 @@
 </template>
 
 <script setup lang="ts">
+import { Icon } from "@iconify/vue";
 const { $io } = useNuxtApp();
 
 const route = useRoute();

@@ -15,16 +15,16 @@
     "@dicebear/collection": "^6.0.4",
     "@dicebear/core": "^6.0.4",
     "@hangmen/shared": "workspace:^",
+    "@headlessui/vue": "^1.7.16",
     "socket.io-client": "^4.7.2"
   },
   "devDependencies": {
+    "@iconify/vue": "^4.1.1",
     "@nuxt/devtools": "latest",
     "@nuxtjs/color-mode": "^3.3.0",
     "@nuxtjs/google-fonts": "^3.0.2",
     "@nuxtjs/tailwindcss": "^6.8.0",
     "nuxt": "^3.6.5",
-    "nuxt-headlessui": "^1.1.4",
-    "nuxt-icon": "^0.5.0",
     "prettier-plugin-tailwindcss": "^0.5.3"
   }
 }
