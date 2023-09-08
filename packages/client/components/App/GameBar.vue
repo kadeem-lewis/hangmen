@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-between bg-dark-mode-500 px-2 py-1">
+  <div class="flex items-center justify-between bg-dark-mode-500 px-2 py-1">
     <div class="flex flex-col items-center justify-center gap-px lg:flex-row">
       <Icon icon="heroicons:clock" :inline="true" class="text-xl lg:text-2xl" />
       <span>{{ "30" }}s</span>
@@ -12,7 +12,7 @@
       <AppHangmanWord />
     </div>
     <div v-else>Waiting...</div>
-    <button @click="leaveGame">
+    <button @click="leaveGame" class="rounded-md p-1 hover:bg-dark-mode-600">
       <Icon icon="heroicons:home" :inline="true" class="text-xl lg:text-2xl" />
     </button>
   </div>
