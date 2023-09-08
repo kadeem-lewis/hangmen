@@ -68,12 +68,11 @@ const register = () => {
 };
 const generateAvatar = () => {
   const svg = createAvatar(adventurerNeutral, {
-    size: window.innerWidth >= 448 ? 128 : 96,
+    size: window.innerWidth >= 448 ? 128 : 96, //TODO: set standard size and change size using css?
     radius: 50,
     scale: 90,
     seed: seed.value,
   }).toDataUriSync();
-  console.log(svg);
   avatar.value = svg;
 };
 const changeAvatar = () => {
