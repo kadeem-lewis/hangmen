@@ -3,6 +3,7 @@ type User = {
   userId: string;
   isHost: boolean;
   isReady: boolean;
+  avatar: string;
 };
 export enum ServerEvents {
   CREATE_ROOM = "create-room",
@@ -76,4 +77,5 @@ export interface SocketData {
   userId: string;
   isHost: boolean;
   points: number;
+  avatar: string;
 }

@@ -76,7 +76,6 @@ export const roomHandler = (
       });
     }
   });
-  socket.on(ClientEvents.REJOIN_ROOM, (roomCode, cb) => {});
   socket.on(ClientEvents.SEND_MESSAGE, (id, text) => {
     //this works fine for now but I need to add a timestamp and determine if to keep io functionality or not
     io.in(socket.data.roomId).emit(ServerEvents.RECEIVE_MESSAGE, {

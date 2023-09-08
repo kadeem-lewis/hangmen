@@ -45,6 +45,17 @@ instrument(io, {
 
 io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
+
+  io.use((socket, next) => {
+    const { username, avatar } = socket.handshake.auth;
+    if (!username) {
+      return next(new Error("invalid username"));
+    }
+    socket.data = { ...socket.data, username, avatar };
+
+    next();
+  });
+
   userHandler(io, socket);
   roomHandler(io, socket);
   gameHandler(io, socket);

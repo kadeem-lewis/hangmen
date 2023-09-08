@@ -27,13 +27,13 @@
           <div>{{ 0 }} points</div>
         </div>
         <div>
-          <img :src="avatar" alt="player avatar" />
+          <img :src="players[index].avatar" alt="player avatar" class="w-12" />
         </div>
 
         <!-- TODO: show (You) next to the player, show points, avatar and show rankings -->
         <Icon
           v-if="players[index].isReady"
-          icon="material-symbols:check-circle"
+          icon="heroicons:check-circle"
           :inline="true"
         />
         <UiModal v-model="playerClick">Hey Hey Hey</UiModal>
@@ -53,8 +53,6 @@
 
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
-import { createAvatar } from "@dicebear/core";
-import { adventurerNeutral } from "@dicebear/collection";
 
 const { $io } = useNuxtApp();
 
@@ -63,6 +61,7 @@ type Player = {
   username: string;
   isHost: boolean;
   isReady: boolean;
+  avatar: string;
 };
 
 const players = ref<Player[]>([]);
@@ -79,14 +78,6 @@ onMounted(() => {
 });
 
 const playerClick = ref(false);
-
-const svg = createAvatar(adventurerNeutral, {
-  size: 42,
-  radius: 50,
-  scale: 90,
-}).toDataUriSync();
-
-const avatar = ref(svg);
 
 onBeforeUnmount(() => {
   $io.off(ServerEvents.NEW_PLAYER);

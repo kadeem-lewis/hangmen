@@ -19,7 +19,7 @@ type Input = {
 const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
 
 const inputs = useState<Input[]>("inputs");
-const currentIndex: Ref<number> = useState("index");
+const currentIndex = useState<number>("index");
 
 const updateInput = (letter: string) => {
   if (currentIndex.value < inputs.value.length) {

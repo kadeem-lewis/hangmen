@@ -43,7 +43,6 @@
 
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
-import { nanoid } from "nanoid";
 const { $io } = useNuxtApp();
 import { createAvatar } from "@dicebear/core";
 import { adventurerNeutral } from "@dicebear/collection";
@@ -60,20 +59,16 @@ onMounted(() => {
 });
 
 const register = () => {
-  if (localStorage.getItem("userId") !== null) {
-    userId.value = localStorage.getItem("userId") as string;
-  } else {
-    userId.value = nanoid();
-    localStorage.setItem("userId", userId.value);
-  }
   localStorage.setItem("username", username.value);
   localStorage.setItem("userSeed", seed.value);
   $io.emit(ClientEvents.REGISTER, username.value, userId.value);
+  $io.auth = { username: username.value, avatar: avatar.value };
+  $io.connect();
   navigateTo({ path: "/mode" });
 };
 const generateAvatar = () => {
   const svg = createAvatar(adventurerNeutral, {
-    size: window.innerWidth >= 448 ? 128 : 96,
+    size: window.innerWidth >= 448 ? 128 : 96, //TODO: set standard size and change size using css?
     radius: 50,
     scale: 90,
     seed: seed.value,

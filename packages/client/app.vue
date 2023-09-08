@@ -19,8 +19,6 @@ useHead({
 });
 const { $io } = useNuxtApp();
 
-$io.connect();
-
 $io.onAny((event, ...args) => {
   console.log(event, args);
 });
