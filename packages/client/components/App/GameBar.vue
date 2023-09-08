@@ -12,9 +12,21 @@
       <AppHangmanWord />
     </div>
     <div v-else>Waiting...</div>
-    <button @click="leaveGame" class="rounded-md p-1 hover:bg-dark-mode-600">
+    <button
+      @click="leaveClick = true"
+      class="rounded-md p-1 hover:bg-dark-mode-600"
+    >
       <Icon icon="heroicons:home" :inline="true" class="text-xl lg:text-2xl" />
     </button>
+    <UiModal v-model="leaveClick">
+      <p class="text-center text-2xl">Are you sure you want to leave?</p>
+      <div class="flex gap-4">
+        <button @click="leaveGame" class="btn text-base">Yes</button>
+        <button @click="leaveClick = false" class="btn text-base">
+          Cancel
+        </button>
+      </div>
+    </UiModal>
   </div>
 </template>
 
@@ -25,6 +37,8 @@ const hasLeftRoom = useState("hasLeftRoom", () => false);
 
 const route = useRoute();
 const roomCode = ref(route.params.id);
+
+const leaveClick = ref(false);
 
 const leaveGame = () => {
   $io.emit(ClientEvents.LEAVE_ROOM, roomCode.value as string, (response) => {
