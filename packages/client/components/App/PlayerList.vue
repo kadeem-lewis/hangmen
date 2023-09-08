@@ -27,7 +27,7 @@
           <div>{{ 0 }} points</div>
         </div>
         <div>
-          <img :src="players[index].avatar" alt="player avatar" />
+          <img :src="players[index].avatar" alt="player avatar" class="w-12" />
         </div>
 
         <!-- TODO: show (You) next to the player, show points, avatar and show rankings -->
