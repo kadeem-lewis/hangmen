@@ -3,6 +3,7 @@ type User = {
   userId: string;
   isHost: boolean;
   isReady: boolean;
+  avatar: string;
 };
 export enum ServerEvents {
   CREATE_ROOM = "create-room",
