@@ -21,6 +21,7 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
 const { $io } = useNuxtApp();
+const hasLeftRoom = useState("hasLeftRoom", () => false);
 
 const route = useRoute();
 const roomCode = ref(route.params.id);
@@ -28,6 +29,7 @@ const roomCode = ref(route.params.id);
 const leaveGame = () => {
   $io.emit(ClientEvents.LEAVE_ROOM, roomCode.value as string, (response) => {
     if (response.status === "ok") {
+      hasLeftRoom.value = true;
       navigateTo({ path: "/mode" });
     } else {
       console.error("An error has occurred");
