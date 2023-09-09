@@ -20,7 +20,7 @@ export default defineNuxtConfig({
   plugins: ["./plugins/socket.io"],
   googleFonts: {
     families: {
-      "Open+Sans": true,
+      // "Open+Sans": true,
       "Short+Stack": true,
     },
     display: "swap",
