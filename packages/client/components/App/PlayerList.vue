@@ -19,10 +19,7 @@
             <span class="font-bold">
               {{ players[key].username }}
             </span>
-            <span v-if="$io.id">
-              <!-- TODO: show this player is the current socket -->
-              ( You )
-            </span>
+            <span v-if="$io.id === key"> ( You ) </span>
           </div>
           <div>{{ 0 }} points</div>
         </div>
@@ -45,8 +42,6 @@
           <Icon icon="heroicons:user" :inline="true" /></span
         ><span>Empty</span>
       </div>
-
-      <!-- TODO: add way to check if the current person is the host and let them see different things on screen -->
     </li>
   </ul>
 </template>
@@ -58,7 +53,6 @@ import { User } from "@hangmen/shared";
 const { $io } = useNuxtApp();
 
 const players = useState<{ [id: string]: User } | null>("players");
-//TODO: convert players to object and use for in to get keys and get data that way
 
 onMounted(() => {
   $io.on(ServerEvents.PLAYER_LEAVE_ROOM, ({ userId }) => {
