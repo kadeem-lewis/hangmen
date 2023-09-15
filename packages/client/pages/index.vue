@@ -5,7 +5,7 @@
     >
       <span class="relative">
         <!-- Avatar -->
-        <img :src="avatar" alt="Avatar" />
+        <img :src="avatar" alt="Avatar" class="w-24 lg:w-32" />
         <button
           class="absolute bottom-0 right-0 rounded-full bg-blue-600 p-1 hover:bg-blue-500"
           @click="changeAvatar"
@@ -68,7 +68,7 @@ const register = () => {
 };
 const generateAvatar = () => {
   const svg = createAvatar(adventurerNeutral, {
-    size: window.innerWidth >= 448 ? 128 : 96, //TODO: set standard size and change size using css?
+    size: 128, //TODO: set standard size and change size using css?
     radius: 50,
     scale: 90,
     seed: seed.value,
