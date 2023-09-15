@@ -46,12 +46,23 @@
 
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
+import { User } from "@hangmen/shared";
 const { $io } = useNuxtApp();
 
 const route = useRoute();
 const roomCode = ref("");
 const isCopied = ref(false);
 const isReady = ref(false);
+const isHost = ref(false);
+
+const players = useState<{ [id: string]: User }>("players");
+
+for (let playerKey in players) {
+  if (players.value[playerKey].isHost && playerKey === $io.id) {
+    isHost.value = true;
+  }
+}
+
 onMounted(() => {
   roomCode.value = route.params.id as string;
 });

@@ -64,7 +64,8 @@ type Player = {
   avatar: string;
 };
 
-const players = ref<Player[]>([]);
+const players = useState<Player[]>("players", () => []);
+//TODO: convert players to object and use for in to get keys and get data that way
 
 onMounted(() => {
   $io.on(ServerEvents.NEW_PLAYER, (_, playersList) => {
