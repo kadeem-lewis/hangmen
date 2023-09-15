@@ -1,23 +1,23 @@
 <template>
-  <ul class="flex flex-col gap-y-2">
+  <ul v-if="players" class="flex flex-col gap-y-2">
     <li
       class="rounded-md bg-dark-mode-500 p-2 text-center"
-      v-for="(slot, index) in 4"
-      :key="index"
+      v-for="(player, key) in players"
+      :key="key"
     >
       <div
-        v-if="players[index]"
+        v-if="players[key]"
         class="flex flex-row justify-between"
         @click="playerClick = true"
       >
         <div>
           <div class="font-bold">#{{ "1" }}</div>
-          <Icon v-if="players[index].isHost" icon="mdi:crown" :inline="true" />
+          <Icon v-if="players[key].isHost" icon="mdi:crown" :inline="true" />
         </div>
         <div>
           <div>
             <span class="font-bold">
-              {{ players[index].username }}
+              {{ players[key].username }}
             </span>
             <span v-if="$io.id">
               <!-- TODO: show this player is the current socket -->
@@ -27,12 +27,12 @@
           <div>{{ 0 }} points</div>
         </div>
         <div>
-          <img :src="players[index].avatar" alt="player avatar" class="w-12" />
+          <img :src="players[key].avatar" alt="player avatar" class="w-12" />
         </div>
 
         <!-- TODO: show (You) next to the player, show points, avatar and show rankings -->
         <Icon
-          v-if="players[index].isReady"
+          v-if="players[key].isReady"
           icon="heroicons:check-circle"
           :inline="true"
         />
@@ -53,35 +53,30 @@
 
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
+import { User } from "@hangmen/shared";
 
 const { $io } = useNuxtApp();
 
-type Player = {
-  userId: string;
-  username: string;
-  isHost: boolean;
-  isReady: boolean;
-  avatar: string;
-};
-
-const players = useState<Player[]>("players", () => []);
+const players = useState<{ [id: string]: User } | null>("players");
 //TODO: convert players to object and use for in to get keys and get data that way
 
 onMounted(() => {
-  $io.on(ServerEvents.NEW_PLAYER, (_, playersList) => {
-    players.value = Object.values(playersList);
-    //TODO: Since playersList is an array it doesn't contain the socket.io to compare to the client side version
-  });
   $io.on(ServerEvents.PLAYER_LEAVE_ROOM, ({ userId }) => {
-    players.value = players.value.filter((p) => p.userId !== userId);
+    if (players.value) {
+      Object.keys(players.value).forEach((key) => {
+        if (players.value && players.value[key].userId === userId) {
+          delete players.value[key];
+        }
+      });
+    }
   });
+
   $io.on(ServerEvents.READY_PLAYERS, (playersList) => {});
 });
 
 const playerClick = ref(false);
 
 onBeforeUnmount(() => {
-  $io.off(ServerEvents.NEW_PLAYER);
   $io.off(ServerEvents.PLAYER_LEAVE_ROOM);
 });
 </script>

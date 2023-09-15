@@ -30,14 +30,10 @@
     </AppGameSettings>
 
     <div>
-      <button v-if="true" :disabled="false" @click="startGame" class="btn">
+      <button v-if="isHost" :disabled="false" @click="startGame" class="btn">
         Start
       </button>
-      <button
-        v-else
-        @click="readyUp"
-        class="rounded-lg border text-xl font-semibold transition-colors hover:bg-white hover:text-black"
-      >
+      <button v-else @click="readyUp" class="btn">
         {{ isReady ? "Ready" : "Not Ready" }}
       </button>
     </div>
@@ -55,16 +51,20 @@ const isCopied = ref(false);
 const isReady = ref(false);
 const isHost = ref(false);
 
-const players = useState<{ [id: string]: User }>("players");
-
-for (let playerKey in players) {
-  if (players.value[playerKey].isHost && playerKey === $io.id) {
-    isHost.value = true;
-  }
-}
+const players = useState<{ [id: string]: User } | null>("players", () => null);
 
 onMounted(() => {
   roomCode.value = route.params.id as string;
+
+  $io.on(ServerEvents.NEW_PLAYER, (_, playersList) => {
+    players.value = playersList;
+
+    for (let playerKey in players.value) {
+      if (players.value[playerKey].isHost && playerKey === $io.id) {
+        isHost.value = true;
+      }
+    }
+  });
 });
 
 const startGame = () => {
@@ -81,4 +81,8 @@ const copyCode = () => {
     isCopied.value = false;
   }, 2000);
 };
+
+onBeforeUnmount(() => {
+  $io.off(ServerEvents.NEW_PLAYER);
+});
 </script>
