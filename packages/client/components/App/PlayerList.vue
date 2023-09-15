@@ -68,7 +68,7 @@ const players = ref<Player[]>([]);
 
 onMounted(() => {
   $io.on(ServerEvents.NEW_PLAYER, (_, playersList) => {
-    players.value = playersList;
+    players.value = Object.values(playersList);
     //TODO: Since playersList is an array it doesn't contain the socket.io to compare to the client side version
   });
   $io.on(ServerEvents.PLAYER_LEAVE_ROOM, ({ userId }) => {

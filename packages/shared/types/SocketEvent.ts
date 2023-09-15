@@ -1,4 +1,4 @@
-type User = {
+export type User = {
   username: string;
   userId: string;
   isHost: boolean;
@@ -30,7 +30,10 @@ export enum ClientEvents {
 
 export interface ServerPayloads {
   [ServerEvents.CREATE_ROOM]: (roomCode: string) => void;
-  [ServerEvents.NEW_PLAYER]: (user: User, playerList: User[]) => void;
+  [ServerEvents.NEW_PLAYER]: (
+    user: User,
+    playerList: { [id: string]: User }
+  ) => void;
 
   [ServerEvents.RECEIVE_MESSAGE]: (Object: {
     id: string;

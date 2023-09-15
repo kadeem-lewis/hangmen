@@ -1,8 +1,8 @@
 import { customAlphabet } from "nanoid";
-
+import { User } from "@hangmen/shared";
 export class Room {
   code: string;
-  players: { [id: string]: any };
+  players: { [id: string]: User };
   maxPlayers: number;
   readyPlayers: Set<string> = new Set();
 
@@ -39,7 +39,7 @@ export class Room {
 
   getPlayers() {
     //getter to change object values to an array
-    return Object.values(this.players);
+    return this.players;
   }
   setPlayerReady(playerId: string) {
     this.readyPlayers.add(playerId);
