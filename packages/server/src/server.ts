@@ -56,6 +56,12 @@ io.on("connection", (socket) => {
     next();
   });
 
+  socket.data.reset = function () {
+    this.roomId = "";
+    this.isReady = false;
+    this.isHost = false; //TODO: might cause issues on game reset
+    this.points = 0;
+  };
   userHandler(io, socket);
   roomHandler(io, socket);
   gameHandler(io, socket);

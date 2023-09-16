@@ -81,4 +81,5 @@ export interface SocketData {
   isHost: boolean;
   points: number;
   avatar: string;
+  reset: () => void;
 }
