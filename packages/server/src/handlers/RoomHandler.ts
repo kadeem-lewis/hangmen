@@ -56,7 +56,7 @@ export const roomHandler = (
     //on leave room remove the player from the room, remove the room from the players current room and delete the room if the player count is 0.
     if (roomCode in activeRooms && socket.id in activeRooms[roomCode].players) {
       activeRooms[roomCode].removePlayer(socket.id);
-      socket.data.roomId = "";
+      socket.data.reset();
       if (Object.keys(activeRooms[roomCode].players).length === 0) {
         delete activeRooms[roomCode];
       }
