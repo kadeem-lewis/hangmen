@@ -55,3 +55,5 @@ socket.io improvement tips
 - Host only sees start button which is greyed out until all the other players are ready, host is automatically assumed as ready
 
 - focus on building out frontend functionality while watching more videos to learn more about socket.io
+- implement ready state and game start
+- fix joining room not always showing name and icon on side

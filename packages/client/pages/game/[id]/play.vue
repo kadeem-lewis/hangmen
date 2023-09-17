@@ -91,4 +91,12 @@ watch(currentIndex, (newValue) => {
     inputElements.value[newValue].focus();
   }
 });
+
+//TODO: currently conflicts with leave game button if on play page, should be modal
+onBeforeRouteLeave((to, from) => {
+  const answer = window.confirm(
+    "Do you really want to leave? you have unsaved changes!",
+  );
+  if (!answer) return false;
+});
 </script>

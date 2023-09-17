@@ -27,21 +27,18 @@ export const roomHandler = (
   socket.on(ClientEvents.JOIN_ROOM, (roomCode, callback) => {
     if (activeRooms[roomCode]) {
       socket.join(roomCode);
+      socket.data.roomId = roomCode;
+      activeRooms[roomCode].addPlayer(socket.id, socket.data);
       setTimeout(() => {
         //temporary fix to issue
-        console.log(socket.data);
-        activeRooms[roomCode].addPlayer(socket.id, socket.data);
-        socket.data.roomId = roomCode;
         io.in(roomCode).emit(
           ServerEvents.NEW_PLAYER,
           socket.data,
           activeRooms[roomCode].getPlayers()
         );
-      });
+      }, 200);
 
-      console.log(activeRooms[roomCode]);
-      console.log(socket.rooms);
-      console.log(activeRooms[roomCode].getPlayers());
+      console.log("Current Socket is in these rooms: ", socket.rooms);
       callback({
         status: "ok",
       });
@@ -56,7 +53,7 @@ export const roomHandler = (
     //on leave room remove the player from the room, remove the room from the players current room and delete the room if the player count is 0.
     if (roomCode in activeRooms && socket.id in activeRooms[roomCode].players) {
       activeRooms[roomCode].removePlayer(socket.id);
-      socket.data.roomId = "";
+      socket.data.reset();
       if (Object.keys(activeRooms[roomCode].players).length === 0) {
         delete activeRooms[roomCode];
       }
@@ -78,10 +75,13 @@ export const roomHandler = (
   });
   socket.on(ClientEvents.SEND_MESSAGE, (id, text) => {
     //this works fine for now but I need to add a timestamp and determine if to keep io functionality or not
+    const date = new Date();
+
     io.in(socket.data.roomId).emit(ServerEvents.RECEIVE_MESSAGE, {
       id,
       sender: socket.data.username,
       text,
+      time: `${date.getHours()}:${date.getMinutes()}`,
     });
   });
   socket.on(ClientEvents.PLAYER_READY, (isReady) => {
@@ -95,7 +95,7 @@ export const roomHandler = (
     }
     io.in(roomCode).emit(
       ServerEvents.READY_PLAYERS,
-      activeRooms[roomCode].readyPlayers //client does have access to have id system
+      activeRooms[roomCode].readyPlayers //client doesn't have access to have id system
     );
   });
 };

@@ -1,6 +1,7 @@
 <template>
   <form class="relative flex" @submit.prevent="sendMessage">
     <input
+      id="chat-input"
       type="text"
       class="grow rounded-sm bg-dark-mode-400 py-2 pl-4 pr-12 outline-none"
       placeholder="Enter Message..."

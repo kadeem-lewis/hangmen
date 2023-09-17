@@ -1,9 +1,16 @@
-type User = {
+export type User = {
   username: string;
   userId: string;
   isHost: boolean;
   isReady: boolean;
   avatar: string;
+};
+
+export type Message = {
+  id: string;
+  sender: string;
+  text: string;
+  time: string;
 };
 export enum ServerEvents {
   CREATE_ROOM = "create-room",
@@ -14,7 +21,6 @@ export enum ServerEvents {
   GAME_START = "game-start",
 }
 export enum ClientEvents {
-  REGISTER = "register",
   REQUEST_ROOM_CODE = "request-room-code",
   JOIN_ROOM = "join-room",
   SEND_MESSAGE = "send-message",
@@ -30,20 +36,18 @@ export enum ClientEvents {
 
 export interface ServerPayloads {
   [ServerEvents.CREATE_ROOM]: (roomCode: string) => void;
-  [ServerEvents.NEW_PLAYER]: (user: User, playerList: User[]) => void;
+  [ServerEvents.NEW_PLAYER]: (
+    user: User,
+    playerList: { [id: string]: User }
+  ) => void;
 
-  [ServerEvents.RECEIVE_MESSAGE]: (Object: {
-    id: string;
-    sender: string;
-    text: string;
-  }) => void;
+  [ServerEvents.RECEIVE_MESSAGE]: (message: Message) => void;
 
   [ServerEvents.PLAYER_LEAVE_ROOM]: (user: User) => void;
   [ServerEvents.READY_PLAYERS]: (readyPlayers: Set<string>) => void;
   [ServerEvents.GAME_START]: () => void;
 }
 export interface ClientPayloads {
-  [ClientEvents.REGISTER]: (username: string, userId: string) => void;
   [ClientEvents.REQUEST_ROOM_CODE]: () => void;
   [ClientEvents.JOIN_ROOM]: (
     roomCode: string,
@@ -78,4 +82,5 @@ export interface SocketData {
   isHost: boolean;
   points: number;
   avatar: string;
+  reset: () => void;
 }
