@@ -46,7 +46,7 @@ import { User } from "@hangmen/shared";
 const { $io } = useNuxtApp();
 
 const route = useRoute();
-const roomCode = ref("");
+const roomCode = ref(route.params.id as string);
 const isCopied = ref(false);
 const isReady = ref(false);
 const isHost = ref(false);
@@ -54,8 +54,6 @@ const isHost = ref(false);
 const players = useState<{ [id: string]: User } | null>("players", () => null);
 
 onMounted(() => {
-  roomCode.value = route.params.id as string;
-
   $io.on(ServerEvents.NEW_PLAYER, (_, playersList) => {
     players.value = playersList;
 
