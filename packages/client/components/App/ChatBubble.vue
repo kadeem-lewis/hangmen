@@ -1,19 +1,17 @@
 <template>
-  <p
-    :class="[
-      sender === 'Announcer' ? 'text-red-500' : ' text-black dark:text-white',
-    ]"
-  >
-    <strong>{{ sender }}:</strong
-    ><span class="break-words">&nbsp;{{ message }}</span>
-  </p>
+  <div class="flex justify-between text-black dark:text-white">
+    <div class="flex">
+      <b>{{ sender }}:</b>
+      <p class="break-words">&nbsp;{{ text }}</p>
+    </div>
+    <span class="text-xs">{{ time }}</span>
+  </div>
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   sender: string;
-  message: string;
+  text: string;
+  time: string;
 }>();
-
-const { sender, message } = props;
 </script>
