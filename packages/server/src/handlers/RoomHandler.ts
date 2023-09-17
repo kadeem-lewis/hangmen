@@ -78,10 +78,13 @@ export const roomHandler = (
   });
   socket.on(ClientEvents.SEND_MESSAGE, (id, text) => {
     //this works fine for now but I need to add a timestamp and determine if to keep io functionality or not
+    const date = new Date();
+
     io.in(socket.data.roomId).emit(ServerEvents.RECEIVE_MESSAGE, {
       id,
       sender: socket.data.username,
       text,
+      time: `${date.getHours()}:${date.getMinutes()}`,
     });
   });
   socket.on(ClientEvents.PLAYER_READY, (isReady) => {
