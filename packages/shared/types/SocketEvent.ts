@@ -21,7 +21,6 @@ export enum ServerEvents {
   GAME_START = "game-start",
 }
 export enum ClientEvents {
-  REGISTER = "register",
   REQUEST_ROOM_CODE = "request-room-code",
   JOIN_ROOM = "join-room",
   SEND_MESSAGE = "send-message",
@@ -49,7 +48,6 @@ export interface ServerPayloads {
   [ServerEvents.GAME_START]: () => void;
 }
 export interface ClientPayloads {
-  [ClientEvents.REGISTER]: (username: string, userId: string) => void;
   [ClientEvents.REQUEST_ROOM_CODE]: () => void;
   [ClientEvents.JOIN_ROOM]: (
     roomCode: string,

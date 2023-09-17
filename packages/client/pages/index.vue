@@ -61,7 +61,6 @@ onMounted(() => {
 const register = () => {
   localStorage.setItem("username", username.value);
   localStorage.setItem("userSeed", seed.value);
-  $io.emit(ClientEvents.REGISTER, username.value, userId.value);
   $io.auth = { username: username.value, avatar: avatar.value };
   $io.connect();
   navigateTo({ path: "/mode" });
