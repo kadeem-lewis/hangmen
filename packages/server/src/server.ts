@@ -12,7 +12,6 @@ import {
   SocketData,
   InterServerEvents,
 } from "@hangmen/shared";
-import { userHandler } from "./handlers/UserHandler.js";
 import { roomHandler } from "./handlers/RoomHandler.js";
 import { gameHandler } from "./handlers/GameHandler.js";
 const app = express();
@@ -62,7 +61,6 @@ io.on("connection", (socket) => {
     this.isHost = false; //TODO: might cause issues on game reset
     this.points = 0;
   };
-  userHandler(io, socket);
   roomHandler(io, socket);
   gameHandler(io, socket);
 
