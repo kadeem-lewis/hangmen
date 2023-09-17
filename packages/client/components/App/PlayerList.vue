@@ -72,5 +72,6 @@ const playerClick = ref(false);
 
 onBeforeUnmount(() => {
   $io.off(ServerEvents.PLAYER_LEAVE_ROOM);
+  players.value = null; //player array isn't emptied for room creator
 });
 </script>
