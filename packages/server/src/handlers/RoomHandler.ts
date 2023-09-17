@@ -27,11 +27,10 @@ export const roomHandler = (
   socket.on(ClientEvents.JOIN_ROOM, (roomCode, callback) => {
     if (activeRooms[roomCode]) {
       socket.join(roomCode);
+      socket.data.roomId = roomCode;
+      activeRooms[roomCode].addPlayer(socket.id, socket.data);
       setTimeout(() => {
         //temporary fix to issue
-        console.log(socket.data);
-        activeRooms[roomCode].addPlayer(socket.id, socket.data);
-        socket.data.roomId = roomCode;
         io.in(roomCode).emit(
           ServerEvents.NEW_PLAYER,
           socket.data,
@@ -39,7 +38,6 @@ export const roomHandler = (
         );
       });
 
-      console.log(activeRooms[roomCode]);
       console.log(socket.rooms);
       console.log(activeRooms[roomCode].getPlayers());
       callback({
