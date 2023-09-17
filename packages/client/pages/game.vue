@@ -17,10 +17,5 @@ definePageMeta({
 });
 const { $io } = useNuxtApp();
 
-// onBeforeRouteEnter((to, from, next) => {
-//   if (from.name === "game-mode") {
-//     next();
-//   }
-//   next({ name: "game-mode" });
-// });
+//TODO: If user comes to app from room link, prompt them to enter a username, connect them and add them to room
 </script>
