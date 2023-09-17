@@ -5,6 +5,13 @@ export type User = {
   isReady: boolean;
   avatar: string;
 };
+
+export type Message = {
+  id: string;
+  sender: string;
+  text: string;
+  time: string;
+};
 export enum ServerEvents {
   CREATE_ROOM = "create-room",
   NEW_PLAYER = "new-player",
@@ -35,11 +42,7 @@ export interface ServerPayloads {
     playerList: { [id: string]: User }
   ) => void;
 
-  [ServerEvents.RECEIVE_MESSAGE]: (Object: {
-    id: string;
-    sender: string;
-    text: string;
-  }) => void;
+  [ServerEvents.RECEIVE_MESSAGE]: (message: Message) => void;
 
   [ServerEvents.PLAYER_LEAVE_ROOM]: (user: User) => void;
   [ServerEvents.READY_PLAYERS]: (readyPlayers: Set<string>) => void;
