@@ -36,10 +36,9 @@ export const roomHandler = (
           socket.data,
           activeRooms[roomCode].getPlayers()
         );
-      });
+      }, 200);
 
-      console.log(socket.rooms);
-      console.log(activeRooms[roomCode].getPlayers());
+      console.log("Current Socket is in these rooms: ", socket.rooms);
       callback({
         status: "ok",
       });
@@ -96,7 +95,7 @@ export const roomHandler = (
     }
     io.in(roomCode).emit(
       ServerEvents.READY_PLAYERS,
-      activeRooms[roomCode].readyPlayers //client does have access to have id system
+      activeRooms[roomCode].readyPlayers //client doesn't have access to have id system
     );
   });
 };
