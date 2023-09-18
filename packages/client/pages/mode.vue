@@ -29,15 +29,31 @@
 </template>
 
 <script setup lang="ts">
+import { User, Message } from "@hangmen/shared";
+import { nanoid } from "nanoid";
 const { $io } = useNuxtApp();
 
 const gameCode = ref("");
+const players = useState<{ [id: string]: User } | null>("players", () => null);
+const messages = useState<Message[]>("messages", () => []);
 
 // Set up event listener on component mount
 onMounted(() => {
   $io.on(ServerEvents.CREATE_ROOM, (roomCode) => {
-    $io.emit(ClientEvents.JOIN_ROOM, roomCode, (message) => {
-      console.log(message);
+    $io.emit(ClientEvents.JOIN_ROOM, roomCode, (response) => {
+      const date = new Date();
+
+      if (response.data) {
+        players.value = response.data.playerList;
+
+        const message = {
+          id: nanoid(),
+          sender: response.data.player.username,
+          text: `has joined the game.`,
+          time: `${date.getHours()}:${date.getMinutes()}`,
+        };
+        messages.value.push(message);
+      }
     });
     navigateTo({
       path: `/game/${roomCode}/lobby`,
@@ -55,13 +71,27 @@ const createGame = () => {
 
 const joinGame = () => {
   let room = gameCode.value.toString().toUpperCase();
-  $io.emit(ClientEvents.JOIN_ROOM, room, (res: any) => {
-    if (res.status === "ok") {
+  $io.emit(ClientEvents.JOIN_ROOM, room, (response) => {
+    if (response.status === "ok") {
+      const date = new Date();
+
+      if (response.data) {
+        players.value = response.data.playerList;
+
+        const message = {
+          id: nanoid(),
+          sender: response.data.player.username,
+          text: `has joined the game.`,
+          time: `${date.getHours()}:${date.getMinutes()}`,
+        };
+        messages.value.push(message);
+      }
+
       navigateTo({
         path: `/game/${room}/lobby`,
       });
     } else {
-      alert(res.message);
+      alert(response.message);
     }
   });
 };

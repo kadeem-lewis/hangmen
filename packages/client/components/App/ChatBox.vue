@@ -14,7 +14,7 @@ import { nanoid } from "nanoid";
 import { Message } from "@hangmen/shared";
 const { $io } = useNuxtApp();
 
-const messages = ref<Message[]>([]);
+const messages = useState<Message[]>("messages");
 
 onMounted(() => {
   $io.on(ServerEvents.RECEIVE_MESSAGE, (message) => {
