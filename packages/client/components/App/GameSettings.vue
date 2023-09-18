@@ -82,12 +82,10 @@ const changeMinWordLength = (action: string) => {
     wordLength.value--;
   }
 };
-//maybe even create a reactive with multiple fields or just store the refs to a data object from spending or even just wrap in an object
-const handleGameSettings = () => {
-  $io.emit(ClientEvents.GAME_SETTINGS, {
-    wordsPerGame: wordsPerGame.value,
-    minWordLength: wordLength.value,
-    isHardMode: isHardMode.value,
-  });
-};
+
+const gameSettings = useState("settings", () => ({
+  wordsPerGame: wordsPerGame.value,
+  minWordLength: wordLength.value,
+  isHardMode: isHardMode.value,
+}));
 </script>
