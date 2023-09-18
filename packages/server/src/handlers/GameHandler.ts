@@ -15,7 +15,4 @@ export const gameHandler = (
     const roomCode = socket.data.roomId;
     io.in(roomCode).emit(ServerEvents.GAME_START);
   });
-  socket.on(ClientEvents.GAME_SETTINGS, () => {
-    //TODO: find the best time and way to send game settings
-  });
 };
