@@ -31,7 +31,7 @@
     <button
       :disabled="!isHost"
       @click="startGame"
-      class="btn disabled:border-gray-400"
+      class="btn disabled:border-gray-400 disabled:text-gray-400 disabled:hover:bg-inherit"
     >
       Start
     </button>
