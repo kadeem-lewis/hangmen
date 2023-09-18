@@ -51,7 +51,11 @@ export interface ClientPayloads {
   [ClientEvents.REQUEST_ROOM_CODE]: () => void;
   [ClientEvents.JOIN_ROOM]: (
     roomCode: string,
-    callback: (response: { status: string; message?: string }) => void
+    callback: (response: {
+      status: string;
+      message?: string;
+      data?: { player: User; playerList: { [id: string]: User } };
+    }) => void
   ) => void;
 
   [ClientEvents.SEND_MESSAGE]: (id: string, text: string) => void;

@@ -29,18 +29,22 @@ export const roomHandler = (
       socket.join(roomCode);
       socket.data.roomId = roomCode;
       activeRooms[roomCode].addPlayer(socket.id, socket.data);
-      setTimeout(() => {
-        //temporary fix to issue
-        io.in(roomCode).emit(
+
+      socket
+        .in(roomCode)
+        .emit(
           ServerEvents.NEW_PLAYER,
           socket.data,
           activeRooms[roomCode].getPlayers()
         );
-      }, 200);
 
       console.log("Current Socket is in these rooms: ", socket.rooms);
       callback({
         status: "ok",
+        data: {
+          player: socket.data,
+          playerList: activeRooms[roomCode].getPlayers(),
+        },
       });
     } else {
       callback({
