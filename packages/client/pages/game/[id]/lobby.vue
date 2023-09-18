@@ -28,15 +28,13 @@
         </div>
       </div>
     </AppGameSettings>
-
-    <div>
-      <button v-if="isHost" :disabled="false" @click="startGame" class="btn">
-        Start
-      </button>
-      <button v-else @click="readyUp" class="btn">
-        {{ isReady ? "Ready" : "Not Ready" }}
-      </button>
-    </div>
+    <button
+      :disabled="!isHost"
+      @click="startGame"
+      class="btn disabled:border-gray-400"
+    >
+      Start
+    </button>
   </div>
 </template>
 
@@ -48,29 +46,26 @@ const { $io } = useNuxtApp();
 const route = useRoute();
 const roomCode = ref(route.params.id as string);
 const isCopied = ref(false);
-const isReady = ref(false);
 const isHost = ref(false);
 
 const players = useState<{ [id: string]: User } | null>("players", () => null);
+const gameSettings = useState<{
+  wordsPerGame: number;
+  minWordLength: number;
+  isHardMode: boolean;
+}>("settings");
 
 onMounted(() => {
-  $io.on(ServerEvents.NEW_PLAYER, (_, playersList) => {
-    players.value = playersList;
-
-    for (let playerKey in players.value) {
-      if (players.value[playerKey].isHost && playerKey === $io.id) {
-        isHost.value = true;
-      }
+  for (let playerKey in players.value) {
+    if (players.value[playerKey].isHost && playerKey === $io.id) {
+      isHost.value = true;
     }
-  });
+  }
 });
 
 const startGame = () => {
+  $io.emit(ClientEvents.START_GAME, gameSettings.value, (response) => {});
   navigateTo({ path: `/game/${roomCode.value}/play` });
-};
-const readyUp = () => {
-  isReady.value = !isReady.value;
-  $io.emit(ClientEvents.PLAYER_READY, isReady.value);
 };
 const copyCode = () => {
   navigator.clipboard.writeText(roomCode.value);
