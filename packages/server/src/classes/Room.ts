@@ -41,17 +41,6 @@ export class Room {
     //getter to change object values to an array
     return this.players;
   }
-  setPlayerReady(playerId: string) {
-    this.readyPlayers.add(playerId);
-  }
-
-  unsetPlayerReady(playerId: string) {
-    this.readyPlayers.delete(playerId);
-  }
-
-  allPlayersReady(): boolean {
-    return this.readyPlayers.size === Object.keys(this.players).length;
-  }
   createNewCode() {
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     const nanoid = customAlphabet(characters, 5);
