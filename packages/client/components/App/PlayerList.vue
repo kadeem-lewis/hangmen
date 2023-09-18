@@ -55,10 +55,11 @@ const { $io } = useNuxtApp();
 const players = useState<{ [id: string]: User } | null>("players");
 
 onMounted(() => {
-  $io.on(ServerEvents.PLAYER_LEAVE_ROOM, ({ userId }) => {
+  //TODO: param is currently username because userId isnt properly setup yet. change back when done because two users with same username would break system
+  $io.on(ServerEvents.PLAYER_LEAVE_ROOM, ({ username }) => {
     if (players.value) {
       Object.keys(players.value).forEach((key) => {
-        if (players.value && players.value[key].userId === userId) {
+        if (players.value && players.value[key].username === username) {
           delete players.value[key];
         }
       });
