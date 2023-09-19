@@ -28,7 +28,7 @@
 <script setup lang="ts">
 const { $io } = useNuxtApp();
 
-const word = useState("word", () => "soon");
+const word = useState<string[]>("wordToGuess");
 const currentIndex = useState("index", () => 0);
 
 const inputs = useState("inputs", () =>
