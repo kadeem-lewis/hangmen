@@ -24,5 +24,10 @@ export const gameHandler = (
         category: room.word.category,
       });
     }
+    socket.on(ClientEvents.SEND_GUESS, (guess) => {
+      room.guessLetter(guess);
+
+      io.in(socket.data.roomId).emit(ServerEvents.GAME_UPDATE, room.maskedWord);
+    });
   });
 };
