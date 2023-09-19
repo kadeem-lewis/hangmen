@@ -65,7 +65,11 @@ export interface ClientPayloads {
       minWordLength: number;
       isHardMode: boolean;
     },
-    callback: (response: {}) => void
+    callback: (response: {
+      status: string;
+      word: string[];
+      category: string;
+    }) => void
   ) => void;
   [ClientEvents.GUESS_LETTER]: (letter: string) => void;
   [ClientEvents.GUESS_WORD]: (word: string) => void;
