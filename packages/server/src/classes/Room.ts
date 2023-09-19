@@ -1,10 +1,19 @@
+import fs from "fs/promises";
+import { fileURLToPath } from "url";
+import path from "path";
+
 import { customAlphabet } from "nanoid";
 import { User } from "@hangmen/shared";
+import { maskWord } from "../utils/WordHelper.js";
 export class Room {
   code: string;
   players: { [id: string]: User };
   maxPlayers: number;
-  readyPlayers: Set<string> = new Set();
+  wordsToGuess: { word: string; category: string }[] = [];
+  word: { word: string; category: string } | null = null;
+  maskedWord: string[] = [];
+  guessedLetters: Set<string> = new Set();
+  scores: { [id: string]: number } = {};
 
   constructor() {
     this.code = this.createNewCode();
@@ -46,5 +55,47 @@ export class Room {
     const nanoid = customAlphabet(characters, 5);
     const roomId = nanoid();
     return roomId;
+  }
+  async startGame(settings: {
+    wordsPerGame: number;
+    minWordLength: number;
+    isHardMode: boolean;
+  }) {
+    this.wordsToGuess = await this.fetchWords(
+      settings.minWordLength,
+      settings.wordsPerGame
+    );
+    this.word = this.wordsToGuess[0];
+    this.maskedWord = maskWord(this.word.word, this.guessedLetters);
+  }
+  async fetchWords(minWordLength: number, numOfWords: number) {
+    try {
+      const __dirname = path.dirname(fileURLToPath(import.meta.url));
+      const filePath = path.resolve(__dirname, "../data/words.json");
+      const fileContent = await fs.readFile(filePath, "utf8");
+      const words: { word: string; category: string }[] =
+        JSON.parse(fileContent);
+
+      const validWords: { word: string; category: string }[] = words.filter(
+        (item) => item.word.length >= minWordLength
+      );
+
+      const result = [];
+      const usedIndices = new Set<number>();
+
+      while (result.length < numOfWords && result.length < validWords.length) {
+        const randomIndex = Math.floor(Math.random() * validWords.length);
+
+        if (!usedIndices.has(randomIndex)) {
+          result.push(validWords[randomIndex]);
+          usedIndices.add(randomIndex);
+        }
+      }
+
+      return result;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   }
 }
