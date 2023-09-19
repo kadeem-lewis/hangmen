@@ -17,6 +17,7 @@ export const gameHandler = (
     room.startGame(settings);
 
     if (room.word) {
+      //this callback only sends it to the socket that started the game. Callback should probably only let user know that start game didnt fail
       callback({
         status: "ok",
         word: room.maskedWord,
