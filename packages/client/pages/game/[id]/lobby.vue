@@ -49,6 +49,8 @@ const isCopied = ref(false);
 const isHost = ref(false);
 
 const players = useState<{ [id: string]: User } | null>("players", () => null);
+const wordToGuess = useState<string[]>("wordToGuess");
+
 const gameSettings = useState<{
   wordsPerGame: number;
   minWordLength: number;
@@ -64,8 +66,12 @@ onMounted(() => {
 });
 
 const startGame = () => {
-  $io.emit(ClientEvents.START_GAME, gameSettings.value, (response) => {});
-  navigateTo({ path: `/game/${roomCode.value}/play` });
+  $io.emit(ClientEvents.START_GAME, gameSettings.value, (response) => {
+    if (response.status === "ok") {
+      wordToGuess.value = response.word;
+      navigateTo({ path: `/game/${roomCode.value}/play` });
+    }
+  });
 };
 const copyCode = () => {
   navigator.clipboard.writeText(roomCode.value);
