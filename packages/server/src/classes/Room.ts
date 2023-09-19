@@ -98,4 +98,12 @@ export class Room {
       return [];
     }
   }
+  guessLetter(letter: string): boolean {
+    if (this.word && this.word.word.includes(letter)) {
+      this.guessedLetters.add(letter);
+      this.maskedWord = maskWord(this.word.word, this.guessedLetters);
+      return true; // The guess was correct
+    }
+    return false; // The guess was incorrect
+  }
 }
