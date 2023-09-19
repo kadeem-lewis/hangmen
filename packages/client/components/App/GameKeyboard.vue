@@ -9,10 +9,17 @@
     >
       {{ letter }}
     </button>
+    <button
+      @click="submitGuess"
+      class="rounded-lg border font-short-stack hover:bg-white hover:text-black disabled:border-gray-400"
+    >
+      Enter
+    </button>
   </div>
 </template>
 
 <script setup lang="ts">
+const { $io } = useNuxtApp();
 type Input = {
   value: string;
 };
@@ -27,5 +34,12 @@ const updateInput = (letter: string) => {
     inputs.value[currentIndex.value].value = letter;
     currentIndex.value++;
   }
+};
+
+console.log(inputs.value[0].value);
+
+const submitGuess = () => {
+  currentIndex.value = 0;
+  $io.emit(ClientEvents.SEND_GUESS, inputs.value[0].value);
 };
 </script>

@@ -88,18 +88,4 @@ export const roomHandler = (
       time: `${date.getHours()}:${date.getMinutes()}`,
     });
   });
-  socket.on(ClientEvents.PLAYER_READY, (isReady) => {
-    const roomCode = socket.data.roomId;
-    if (isReady) {
-      activeRooms[roomCode].setPlayerReady(socket.id);
-      socket.data.isReady = true;
-    } else {
-      activeRooms[roomCode].unsetPlayerReady(socket.id);
-      socket.data.isReady = false;
-    }
-    io.in(roomCode).emit(
-      ServerEvents.READY_PLAYERS,
-      activeRooms[roomCode].readyPlayers //client doesn't have access to have id system
-    );
-  });
 };

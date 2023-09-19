@@ -26,13 +26,6 @@
         <div>
           <img :src="players[key].avatar" alt="player avatar" class="w-12" />
         </div>
-
-        <!-- TODO: show (You) next to the player, show points, avatar and show rankings -->
-        <Icon
-          v-if="players[key].isReady"
-          icon="heroicons:check-circle"
-          :inline="true"
-        />
         <UiModal v-model="playerClick">Hey Hey Hey</UiModal>
       </div>
       <div v-else class="flex justify-around">
@@ -65,8 +58,6 @@ onMounted(() => {
       });
     }
   });
-
-  $io.on(ServerEvents.READY_PLAYERS, (playersList) => {});
 });
 
 const playerClick = ref(false);

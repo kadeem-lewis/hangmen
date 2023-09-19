@@ -28,11 +28,11 @@
 <script setup lang="ts">
 const { $io } = useNuxtApp();
 
-const word = useState("word", () => "soon");
+const wordToGuess = useState<string[]>("wordToGuess");
 const currentIndex = useState("index", () => 0);
 
 const inputs = useState("inputs", () =>
-  Array(word.value.length)
+  Array(wordToGuess.value.length)
     .fill(0)
     .map(() => ({ value: "" })),
 );
@@ -80,7 +80,7 @@ const handleKeydown = (event: KeyboardEvent, index: number) => {
   }
 };
 
-watch(word, (newValue) => {
+watch(wordToGuess, (newValue) => {
   // Reset inputs when the word changes
   inputs.value = Array(newValue.length)
     .fill(0)
@@ -90,6 +90,12 @@ watch(currentIndex, (newValue) => {
   if (newValue >= 0 && newValue < inputElements.value.length) {
     inputElements.value[newValue].focus();
   }
+});
+
+onMounted(() => {
+  $io.on(ServerEvents.GAME_UPDATE, (word) => {
+    wordToGuess.value = word;
+  });
 });
 
 //TODO: currently conflicts with leave game button if on play page, should be modal

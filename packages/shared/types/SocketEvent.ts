@@ -17,20 +17,16 @@ export enum ServerEvents {
   NEW_PLAYER = "new-player",
   RECEIVE_MESSAGE = "receive-message",
   PLAYER_LEAVE_ROOM = "player-leave-room",
-  READY_PLAYERS = "ready-players",
   GAME_START = "game-start",
+  GAME_UPDATE = "game-update",
 }
 export enum ClientEvents {
   REQUEST_ROOM_CODE = "request-room-code",
   JOIN_ROOM = "join-room",
   SEND_MESSAGE = "send-message",
   LEAVE_ROOM = "leave-room",
-  REJOIN_ROOM = "rejoin-room",
-  PLAYER_READY = "player-ready",
-  GAME_SETTINGS = "game-settings",
   START_GAME = "start-game",
-  GUESS_LETTER = "guess-letter",
-  GUESS_WORD = "guess-word",
+  SEND_GUESS = "send-guess",
   SKIP_TURN = "skip-turn",
 }
 
@@ -44,8 +40,8 @@ export interface ServerPayloads {
   [ServerEvents.RECEIVE_MESSAGE]: (message: Message) => void;
 
   [ServerEvents.PLAYER_LEAVE_ROOM]: (user: User) => void;
-  [ServerEvents.READY_PLAYERS]: (readyPlayers: Set<string>) => void;
   [ServerEvents.GAME_START]: () => void;
+  [ServerEvents.GAME_UPDATE]: (word: string[]) => void;
 }
 export interface ClientPayloads {
   [ClientEvents.REQUEST_ROOM_CODE]: () => void;
@@ -64,17 +60,19 @@ export interface ClientPayloads {
     roomCode: string,
     callback: (response: { status: string; message?: string }) => void
   ) => void;
-
-  [ClientEvents.REJOIN_ROOM]: (roomCode: string, callback: () => void) => void;
-  [ClientEvents.PLAYER_READY]: (isReady: boolean) => void;
-  [ClientEvents.GAME_SETTINGS]: (Object: {
-    wordsPerGame: number;
-    minWordLength: number;
-    isHardMode: boolean;
-  }) => void;
-  [ClientEvents.START_GAME]: () => void;
-  [ClientEvents.GUESS_LETTER]: (letter: string) => void;
-  [ClientEvents.GUESS_WORD]: (word: string) => void;
+  [ClientEvents.START_GAME]: (
+    gameSettings: {
+      wordsPerGame: number;
+      minWordLength: number;
+      isHardMode: boolean;
+    },
+    callback: (response: {
+      status: string;
+      word: string[];
+      category: string;
+    }) => void
+  ) => void;
+  [ClientEvents.SEND_GUESS]: (input: any) => void;
   [ClientEvents.SKIP_TURN]: () => void;
 }
 export interface InterServerEvents {}
