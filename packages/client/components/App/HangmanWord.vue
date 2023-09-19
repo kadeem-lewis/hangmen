@@ -1,19 +1,17 @@
 <template>
   <div class="flex justify-center gap-1 text-lg font-bold uppercase">
     <span
-      v-for="(letter, index) in word"
+      v-for="(letter, index) in wordToGuess"
       :key="index"
       class="border-b-2 border-solid border-current font-short-stack"
     >
-      <span :class="guessedLetters.includes(letter) ? 'visible' : 'invisible'">
-        {{ letter }}</span
-      >
+      <span :class="{ invisible: letter === '_' }"> {{ letter }}</span>
     </span>
-    <span class="ml-2 text-xs">{{ word.length }}</span>
+    <span class="ml-2 text-xs">{{ wordToGuess.length }}</span>
   </div>
 </template>
 
 <script setup lang="ts">
-const word = ref("soon");
+const wordToGuess = useState<(string | null)[]>("wordToGuess");
 const guessedLetters = ref(["s", "n"]);
 </script>
