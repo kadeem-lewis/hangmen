@@ -12,19 +12,19 @@
   },
   "keywords": [],
   "dependencies": {
-    "@dicebear/collection": "^7.0.1",
-    "@dicebear/core": "^7.0.1",
+    "@dicebear/collection": "^7.0.4",
+    "@dicebear/core": "^7.0.4",
     "@hangmen/shared": "workspace:^",
-    "@headlessui/vue": "^1.7.16",
-    "socket.io-client": "^4.7.2"
+    "@headlessui/vue": "^1.7.19",
+    "socket.io-client": "^4.7.4"
   },
   "devDependencies": {
     "@iconify/vue": "^4.1.1",
     "@nuxt/devtools": "latest",
-    "@nuxtjs/color-mode": "^3.3.0",
-    "@nuxtjs/google-fonts": "^3.0.2",
-    "@nuxtjs/tailwindcss": "^6.8.1",
-    "nuxt": "^3.8.0",
-    "prettier-plugin-tailwindcss": "^0.5.6"
+    "@nuxtjs/color-mode": "^3.3.2",
+    "@nuxtjs/google-fonts": "^3.1.3",
+    "@nuxtjs/tailwindcss": "^6.11.4",
+    "nuxt": "^3.10.2",
+    "prettier-plugin-tailwindcss": "^0.5.11"
   }
 }

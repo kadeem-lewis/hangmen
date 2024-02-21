@@ -19,9 +19,9 @@
   },
   "homepage": "https://github.com/kadeem-lewis/hangmen#readme",
   "dependencies": {
-    "@types/node": "^20.8.9",
+    "@types/node": "^20.11.19",
     "nanoid": "^4.0.2",
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.3"
   },
   "devDependencies": {
     "turbo": "latest"
