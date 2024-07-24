@@ -2,7 +2,7 @@
   <div class="flex items-center justify-between bg-dark-mode-500 px-2 py-1">
     <div class="flex flex-col items-center justify-center gap-px lg:flex-row">
       <Icon icon="heroicons:clock" :inline="true" class="text-xl lg:text-2xl" />
-      <span>{{ "30" }}s</span>
+      <span>{{ count }}s</span>
     </div>
     <div
       v-if="route.path === `/game/${roomCode}/play`"
@@ -34,6 +34,15 @@
 import { Icon } from "@iconify/vue";
 const { $io } = useNuxtApp();
 const hasLeftRoom = useState("hasLeftRoom", () => false);
+
+const {count, reset, dec} = useCounter(30,{min:0, max:30})
+
+const { isActive} = useIntervalFn(() => {
+  dec();
+  if (count.value === 0) {
+    reset();
+  }
+}, 1000);
 
 const route = useRoute("game-id");
 const roomCode = ref(route.params.id);
