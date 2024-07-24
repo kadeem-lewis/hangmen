@@ -9,7 +9,7 @@
           class="absolute bottom-0 right-0 rounded-full bg-blue-600 p-1 hover:bg-blue-500"
           @click="changeAvatar"
         >
-          <Icon icon="heroicons:arrow-path" :inline="true" class="text-2xl" />
+          <Icon name="heroicons:arrow-path" class="text-2xl" />
         </button>
       </span>
       <div class="mx-16 w-full text-left lg:space-y-4">
@@ -29,7 +29,7 @@
         class="btn mx-auto mt-8 flex w-1/2 items-center gap-x-4 py-2 pl-4 text-xl font-semibold"
         @click="register"
       >
-        <Icon icon="heroicons:play" :inline="true" class="text-2xl" />
+        <Icon name="heroicons:play" class="text-2xl" />
         <span class="flex-grow uppercase">Play</span>
       </button>
     </div>
@@ -41,7 +41,6 @@
 </template>
 
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
 import { createAvatar } from "@dicebear/core";
 import { adventurerNeutral } from "@dicebear/collection";
 import { useStorage } from "@vueuse/core";

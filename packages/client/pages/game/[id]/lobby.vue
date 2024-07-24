@@ -13,18 +13,8 @@
             :class="copied ? 'bg-green-600' : 'bg-sky-600  hover:bg-sky-500'"
             @click="copy(roomCode)"
           >
-            <Icon
-              v-if="!copied"
-              icon="mdi:clipboard"
-              :inline="true"
-              class="text-2xl"
-            />
-            <Icon
-              v-else
-              icon="mdi:clipboard-check"
-              :inline="true"
-              class="text-2xl"
-            />
+            <Icon v-if="!copied" name="mdi:clipboard" class="text-2xl" />
+            <Icon v-else name="mdi:clipboard-check" class="text-2xl" />
           </button>
         </div>
       </div>
@@ -40,7 +30,6 @@
 </template>
 
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
 import type { User } from "@hangmen/shared";
 const { $io } = useNuxtApp();
 

@@ -16,7 +16,7 @@
                 : ''
             "
             @click="changeMinWordLength('decrement')"
-            ><Icon icon="heroicons:chevron-left" :inline="true"
+            ><Icon name="heroicons:chevron-left"
           /></span>
           <div class="bg-dark-mode-400">{{ wordLength }}</div>
           <span
@@ -27,7 +27,7 @@
                 : ''
             "
             @click="changeMinWordLength('increment')"
-            ><Icon icon="heroicons:chevron-right" :inline="true"
+            ><Icon name="heroicons:chevron-right"
           /></span>
         </div>
       </div>
@@ -38,14 +38,14 @@
             class="flex items-center border"
             :class="wordsPerGame === 3 ? 'border-gray-400 text-gray-400' : ''"
             @click="changeWordsPerGame('decrement')"
-            ><Icon icon="heroicons:chevron-left" :inline="true"
+            ><Icon name="heroicons:chevron-left"
           /></span>
           <div class="bg-dark-mode-400">{{ wordsPerGame }}</div>
           <span
             class="flex items-center border"
             :class="wordsPerGame === 9 ? 'border-gray-400 text-gray-400' : ''"
             @click="changeWordsPerGame('increment')"
-            ><Icon icon="heroicons:chevron-right" :inline="true"
+            ><Icon name="heroicons:chevron-right"
           /></span>
         </div>
       </div>
@@ -56,7 +56,6 @@
 </template>
 
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
 const { $io } = useNuxtApp();
 
 const wordsPerGame = ref(3);

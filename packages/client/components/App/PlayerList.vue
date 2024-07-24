@@ -12,7 +12,7 @@
       >
         <div>
           <div class="font-bold">#{{ "1" }}</div>
-          <Icon v-if="players[key].isHost" icon="mdi:crown" :inline="true" />
+          <Icon v-if="players[key].isHost" name="mdi:crown" />
         </div>
         <div>
           <div>
@@ -36,7 +36,7 @@
         <span
           class="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-dark-mode-400"
         >
-          <Icon icon="heroicons:user" :inline="true" /></span
+          <Icon name="heroicons:user" /></span
         ><span>Empty</span>
       </div>
     </li>
@@ -44,7 +44,6 @@
 </template>
 
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
 import type { User } from "@hangmen/shared";
 
 const { $io } = useNuxtApp();
