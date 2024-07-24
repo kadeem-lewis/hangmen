@@ -35,7 +35,7 @@ import { Icon } from "@iconify/vue";
 const { $io } = useNuxtApp();
 const hasLeftRoom = useState("hasLeftRoom", () => false);
 
-const route = useRoute();
+const route = useRoute("game-id");
 const roomCode = ref(route.params.id);
 
 const leaveClick = ref(false);

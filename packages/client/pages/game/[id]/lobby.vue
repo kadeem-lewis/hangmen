@@ -40,11 +40,11 @@
 
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
-import { User } from "@hangmen/shared";
+import type { User } from "@hangmen/shared";
 const { $io } = useNuxtApp();
 
-const route = useRoute();
-const roomCode = ref(route.params.id as string);
+const route = useRoute("game-id-lobby");
+const roomCode = ref(route.params.id);
 const isCopied = ref(false);
 const isHost = ref(false);
 
