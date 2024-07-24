@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { User, Message } from "@hangmen/shared";
+import type { User, Message } from "@hangmen/shared";
 import { nanoid } from "nanoid";
 const { $io } = useNuxtApp();
 

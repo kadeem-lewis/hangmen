@@ -11,7 +11,7 @@
 </template>
 <script setup lang="ts">
 import { nanoid } from "nanoid";
-import { Message } from "@hangmen/shared";
+import type { Message } from "@hangmen/shared";
 const { $io } = useNuxtApp();
 
 const messages = useState<Message[]>("messages");
