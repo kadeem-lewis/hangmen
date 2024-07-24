@@ -21,24 +21,24 @@ onMounted(() => {
     messages.value.push(message);
   });
   $io.on(ServerEvents.NEW_PLAYER, (player, _) => {
-    const date = new Date();
+    const date = useDateFormat(useNow(), "HH:mm");
 
     const message = {
       id: nanoid(),
       sender: player.username,
       text: `has joined the game.`,
-      time: `${date.getHours()}:${date.getMinutes()}`,
+      time: date.value,
     };
     messages.value.push(message);
   });
   $io.on(ServerEvents.PLAYER_LEAVE_ROOM, ({ username }) => {
-    const date = new Date();
+    const date = useDateFormat(useNow(), "HH:mm");
 
     const message = {
       id: nanoid(),
       sender: username,
       text: "has left the room",
-      time: `${date.getHours()}:${date.getMinutes()}`,
+      time: date.value,
     };
     messages.value.push(message);
   });
