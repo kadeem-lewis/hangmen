@@ -6,7 +6,10 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@nuxtjs/color-mode",
     "@vueuse/nuxt",
-    "@nuxt/icon"
+    "@nuxt/icon",
+    "@pinia/nuxt",
+    "@nuxt/eslint",
+    "@nuxt/fonts"
   ],
   postcss: {
     plugins: {
@@ -23,7 +26,7 @@ export default defineNuxtConfig({
     typedPages: true,
   },
   plugins: ["./plugins/socket.io"],
-  typescript:{
+  typescript: {
     typeCheck: true,
   },
   googleFonts: {
