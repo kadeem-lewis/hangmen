@@ -41,7 +41,7 @@ const messages = useState<Message[]>("messages", () => []);
 onMounted(() => {
   $io.on(ServerEvents.CREATE_ROOM, (roomCode) => {
     $io.emit(ClientEvents.JOIN_ROOM, roomCode, (response) => {
-      const date = new Date();
+      const date = useDateFormat(useNow(), "HH:mm");
 
       if (response.data) {
         players.value = response.data.playerList;
@@ -50,7 +50,7 @@ onMounted(() => {
           id: nanoid(),
           sender: response.data.player.username,
           text: `has joined the game.`,
-          time: `${date.getHours()}:${date.getMinutes()}`,
+          time: date.value,
         };
         messages.value.push(message);
       }
@@ -73,7 +73,7 @@ const joinGame = () => {
   let room = gameCode.value.toString().toUpperCase();
   $io.emit(ClientEvents.JOIN_ROOM, room, (response) => {
     if (response.status === "ok") {
-      const date = new Date();
+      const date = useDateFormat(useNow(), "HH:mm");
 
       if (response.data) {
         players.value = response.data.playerList;
@@ -82,7 +82,7 @@ const joinGame = () => {
           id: nanoid(),
           sender: response.data.player.username,
           text: `has joined the game.`,
-          time: `${date.getHours()}:${date.getMinutes()}`,
+          time: date.value,
         };
         messages.value.push(message);
       }
