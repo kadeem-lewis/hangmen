@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     "@nuxtjs/google-fonts",
     "@nuxtjs/tailwindcss",
     "@nuxtjs/color-mode",
+    "@vueuse/nuxt",
   ],
   postcss: {
     plugins: {
@@ -17,7 +18,13 @@ export default defineNuxtConfig({
       url: process.env.URL || "http://localhost:3001",
     },
   },
+  experimental: {
+    typedPages: true,
+  },
   plugins: ["./plugins/socket.io"],
+  typescript:{
+    typeCheck: true,
+  },
   googleFonts: {
     families: {
       // "Open+Sans": true,
