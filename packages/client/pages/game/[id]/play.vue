@@ -99,7 +99,7 @@ onMounted(() => {
 });
 
 //TODO: currently conflicts with leave game button if on play page, should be modal
-onBeforeRouteLeave((to, from) => {
+onBeforeRouteLeave(() => {
   const answer = window.confirm(
     "Do you really want to leave? you have unsaved changes!",
   );

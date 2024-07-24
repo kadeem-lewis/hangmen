@@ -11,7 +11,7 @@ const route = useRoute("game-id");
 const roomCode = ref(route.params.id);
 const hasLeftRoom = useState<boolean>("hasLeftRoom");
 
-onBeforeRouteLeave((to, from) => {
+onBeforeRouteLeave(() => {
   if (!hasLeftRoom.value) {
     $io.emit(ClientEvents.LEAVE_ROOM, roomCode.value as string, (response) => {
       console.log(response);
