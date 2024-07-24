@@ -8,12 +8,13 @@
             roomCode
           }}</span>
           <button
-            @click="copyCode()"
+            v-if="isSupported"
+            @click="copy(roomCode)"
             class="rounded-lg p-2"
-            :class="isCopied ? 'bg-green-600' : 'bg-sky-600  hover:bg-sky-500'"
+            :class="copied ? 'bg-green-600' : 'bg-sky-600  hover:bg-sky-500'"
           >
             <Icon
-              v-if="!isCopied"
+              v-if="!copied"
               icon="mdi:clipboard"
               :inline="true"
               class="text-2xl"
@@ -45,7 +46,7 @@ const { $io } = useNuxtApp();
 
 const route = useRoute("game-id-lobby");
 const roomCode = ref(route.params.id);
-const isCopied = ref(false);
+const { copy, copied, isSupported } = useClipboard();
 const isHost = ref(false);
 
 const players = useState<{ [id: string]: User } | null>("players", () => null);
@@ -72,13 +73,6 @@ const startGame = () => {
       navigateTo({ path: `/game/${roomCode.value}/play` });
     }
   });
-};
-const copyCode = () => {
-  navigator.clipboard.writeText(roomCode.value);
-  isCopied.value = true;
-  setTimeout(() => {
-    isCopied.value = false;
-  }, 2000);
 };
 
 onBeforeUnmount(() => {
