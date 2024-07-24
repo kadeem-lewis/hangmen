@@ -4,8 +4,7 @@
       class="flex max-w-md flex-col items-center gap-y-4 rounded-lg border p-4"
     >
       <span class="relative">
-        <!-- Avatar -->
-        <img :src="avatar" alt="Avatar" class="w-24 lg:w-32" />
+        <UiAvatar :src="avatar" :name="username" size="lg" />
         <button
           class="absolute bottom-0 right-0 rounded-full bg-blue-600 p-1 hover:bg-blue-500"
           @click="changeAvatar"
@@ -52,8 +51,6 @@ const username = useStorage("username", "");
 const avatar = ref("");
 const seed = useStorage("userSeed", "");
 
-
-
 onMounted(() => {
   generateAvatar();
 });
@@ -76,5 +73,4 @@ const changeAvatar = () => {
   seed.value = Math.floor(Math.random() * 100).toString();
   generateAvatar();
 };
-
 </script>
