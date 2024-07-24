@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center justify-between bg-dark-mode-500 px-2 py-1">
     <div class="flex flex-col items-center justify-center gap-px lg:flex-row">
-      <Icon icon="heroicons:clock" :inline="true" class="text-xl lg:text-2xl" />
+      <Icon name="heroicons:clock" class="text-xl lg:text-2xl" />
       <span>{{ count }}s</span>
     </div>
     <div
@@ -16,28 +16,31 @@
       class="rounded-md p-1 hover:bg-dark-mode-600"
       @click="leaveClick = true"
     >
-      <Icon icon="heroicons:home" :inline="true" class="text-xl lg:text-2xl" />
+      <Icon name="heroicons:home" class="text-xl lg:text-2xl" />
     </button>
-    <UiModal v-model="leaveClick">
-      <p class="text-center text-2xl">Are you sure you want to leave?</p>
-      <div class="flex gap-4">
-        <button class="btn text-base" @click="leaveGame">Yes</button>
-        <button class="btn text-base" @click="leaveClick = false">
-          Cancel
-        </button>
-      </div>
-    </UiModal>
+    <UiDialog v-model:open="leaveClick">
+      <UiDialogContent>
+        <template #title>
+          <p class="text-center text-2xl">Are you sure you want to leave?</p>
+        </template>
+        <div class="flex gap-4">
+          <button class="btn text-base" @click="leaveGame">Yes</button>
+          <button class="btn text-base" @click="leaveClick = false">
+            Cancel
+          </button>
+        </div>
+      </UiDialogContent>
+    </UiDialog>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
 const { $io } = useNuxtApp();
 const hasLeftRoom = useState("hasLeftRoom", () => false);
 
-const {count, reset, dec} = useCounter(30,{min:0, max:30})
+const { count, reset, dec } = useCounter(30, { min: 0, max: 30 });
 
-const { isActive} = useIntervalFn(() => {
+const { isActive } = useIntervalFn(() => {
   dec();
   if (count.value === 0) {
     reset();
