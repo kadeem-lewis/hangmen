@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "packageManager": "pnpm@8.13.1",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel"
@@ -19,11 +20,11 @@
   },
   "homepage": "https://github.com/kadeem-lewis/hangmen#readme",
   "dependencies": {
-    "@types/node": "^20.6.0",
+    "@types/node": "^20.14.12",
     "nanoid": "^4.0.2",
-    "typescript": "^5.2.2"
+    "typescript": "^5.5.4"
   },
   "devDependencies": {
-    "turbo": "latest"
+    "turbo": "^2.0.9"
   }
 }

@@ -8,7 +8,7 @@
       <div
         v-if="players[key]"
         class="flex flex-row justify-between"
-        @click="playerClick = true"
+        @click="() => (isOpen = true)"
       >
         <div>
           <div class="font-bold">#{{ "1" }}</div>
@@ -23,10 +23,14 @@
           </div>
           <div>{{ 0 }} points</div>
         </div>
-        <div>
-          <img :src="players[key].avatar" alt="player avatar" class="w-12" />
-        </div>
-        <UiModal v-model="playerClick">Hey Hey Hey</UiModal>
+        <UiAvatar
+          :src="players[key].avatar"
+          :name="players[key].username"
+          size="sm"
+        />
+        <UiDialog v-model:open="isOpen">
+          <UiDialogContent> Hey hey hey </UiDialogContent>
+        </UiDialog>
       </div>
       <div v-else class="flex justify-around">
         <span
@@ -41,7 +45,7 @@
 
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
-import { User } from "@hangmen/shared";
+import type { User } from "@hangmen/shared";
 
 const { $io } = useNuxtApp();
 
@@ -60,7 +64,7 @@ onMounted(() => {
   });
 });
 
-const playerClick = ref(false);
+const isOpen = ref(false);
 
 onBeforeUnmount(() => {
   $io.off(ServerEvents.PLAYER_LEAVE_ROOM);

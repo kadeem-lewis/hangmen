@@ -4,8 +4,7 @@
       class="flex max-w-md flex-col items-center gap-y-4 rounded-lg border p-4"
     >
       <span class="relative">
-        <!-- Avatar -->
-        <img :src="avatar" alt="Avatar" class="w-24 lg:w-32" />
+        <UiAvatar :src="avatar" :name="username" size="lg" />
         <button
           class="absolute bottom-0 right-0 rounded-full bg-blue-600 p-1 hover:bg-blue-500"
           @click="changeAvatar"
@@ -46,21 +45,17 @@ import { Icon } from "@iconify/vue";
 const { $io } = useNuxtApp();
 import { createAvatar } from "@dicebear/core";
 import { adventurerNeutral } from "@dicebear/collection";
+import { useStorage } from "@vueuse/core";
 
-const username = ref("");
-const userId = ref("");
+const username = useStorage("username", "");
 const avatar = ref("");
-const seed = ref("");
+const seed = useStorage("userSeed", "");
 
 onMounted(() => {
-  if (localStorage.getItem("username") !== null) {
-    username.value = localStorage.getItem("username") as string;
-  }
+  generateAvatar();
 });
 
 const register = () => {
-  localStorage.setItem("username", username.value);
-  localStorage.setItem("userSeed", seed.value);
   $io.auth = { username: username.value, avatar: avatar.value };
   $io.connect();
   navigateTo({ path: "/mode" });
@@ -78,10 +73,4 @@ const changeAvatar = () => {
   seed.value = Math.floor(Math.random() * 100).toString();
   generateAvatar();
 };
-onMounted(() => {
-  if (localStorage.getItem("userSeed") !== null) {
-    seed.value = localStorage.getItem("userSeed") as string;
-  }
-  generateAvatar();
-});
 </script>

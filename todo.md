@@ -57,3 +57,6 @@ socket.io improvement tips
 - focus on building out frontend functionality while watching more videos to learn more about socket.io
 - implement ready state and game start
 - fix joining room not always showing name and icon on side
+
+- ignore word class and game class for now
+- focus on getting sample word to users and the ability for everyone to guess. At the start, it doesnt have to be rounds, Just a single word, that everyone takes turns guessing and their score updates based on their guess
