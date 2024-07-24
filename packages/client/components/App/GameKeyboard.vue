@@ -9,8 +9,8 @@
       {{ letter }}
     </button>
     <button
-      @click="submitGuess"
       class="rounded-lg border font-short-stack hover:bg-white hover:text-black disabled:border-gray-400"
+      @click="submitGuess"
     >
       Enter
     </button>

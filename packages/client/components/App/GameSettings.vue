@@ -3,30 +3,30 @@
     <form>
       <div class="flex justify-between gap-4">
         <label for="hard-mode">Hard Mode:</label>
-        <input type="checkbox" name="hard-mode" id="hard-mode" />
+        <input id="hard-mode" type="checkbox" name="hard-mode" >
       </div>
       <div class="flex justify-between gap-4">
         <label for="">Max word Length:</label>
         <div class="flex gap-2">
           <span
-            @click="changeMinWordLength('decrement')"
             class="flex items-center border"
             :class="
               wordLength === minWordLength
                 ? 'border-gray-400 text-gray-400'
                 : ''
             "
+            @click="changeMinWordLength('decrement')"
             ><Icon icon="heroicons:chevron-left" :inline="true"
           /></span>
           <div class="bg-dark-mode-400">{{ wordLength }}</div>
           <span
-            @click="changeMinWordLength('increment')"
             class="flex items-center border"
             :class="
               wordLength === maxWordLength
                 ? 'border-gray-400 text-gray-400'
                 : ''
             "
+            @click="changeMinWordLength('increment')"
             ><Icon icon="heroicons:chevron-right" :inline="true"
           /></span>
         </div>
@@ -35,16 +35,16 @@
         <label for="">Number of Words per Game:</label>
         <div class="flex gap-2">
           <span
-            @click="changeWordsPerGame('decrement')"
             class="flex items-center border"
             :class="wordsPerGame === 3 ? 'border-gray-400 text-gray-400' : ''"
+            @click="changeWordsPerGame('decrement')"
             ><Icon icon="heroicons:chevron-left" :inline="true"
           /></span>
           <div class="bg-dark-mode-400">{{ wordsPerGame }}</div>
           <span
-            @click="changeWordsPerGame('increment')"
             class="flex items-center border"
             :class="wordsPerGame === 9 ? 'border-gray-400 text-gray-400' : ''"
+            @click="changeWordsPerGame('increment')"
             ><Icon icon="heroicons:chevron-right" :inline="true"
           /></span>
         </div>

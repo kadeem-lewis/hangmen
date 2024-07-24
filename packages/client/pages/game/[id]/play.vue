@@ -1,7 +1,7 @@
 <template>
   <div class="grid gap-4">
     <AppHangmanCanvas />
-    <UiPinInput :length="wordToGuess.length" v-model="guessedWord" />
+    <UiPinInput v-model="guessedWord" :length="wordToGuess.length" />
     <AppGameKeyboard />
   </div>
   <!-- <div class="flex justify-between gap-4">
@@ -18,12 +18,6 @@ const { $io } = useNuxtApp();
 
 const wordToGuess = useState<string[]>("wordToGuess");
 const guessedWord = useState<string[]>("guessedWord");
-
-const inputs = useState("inputs", () =>
-  Array(wordToGuess.value.length)
-    .fill(0)
-    .map(() => ({ value: "" })),
-);
 
 const skipTurn = () => {
   $io.emit(ClientEvents.SKIP_TURN);

@@ -1,4 +1,4 @@
-import type { PinInputRootProps, PinInputRootEmits } from "@ark-ui/vue";
+import type { PinInputRootProps } from "@ark-ui/vue";
 import { tv, type VariantProps } from "tailwind-variants";
 
 export interface PinInputProps extends PinInputRootProps {

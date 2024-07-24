@@ -30,8 +30,8 @@ const forwarded = useForwardPropsEmits(props, emits);
       <PinInput.Control>
         <PinInput.Input
           v-for="(item, index) in [...Array(length)]"
-          :class="input()"
           :key="index"
+          :class="input()"
           :index="index"
         />
       </PinInput.Control>

@@ -18,16 +18,16 @@
           Choose a character and a nickname
         </p>
         <input
+          v-model="username"
           class="w-full rounded-md bg-dark-mode-400 px-4 py-2 text-xl font-semibold outline-none"
           type="text"
           name="username"
           placeholder="Enter a username"
-          v-model="username"
-        />
+        >
       </div>
       <button
-        @click="register"
         class="btn mx-auto mt-8 flex w-1/2 items-center gap-x-4 py-2 pl-4 text-xl font-semibold"
+        @click="register"
       >
         <Icon icon="heroicons:play" :inline="true" class="text-2xl" />
         <span class="flex-grow uppercase">Play</span>
@@ -42,10 +42,10 @@
 
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
-const { $io } = useNuxtApp();
 import { createAvatar } from "@dicebear/core";
 import { adventurerNeutral } from "@dicebear/collection";
 import { useStorage } from "@vueuse/core";
+const { $io } = useNuxtApp();
 
 const username = useStorage("username", "");
 const avatar = ref("");

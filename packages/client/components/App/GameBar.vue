@@ -13,16 +13,16 @@
     </div>
     <div v-else>Waiting...</div>
     <button
-      @click="leaveClick = true"
       class="rounded-md p-1 hover:bg-dark-mode-600"
+      @click="leaveClick = true"
     >
       <Icon icon="heroicons:home" :inline="true" class="text-xl lg:text-2xl" />
     </button>
     <UiModal v-model="leaveClick">
       <p class="text-center text-2xl">Are you sure you want to leave?</p>
       <div class="flex gap-4">
-        <button @click="leaveGame" class="btn text-base">Yes</button>
-        <button @click="leaveClick = false" class="btn text-base">
+        <button class="btn text-base" @click="leaveGame">Yes</button>
+        <button class="btn text-base" @click="leaveClick = false">
           Cancel
         </button>
       </div>

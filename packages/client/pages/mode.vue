@@ -4,22 +4,22 @@
     <div class="grid gap-8 lg:grid-cols-2">
       <div class="flex items-end justify-center rounded-lg border p-8">
         <button
-          @click="createGame"
           class="btn rounded-lg py-2 text-xl font-semibold"
+          @click="createGame"
         >
           Create Game
         </button>
       </div>
       <div class="flex flex-col justify-center gap-4 rounded-lg border p-8">
         <input
-          type="text"
           v-model="gameCode"
+          type="text"
           placeholder="Enter Room Code"
           class="mx-2 rounded-md bg-dark-mode-400 px-4 py-2 outline-none"
-        />
+        >
         <button
-          @click="joinGame"
           class="btn mx-auto py-2 text-xl font-semibold"
+          @click="joinGame"
         >
           Join Game
         </button>
@@ -70,7 +70,7 @@ const createGame = () => {
 };
 
 const joinGame = () => {
-  let room = gameCode.value.toString().toUpperCase();
+  const room = gameCode.value.toString().toUpperCase();
   $io.emit(ClientEvents.JOIN_ROOM, room, (response) => {
     if (response.status === "ok") {
       const date = useDateFormat(useNow(), "HH:mm");

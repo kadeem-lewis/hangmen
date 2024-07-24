@@ -9,9 +9,9 @@
           }}</span>
           <button
             v-if="isSupported"
-            @click="copy(roomCode)"
             class="rounded-lg p-2"
             :class="copied ? 'bg-green-600' : 'bg-sky-600  hover:bg-sky-500'"
+            @click="copy(roomCode)"
           >
             <Icon
               v-if="!copied"
@@ -31,8 +31,8 @@
     </AppGameSettings>
     <button
       :disabled="!isHost"
-      @click="startGame"
       class="btn disabled:border-gray-400 disabled:text-gray-400 disabled:hover:bg-inherit"
+      @click="startGame"
     >
       Start
     </button>
@@ -59,7 +59,7 @@ const gameSettings = useState<{
 }>("settings");
 
 onMounted(() => {
-  for (let playerKey in players.value) {
+  for (const playerKey in players.value) {
     if (players.value[playerKey].isHost && playerKey === $io.id) {
       isHost.value = true;
     }

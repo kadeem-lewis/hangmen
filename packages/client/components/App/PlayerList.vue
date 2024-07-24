@@ -1,9 +1,9 @@
 <template>
   <ul v-if="players" class="flex flex-col gap-y-2">
     <li
-      class="rounded-md bg-dark-mode-500 p-2 text-center"
       v-for="(player, key) in players"
       :key="key"
+      class="rounded-md bg-dark-mode-500 p-2 text-center"
     >
       <div
         v-if="players[key]"
