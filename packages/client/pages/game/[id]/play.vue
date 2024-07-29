@@ -2,7 +2,6 @@
   <div class="grid gap-4">
     <AppHangmanCanvas />
     <UiPinInput v-model="guessedWord" :length="wordToGuess.length" />
-    <AppGameKeyboard />
   </div>
   <!-- <div class="flex justify-between gap-4">
       <button
