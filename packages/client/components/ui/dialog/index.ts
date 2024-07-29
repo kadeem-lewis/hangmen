@@ -1,12 +1,19 @@
 import { Dialog } from "@ark-ui/vue";
-import { tv, type VariantProps } from "tailwind-variants";
+import type {
+  DialogTitleProps as ArkDialogTitleProps,
+  DialogDescriptionProps as ArkDialogDescriptionProps,
+} from "@ark-ui/vue";
 
-const DialogVariants = tv({
-  base: "fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50",
-});
+export interface DialogTitleProps extends ArkDialogTitleProps {
+  class?: string;
+}
 
-export type DialogVariantProps = VariantProps<typeof DialogVariants>;
+export interface DialogDescriptionProps extends ArkDialogDescriptionProps {
+  class?: string;
+}
 
 export const DialogTrigger = Dialog.Trigger;
 export { default as Dialog } from "./Dialog.vue";
 export { default as DialogContent } from "./DialogContent.vue";
+export { default as DialogTitle } from "./DialogTitle.vue";
+export { default as DialogDescription } from "./DialogDescription.vue";
