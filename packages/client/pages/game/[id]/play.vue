@@ -1,16 +1,13 @@
 <template>
-  <div class="grid gap-4">
+  <UCard class="grid gap-4">
     <AppHangmanCanvas />
     <UiPinInput v-model="guessedWord" :length="wordToGuess.length" />
-  </div>
-  <!-- <div class="flex justify-between gap-4">
-      <button
-        class="btn w-fit self-start text-xs lg:text-base"
-        @click="skipTurn"
-      >
-        Skip Turn
-      </button>
-    </div> -->
+    <template #footer>
+      <UInput placeholder="Guess letter or word" />
+      <UButton>Guess</UButton>
+      <UButton @click="skipTurn">Skip Turn</UButton>
+    </template>
+  </UCard>
 </template>
 <script setup lang="ts">
 const { $io } = useNuxtApp();

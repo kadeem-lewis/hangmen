@@ -1,29 +1,14 @@
 <template>
-  <div class="m-auto max-w-4xl">
+  <div>
     <h2 class="text-center text-2xl font-bold">Choose Mode</h2>
     <div class="grid gap-8 lg:grid-cols-2">
-      <div class="flex items-end justify-center rounded-lg border p-8">
-        <button
-          class="btn rounded-lg py-2 text-xl font-semibold"
-          @click="createGame"
-        >
-          Create Game
-        </button>
-      </div>
-      <div class="flex flex-col justify-center gap-4 rounded-lg border p-8">
-        <input
-          v-model="gameCode"
-          type="text"
-          placeholder="Enter Room Code"
-          class="mx-2 rounded-md bg-dark-mode-400 px-4 py-2 outline-none"
-        >
-        <button
-          class="btn mx-auto py-2 text-xl font-semibold"
-          @click="joinGame"
-        >
-          Join Game
-        </button>
-      </div>
+      <UCard>
+        <UButton @click="createGame"> Create Game </UButton>
+      </UCard>
+      <UCard>
+        <UInput v-model="gameCode" type="text" placeholder="Enter Room Code" />
+        <UButton @click="joinGame"> Join Game </UButton>
+      </UCard>
     </div>
   </div>
 </template>

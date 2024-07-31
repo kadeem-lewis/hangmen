@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-full flex-col justify-between">
+  <UCard class="flex h-full flex-col justify-between">
     <AppGameSettings>
       <div>
         <p class="text-lg font-bold">Room Code:</p>
@@ -13,20 +13,18 @@
             :class="copied ? 'bg-green-600' : 'bg-sky-600  hover:bg-sky-500'"
             @click="copy(roomCode)"
           >
-            <Icon v-if="!copied" name="mdi:clipboard" class="text-2xl" />
-            <Icon v-else name="mdi:clipboard-check" class="text-2xl" />
+            <UIcon v-if="!copied" name="i-mdi-clipboard" class="text-2xl" />
+            <UIcon v-else name="i-mdi-clipboard-check" class="text-2xl" />
           </button>
         </div>
       </div>
     </AppGameSettings>
-    <button
-      :disabled="!isHost"
-      class="btn disabled:border-gray-400 disabled:text-gray-400 disabled:hover:bg-inherit"
-      @click="startGame"
-    >
-      Start
-    </button>
-  </div>
+    <template #footer>
+      <UButton :disabled="!isHost" block padded @click="startGame">
+        Start
+      </UButton>
+    </template>
+  </UCard>
 </template>
 
 <script setup lang="ts">
