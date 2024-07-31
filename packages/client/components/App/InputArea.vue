@@ -1,17 +1,20 @@
 <template>
   <form class="relative flex" @submit.prevent="sendMessage">
-    <input
+    <UInput
       id="chat-input"
       v-model="chatInput"
-      type="text"
-      class="grow rounded-sm bg-dark-mode-400 py-2 pl-4 pr-12 outline-none"
       placeholder="Enter Message..."
+      class="w-full"
+      :ui="{ icon: { trailing: { pointer: '' } } }"
     >
-    <button
-      class="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1 hover:bg-dark-mode-600"
-    >
-      <Icon name="heroicons:paper-airplane" class="text-2xl" />
-    </button>
+      <template #trailing>
+        <UButton
+          icon="i-heroicons-paper-airplane"
+          variant="ghost"
+          type="submit"
+        />
+      </template>
+    </UInput>
   </form>
 </template>
 <script setup lang="ts">

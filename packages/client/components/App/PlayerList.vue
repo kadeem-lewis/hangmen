@@ -1,18 +1,14 @@
 <template>
-  <ul v-if="players" class="flex flex-col gap-y-2">
-    <li
-      v-for="(player, key) in players"
-      :key="key"
-      class="rounded-md bg-dark-mode-500 p-2 text-center"
-    >
+  <div v-if="players" class="flex flex-col gap-y-2">
+    <UCard v-for="(player, key) in players" :key="key" class="text-center">
       <div
         v-if="players[key]"
-        class="flex flex-row justify-between"
+        class="flex flex-row items-center justify-between"
         @click="() => (isOpen = true)"
       >
         <div>
           <div class="font-bold">#{{ "1" }}</div>
-          <Icon v-if="players[key].isHost" name="mdi:crown" />
+          <UIcon v-if="players[key].isHost" name="i-mdi-crown" />
         </div>
         <div>
           <div>
@@ -23,24 +19,22 @@
           </div>
           <div>{{ 0 }} points</div>
         </div>
-        <UiAvatar
+        <UAvatar
           :src="players[key].avatar"
-          :name="players[key].username"
+          :name="`${players[key].username} Avatar`"
           size="sm"
         />
-        <UiDialog v-model:open="isOpen">
-          <UiDialogContent> Hey hey hey </UiDialogContent>
-        </UiDialog>
+        <UModal v-model="isOpen"> Hey hey hey </UModal>
       </div>
       <div v-else class="flex justify-around">
         <span
           class="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-dark-mode-400"
         >
-          <Icon name="heroicons:user" /></span
+          <UIcon name="i-heroicons-user" /></span
         ><span>Empty</span>
       </div>
-    </li>
-  </ul>
+    </UCard>
+  </div>
 </template>
 
 <script setup lang="ts">
