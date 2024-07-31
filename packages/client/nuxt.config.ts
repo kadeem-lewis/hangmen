@@ -2,13 +2,11 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
-    "@nuxtjs/tailwindcss",
-    "@nuxtjs/color-mode",
     "@vueuse/nuxt",
-    "@nuxt/icon",
     "@pinia/nuxt",
     "@nuxt/eslint",
     "@nuxt/fonts",
+    "@nuxt/ui",
   ],
   postcss: {
     plugins: {
