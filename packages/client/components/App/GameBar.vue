@@ -1,7 +1,9 @@
 <template>
-  <div class="flex items-center justify-between bg-dark-mode-500 px-2 py-1">
+  <div
+    class="flex items-center justify-between rounded-lg bg-gray-900 px-2 py-1 shadow ring-1 ring-gray-200 dark:ring-gray-800"
+  >
     <div class="flex flex-col items-center justify-center gap-px lg:flex-row">
-      <Icon name="heroicons:clock" class="text-xl lg:text-2xl" />
+      <UIcon name="i-heroicons-clock" class="text-xl lg:text-2xl" />
       <span>{{ count }}s</span>
     </div>
     <div
@@ -12,25 +14,20 @@
       <AppHangmanWord />
     </div>
     <div v-else>Waiting...</div>
-    <button
+    <UButton
       class="rounded-md p-1 hover:bg-dark-mode-600"
+      variant="ghost"
       @click="leaveClick = true"
     >
-      <Icon name="heroicons:home" class="text-xl lg:text-2xl" />
-    </button>
-    <UiDialog v-model:open="leaveClick">
-      <UiDialogContent>
-        <template #title>
-          <p class="text-center text-2xl">Are you sure you want to leave?</p>
-        </template>
-        <div class="flex gap-4">
-          <button class="btn text-base" @click="leaveGame">Yes</button>
-          <button class="btn text-base" @click="leaveClick = false">
-            Cancel
-          </button>
-        </div>
-      </UiDialogContent>
-    </UiDialog>
+      <UIcon name="i-heroicons-home" class="text-xl lg:text-2xl" />
+    </UButton>
+    <UModal v-model="leaveClick">
+      <p class="text-center text-2xl">Are you sure you want to leave?</p>
+      <div class="flex gap-4">
+        <UButton @click="leaveGame">Yes</UButton>
+        <UButton @click="leaveClick = false"> Cancel </UButton>
+      </div>
+    </UModal>
   </div>
 </template>
 
@@ -40,7 +37,7 @@ const hasLeftRoom = useState("hasLeftRoom", () => false);
 
 const { count, reset, dec } = useCounter(30, { min: 0, max: 30 });
 
-const { isActive } = useIntervalFn(() => {
+useIntervalFn(() => {
   dec();
   if (count.value === 0) {
     reset();
