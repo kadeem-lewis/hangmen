@@ -1,13 +1,16 @@
 <template>
-  <div class="overflow-y-auto bg-dark-mode-500">
-    <div class="h-64 p-4">
+  <UCard class="flex flex-col justify-between">
+    <div class="max-h-64 grow overflow-y-auto">
       <AppChatBubble
         v-for="message in messages"
         :key="message.id"
         v-bind="message"
       />
     </div>
-  </div>
+    <template #footer>
+      <AppInputArea />
+    </template>
+  </UCard>
 </template>
 <script setup lang="ts">
 import { nanoid } from "nanoid";
