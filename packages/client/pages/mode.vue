@@ -1,13 +1,37 @@
 <template>
-  <div>
+  <div class="space-y-8">
     <h2 class="text-center text-2xl font-bold">Choose Mode</h2>
     <div class="grid gap-8 lg:grid-cols-2">
       <UCard>
-        <UButton @click="createGame"> Create Game </UButton>
+        <template #header>
+          <h4 class="text-2xl">Create Game</h4>
+        </template>
+        <div class="flex h-full items-end justify-center">
+          <UButton block @click="createGame">Create Game</UButton>
+        </div>
       </UCard>
       <UCard>
-        <UInput v-model="gameCode" type="text" placeholder="Enter Room Code" />
-        <UButton @click="joinGame"> Join Game </UButton>
+        <template #header>
+          <h4 class="text-2xl">Join Game</h4>
+        </template>
+        <UForm
+          ref="form"
+          :schema="schema"
+          :state="state"
+          class="space-y-4"
+          @submit="joinGame"
+          @error="console.log"
+        >
+          <UAlert
+            v-if="serverError"
+            title="Failed to join Room"
+            :description="serverError"
+          />
+          <UFormGroup label="Enter Room Code" name="gameCode">
+            <UInput v-model="state.gameCode" placeholder="Room Code:" />
+          </UFormGroup>
+          <UButton type="submit" block>Join Game</UButton>
+        </UForm>
       </UCard>
     </div>
   </div>
@@ -16,13 +40,25 @@
 <script setup lang="ts">
 import type { User, Message } from "@hangmen/shared";
 import { nanoid } from "nanoid";
+import { z } from "zod";
+import type { FormSubmitEvent } from "#ui/types";
 const { $io } = useNuxtApp();
 
-const gameCode = ref("");
+const schema = z.object({
+  gameCode: z.string().length(5, "Invalid room code"),
+});
+
+type State = z.infer<typeof schema>;
+
+const state: State = reactive({
+  gameCode: "",
+});
+
+const serverError = ref<string>();
+
 const players = useState<{ [id: string]: User } | null>("players", () => null);
 const messages = useState<Message[]>("messages", () => []);
 
-// Set up event listener on component mount
 onMounted(() => {
   $io.on(ServerEvents.CREATE_ROOM, (roomCode) => {
     $io.emit(ClientEvents.JOIN_ROOM, roomCode, (response) => {
@@ -46,7 +82,6 @@ onMounted(() => {
   });
 });
 
-// Remove event listener on component unmount
 onUnmounted(() => {
   $io.off(ServerEvents.CREATE_ROOM);
 });
@@ -54,8 +89,9 @@ const createGame = () => {
   $io.emit(ClientEvents.REQUEST_ROOM_CODE);
 };
 
-const joinGame = () => {
-  const room = gameCode.value.toString().toUpperCase();
+const joinGame = (event: FormSubmitEvent<State>) => {
+  console.log(event.data);
+  const room = state.gameCode.toUpperCase();
   $io.emit(ClientEvents.JOIN_ROOM, room, (response) => {
     if (response.status === "ok") {
       const date = useDateFormat(useNow(), "HH:mm");
@@ -76,7 +112,8 @@ const joinGame = () => {
         path: `/game/${room}/lobby`,
       });
     } else {
-      alert(response.message);
+      console.log(response.message);
+      serverError.value = response.message;
     }
   });
 };
