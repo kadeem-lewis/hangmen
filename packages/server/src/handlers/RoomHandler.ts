@@ -13,6 +13,7 @@ interface ActiveRooms {
   [key: string]: Room;
 }
 
+// Active rooms should probably be a Set instead of an object
 export const activeRooms: ActiveRooms = {};
 
 export const roomHandler = (
@@ -56,21 +57,31 @@ export const roomHandler = (
   });
   socket.on(ClientEvents.LEAVE_ROOM, (roomCode, callback) => {
     //on leave room remove the player from the room, remove the room from the players current room and delete the room if the player count is 0.
-    if (roomCode in activeRooms && socket.id in activeRooms[roomCode].players) {
+    if (
+      roomCode in activeRooms &&
+      activeRooms[roomCode].players.has(socket.id)
+    ) {
       activeRooms[roomCode].removePlayer(socket.id);
       socket.data.reset();
-      if (Object.keys(activeRooms[roomCode].players).length === 0) {
+      if (activeRooms[roomCode].players.size === 0) {
         delete activeRooms[roomCode];
       }
       socket.leave(roomCode);
       if (
-        !(roomCode in activeRooms && socket.id in activeRooms[roomCode].players)
+        !(
+          roomCode in activeRooms &&
+          activeRooms[roomCode].players.has(socket.id)
+        )
       ) {
         callback({
           status: "ok",
         });
       }
-      io.in(roomCode).emit(ServerEvents.PLAYER_LEAVE_ROOM, socket.data);
+      io.in(roomCode).emit(
+        ServerEvents.PLAYER_LEAVE_ROOM,
+        socket.data,
+        Array.from(activeRooms[roomCode].getPlayers())
+      );
     } else {
       callback({
         status: "error",

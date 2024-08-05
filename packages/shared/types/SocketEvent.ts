@@ -36,7 +36,10 @@ export interface ServerPayloads {
 
   [ServerEvents.RECEIVE_MESSAGE]: (message: Message) => void;
 
-  [ServerEvents.PLAYER_LEAVE_ROOM]: (user: User) => void;
+  [ServerEvents.PLAYER_LEAVE_ROOM]: (
+    user: User,
+    playerList: [string, User][]
+  ) => void;
   [ServerEvents.GAME_START]: () => void;
   [ServerEvents.GAME_UPDATE]: (word: string[]) => void;
 }
