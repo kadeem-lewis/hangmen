@@ -14,10 +14,9 @@
 </template>
 <script setup lang="ts">
 import { nanoid } from "nanoid";
-import type { Message } from "@hangmen/shared";
 const { $io } = useNuxtApp();
 
-const messages = useState<Message[]>("messages");
+const { messages } = storeToRefs(useRoomStore());
 
 onMounted(() => {
   $io.on(ServerEvents.RECEIVE_MESSAGE, (message) => {

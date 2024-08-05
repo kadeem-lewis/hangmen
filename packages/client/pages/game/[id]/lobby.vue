@@ -28,7 +28,6 @@
 </template>
 
 <script setup lang="ts">
-import type { User } from "@hangmen/shared";
 const { $io } = useNuxtApp();
 
 const route = useRoute("game-id-lobby");
@@ -36,7 +35,7 @@ const roomCode = ref(route.params.id);
 const { copy, copied, isSupported } = useClipboard();
 const isHost = ref(false);
 
-const players = useState<{ [id: string]: User } | null>("players", () => null);
+const { players } = storeToRefs(useRoomStore());
 const wordToGuess = useState<string[]>("wordToGuess");
 
 const gameSettings = useState<{
@@ -46,8 +45,8 @@ const gameSettings = useState<{
 }>("settings");
 
 onMounted(() => {
-  for (const playerKey in players.value) {
-    if (players.value[playerKey].isHost && playerKey === $io.id) {
+  for (const [key, player] of players.value) {
+    if (player.isHost && key === $io.id) {
       isHost.value = true;
     }
   }
@@ -61,8 +60,4 @@ const startGame = () => {
     }
   });
 };
-
-onBeforeUnmount(() => {
-  $io.off(ServerEvents.NEW_PLAYER);
-});
 </script>

@@ -38,7 +38,6 @@
 </template>
 
 <script setup lang="ts">
-import type { User, Message } from "@hangmen/shared";
 import { nanoid } from "nanoid";
 import { z } from "zod";
 import type { FormSubmitEvent } from "#ui/types";
@@ -56,8 +55,7 @@ const state: State = reactive({
 
 const serverError = ref<string>();
 
-const players = useState<{ [id: string]: User } | null>("players", () => null);
-const messages = useState<Message[]>("messages", () => []);
+const { players, messages } = storeToRefs(useRoomStore());
 
 onMounted(() => {
   $io.on(ServerEvents.CREATE_ROOM, (roomCode) => {
@@ -65,7 +63,8 @@ onMounted(() => {
       const date = useDateFormat(useNow(), "HH:mm");
 
       if (response.data) {
-        players.value = response.data.playerList;
+        console.log(response.data.playerList);
+        players.value = new Map(response.data.playerList);
 
         const message = {
           id: nanoid(),
@@ -97,7 +96,7 @@ const joinGame = (event: FormSubmitEvent<State>) => {
       const date = useDateFormat(useNow(), "HH:mm");
 
       if (response.data) {
-        players.value = response.data.playerList;
+        players.value = new Map(response.data.playerList);
 
         const message = {
           id: nanoid(),
