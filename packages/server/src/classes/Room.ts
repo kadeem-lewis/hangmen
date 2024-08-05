@@ -7,7 +7,7 @@ import { User } from "@hangmen/shared";
 import { maskWord } from "../utils/WordHelper.js";
 export class Room {
   code: string;
-  players: { [id: string]: User };
+  players: Map<string, User>;
   maxPlayers: number;
   wordsToGuess: { word: string; category: string }[] = [];
   word: { word: string; category: string } | null = null;
@@ -17,32 +17,28 @@ export class Room {
 
   constructor() {
     this.code = this.createNewCode();
-    this.players = {};
+    this.players = new Map();
     this.maxPlayers = 4;
   }
   setMaxPlayers(maxPlayers: number) {
     this.maxPlayers = maxPlayers;
   }
   addPlayer(id: string, player: any) {
-    if (
-      Object.keys(this.players).length < this.maxPlayers &&
-      !this.players[id]
-    ) {
-      if (Object.keys(this.players).length === 0) {
+    if (this.players.size < this.maxPlayers && !this.players.has(id)) {
+      if (this.players.size === 0) {
         player.isHost = true;
       }
-
-      this.players[id] = player;
+      this.players.set(id, player);
     }
   }
   removePlayer(id: string) {
-    const wasHost = this.players[id]?.isHost;
-    delete this.players[id];
+    const wasHost = this.players.get(id)?.isHost;
+    this.players.delete(id);
 
     // If the player leaving was the host, reassign the host to another player
-    if (wasHost && Object.keys(this.players).length > 0) {
-      const nextPlayerId = Object.keys(this.players)[0]; // Get the first available player's ID
-      this.players[nextPlayerId].isHost = true;
+    if (wasHost && this.players.size > 0) {
+      const firstPlayer = this.players.values().next().value;
+      if (firstPlayer) firstPlayer.isHost = true;
     }
   }
 
