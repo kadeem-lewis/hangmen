@@ -32,10 +32,7 @@ export enum ClientEvents {
 
 export interface ServerPayloads {
   [ServerEvents.CREATE_ROOM]: (roomCode: string) => void;
-  [ServerEvents.NEW_PLAYER]: (
-    user: User,
-    playerList: { [id: string]: User }
-  ) => void;
+  [ServerEvents.NEW_PLAYER]: (user: User, playerList: [string, User][]) => void;
 
   [ServerEvents.RECEIVE_MESSAGE]: (message: Message) => void;
 
@@ -50,7 +47,7 @@ export interface ClientPayloads {
     callback: (response: {
       status: string;
       message?: string;
-      data?: { player: User; playerList: { [id: string]: User } };
+      data?: { player: User; playerList: [string, User][] };
     }) => void
   ) => void;
 

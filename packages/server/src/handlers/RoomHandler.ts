@@ -35,15 +35,16 @@ export const roomHandler = (
         .emit(
           ServerEvents.NEW_PLAYER,
           socket.data,
-          activeRooms[roomCode].getPlayers()
+          Array.from(activeRooms[roomCode].getPlayers())
         );
 
       console.log("Current Socket is in these rooms: ", socket.rooms);
+      // This callback would give new players the current player list but future players wouldn't get sent
       callback({
         status: "ok",
         data: {
           player: socket.data,
-          playerList: activeRooms[roomCode].getPlayers(),
+          playerList: Array.from(activeRooms[roomCode].getPlayers()),
         },
       });
     } else {
