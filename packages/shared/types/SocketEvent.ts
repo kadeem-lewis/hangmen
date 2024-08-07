@@ -12,6 +12,13 @@ export type Message = {
   text: string;
   time: string;
 };
+
+export type GameSettings = {
+  wordsPerGame: number;
+  minWordLength: number;
+  isHardMode: boolean;
+};
+
 export enum ServerEvents {
   CREATE_ROOM = "create-room",
   NEW_PLAYER = "new-player",
