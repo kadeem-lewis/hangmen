@@ -22,7 +22,6 @@ export default defineNuxtConfig({
   experimental: {
     typedPages: true,
   },
-  plugins: ["./plugins/socket.io"],
   typescript: {
     typeCheck: true,
   },
