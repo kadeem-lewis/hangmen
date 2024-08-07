@@ -63,10 +63,15 @@ export const roomHandler = (
     ) {
       activeRooms[roomCode].removePlayer(socket.id);
       socket.data.reset();
+      io.in(roomCode).emit(
+        ServerEvents.PLAYER_LEAVE_ROOM,
+        socket.data,
+        Array.from(activeRooms[roomCode].getPlayers())
+      );
+      socket.leave(roomCode);
       if (activeRooms[roomCode].players.size === 0) {
         delete activeRooms[roomCode];
       }
-      socket.leave(roomCode);
       if (
         !(
           roomCode in activeRooms &&
@@ -77,11 +82,6 @@ export const roomHandler = (
           status: "ok",
         });
       }
-      io.in(roomCode).emit(
-        ServerEvents.PLAYER_LEAVE_ROOM,
-        socket.data,
-        Array.from(activeRooms[roomCode].getPlayers())
-      );
     } else {
       callback({
         status: "error",
