@@ -1,7 +1,6 @@
 <template>
   <UCard class="grid gap-4">
     <AppHangmanCanvas />
-    <UiPinInput v-model="guessedWord" :length="wordToGuess.length" />
     <template #footer>
       <UInput placeholder="Guess letter or word" />
       <UButton>Guess</UButton>
