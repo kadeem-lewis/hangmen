@@ -20,7 +20,12 @@
       </div>
     </AppGameSettings>
     <template #footer>
-      <UButton :disabled="!isHost" block padded @click="startGame(roomCode)">
+      <UButton
+        :disabled="!players.get($io.id!)?.isHost"
+        block
+        padded
+        @click="startGame(roomCode)"
+      >
         Start
       </UButton>
     </template>
@@ -34,15 +39,6 @@ const { startGame } = useGameStore();
 const route = useRoute("game-id-lobby");
 const roomCode = ref(route.params.id);
 const { copy, copied, isSupported } = useClipboard();
-const isHost = ref(false);
 
 const { players } = storeToRefs(useRoomStore());
-
-onMounted(() => {
-  for (const [key, player] of players.value) {
-    if (player.isHost && key === $io.id) {
-      isHost.value = true;
-    }
-  }
-});
 </script>
