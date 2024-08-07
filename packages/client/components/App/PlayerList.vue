@@ -45,24 +45,9 @@ const { players } = storeToRefs(useRoomStore());
 
 const emptySlots = computed(() => 4 - players.value.size);
 
-onMounted(() => {
-  //TODO: param is currently username because userId isnt properly setup yet. change back when done because two users with same username would break system
-  $io.on(ServerEvents.PLAYER_LEAVE_ROOM, (_, playerList) => {
-    players.value = new Map(playerList);
-  });
-});
-
-onMounted(() => {
-  $io.on(ServerEvents.NEW_PLAYER, (_, playerList) => {
-    players.value = new Map(playerList);
-  });
-});
-
 const isOpen = ref(false);
 
 onBeforeUnmount(() => {
-  $io.off(ServerEvents.PLAYER_LEAVE_ROOM);
-  $io.off(ServerEvents.NEW_PLAYER);
   players.value.clear; //player array isn't emptied for room creator
 });
 </script>

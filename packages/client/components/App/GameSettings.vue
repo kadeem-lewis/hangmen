@@ -30,11 +30,10 @@
     </form>
     <div><slot /></div>
   </div>
-  <!-- TODO: add a slot in settings to wrap and style game code  -->
 </template>
 
 <script setup lang="ts">
-const { $io } = useNuxtApp();
+const { gameSettings } = storeToRefs(useGameStore());
 
 const wordsPerGame = ref(3);
 const minWordsPerGame = 3;
@@ -53,9 +52,9 @@ const wordLengthOptions = Array.from(
 );
 const isHardMode = ref(false);
 
-const gameSettings = useState("settings", () => ({
+gameSettings.value = {
   wordsPerGame: wordsPerGame.value,
   minWordLength: wordLength.value,
   isHardMode: isHardMode.value,
-}));
+};
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <form class="relative flex" @submit.prevent="sendMessage">
+  <form class="relative flex" @submit.prevent="onSubmit">
     <UInput
       id="chat-input"
       v-model="chatInput"
@@ -18,12 +18,12 @@
   </form>
 </template>
 <script setup lang="ts">
-import { nanoid } from "nanoid";
-const { $io } = useNuxtApp();
+const { sendMessage } = useRoomStore();
+
 const chatInput = ref("");
 
-const sendMessage = () => {
-  $io.emit(ClientEvents.SEND_MESSAGE, nanoid(), chatInput.value);
+function onSubmit() {
+  sendMessage(chatInput.value);
   chatInput.value = "";
-};
+}
 </script>

@@ -12,7 +12,6 @@
 definePageMeta({
   layout: "game",
 });
-const { $io } = useNuxtApp();
 
 //TODO: If user comes to app from room link, prompt them to enter a username, connect them and add them to room
 </script>

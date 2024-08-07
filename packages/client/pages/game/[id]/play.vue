@@ -9,20 +9,7 @@
   </UCard>
 </template>
 <script setup lang="ts">
-const { $io } = useNuxtApp();
-
-const wordToGuess = useState<string[]>("wordToGuess");
-const guessedWord = useState<string[]>("guessedWord");
-
-const skipTurn = () => {
-  $io.emit(ClientEvents.SKIP_TURN);
-};
-
-onMounted(() => {
-  $io.on(ServerEvents.GAME_UPDATE, (word) => {
-    wordToGuess.value = word;
-  });
-});
+const { skipTurn } = useGameStore();
 
 //TODO: currently conflicts with leave game button if on play page, should be modal
 onBeforeRouteLeave(() => {

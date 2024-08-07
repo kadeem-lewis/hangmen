@@ -24,7 +24,7 @@
     <UModal v-model="leaveClick">
       <p class="text-center text-2xl">Are you sure you want to leave?</p>
       <div class="flex gap-4">
-        <UButton @click="leaveGame">Yes</UButton>
+        <UButton @click="leaveGame(roomCode)">Yes</UButton>
         <UButton @click="leaveClick = false"> Cancel </UButton>
       </div>
     </UModal>
@@ -32,8 +32,7 @@
 </template>
 
 <script setup lang="ts">
-const { $io } = useNuxtApp();
-const hasLeftRoom = useState("hasLeftRoom", () => false);
+const { leaveGame } = useRoomStore();
 
 const { count, reset, dec } = useCounter(30, { min: 0, max: 30 });
 
@@ -48,15 +47,4 @@ const route = useRoute("game-id");
 const roomCode = ref(route.params.id);
 
 const leaveClick = ref(false);
-
-const leaveGame = () => {
-  $io.emit(ClientEvents.LEAVE_ROOM, roomCode.value as string, (response) => {
-    if (response.status === "ok") {
-      hasLeftRoom.value = true;
-      navigateTo({ path: "/mode" });
-    } else {
-      console.error("An error has occurred");
-    }
-  });
-};
 </script>

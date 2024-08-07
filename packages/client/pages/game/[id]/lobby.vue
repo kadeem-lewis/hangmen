@@ -20,7 +20,7 @@
       </div>
     </AppGameSettings>
     <template #footer>
-      <UButton :disabled="!isHost" block padded @click="startGame">
+      <UButton :disabled="!isHost" block padded @click="startGame(roomCode)">
         Start
       </UButton>
     </template>
@@ -29,6 +29,7 @@
 
 <script setup lang="ts">
 const { $io } = useNuxtApp();
+const { startGame } = useGameStore();
 
 const route = useRoute("game-id-lobby");
 const roomCode = ref(route.params.id);
@@ -36,13 +37,6 @@ const { copy, copied, isSupported } = useClipboard();
 const isHost = ref(false);
 
 const { players } = storeToRefs(useRoomStore());
-const wordToGuess = useState<string[]>("wordToGuess");
-
-const gameSettings = useState<{
-  wordsPerGame: number;
-  minWordLength: number;
-  isHardMode: boolean;
-}>("settings");
 
 onMounted(() => {
   for (const [key, player] of players.value) {
@@ -51,13 +45,4 @@ onMounted(() => {
     }
   }
 });
-
-const startGame = () => {
-  $io.emit(ClientEvents.START_GAME, gameSettings.value, (response) => {
-    if (response.status === "ok") {
-      wordToGuess.value = response.word;
-      navigateTo({ path: `/game/${roomCode.value}/play` });
-    }
-  });
-};
 </script>
