@@ -13,7 +13,7 @@ const hasLeftRoom = useState<boolean>("hasLeftRoom");
 
 onBeforeRouteLeave(() => {
   if (!hasLeftRoom.value) {
-    $io.emit(ClientEvents.LEAVE_ROOM, roomCode.value as string, (response) => {
+    $io.emit(ClientEvents.LEAVE_ROOM, roomCode.value, (response) => {
       console.log(response);
     });
   }

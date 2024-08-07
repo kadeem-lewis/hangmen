@@ -1,27 +1,39 @@
 <template>
   <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-    <UCard class="flex items-center justify-center">
-      <span class="relative w-full">
-        <UAvatar :src="avatar" alt="`${username} Avatar`" size="3xl" />
-        <UButton
-          icon="i-heroicons-arrow-path"
-          class="absolute bottom-0 right-0 rounded-full bg-blue-600 p-1 hover:bg-blue-500"
-          @click="changeAvatar"
-        />
-      </span>
-      <label
-        for="username"
-        class="hidden text-center text-lg font-semibold uppercase lg:block"
-      >
-        Choose a character and a nickname
-      </label>
-      <UInput
-        v-model="username"
-        name="username"
-        size="lg"
-        placeholder="Enter a username"
-      />
-      <UButton icon="i-heroicons-play" label="Play" @click="register" block />
+    <UCard>
+      <div class="flex flex-col items-center justify-center gap-6">
+        <UChip
+          inset
+          position="bottom-right"
+          :ui="{ base: '-mx-2 my-1 rounded-none ring-0', background: '' }"
+        >
+          <template #content>
+            <UButton
+              icon="i-heroicons-arrow-path"
+              class="rounded-full"
+              @click="changeAvatar"
+            />
+          </template>
+          <UAvatar :src="avatar" alt="`${username} Avatar`" size="3xl" />
+        </UChip>
+        <UFormGroup>
+          <template #label>
+            <span
+              class="hidden text-center text-lg font-semibold uppercase lg:block"
+            >
+              Choose a character and a nickname
+            </span>
+          </template>
+          <UInput
+            v-model="username"
+            name="username"
+            size="lg"
+            placeholder="Enter a username"
+            required
+          />
+        </UFormGroup>
+        <UButton icon="i-heroicons-play" label="Play" block @click="register" />
+      </div>
     </UCard>
     <UCard>
       <h4 class="text-2xl">How to play</h4>
