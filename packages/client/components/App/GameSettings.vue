@@ -35,7 +35,6 @@
 <script setup lang="ts">
 const { gameSettings } = storeToRefs(useGameStore());
 
-const wordsPerGame = ref(3);
 const minWordsPerGame = 3;
 const maxWordsPerGame = 9;
 const wordOptions = Array.from(
@@ -43,18 +42,21 @@ const wordOptions = Array.from(
   (_, i) => String(i + minWordsPerGame),
 );
 
-const wordLength = ref(8);
+const wordsPerGame = ref(wordOptions[0]);
+
 const maxWordLength = 24;
 const minWordLength = 8;
 const wordLengthOptions = Array.from(
   { length: maxWordLength - minWordLength + 1 },
   (_, i) => String(i + minWordLength),
 );
+const wordLength = ref(wordLengthOptions[0]);
+
 const isHardMode = ref(false);
 
 gameSettings.value = {
-  wordsPerGame: wordsPerGame.value,
-  minWordLength: wordLength.value,
+  wordsPerGame: Number(wordsPerGame.value),
+  minWordLength: Number(wordLength.value),
   isHardMode: isHardMode.value,
 };
 </script>
