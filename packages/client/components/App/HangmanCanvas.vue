@@ -4,9 +4,15 @@
 
 <script setup lang="ts">
 const canvas = ref<HTMLCanvasElement | null>(null);
+const { $io } = useNuxtApp();
 let ctx: CanvasRenderingContext2D | null = null;
+const { players } = storeToRefs(useRoomStore());
 
-const currentPart = ref(0);
+//lives will decrement by 1 each time a wrong letter is guessed but currentPart requires an incrementing value
+
+const currentPart = computed(
+  () => 6 - (players.value.get($io.id!)?.lives || 0),
+);
 
 onMounted(() => {
   if (canvas.value) {
@@ -52,8 +58,11 @@ const rightArm = () => drawLine(70, 50, 90, 70);
 const leftLeg = () => drawLine(70, 80, 50, 110);
 const rightLeg = () => drawLine(70, 80, 90, 110);
 
-const drawNextPart = () => {
-  currentPart.value++;
+watch(currentPart, (newVal) => {
+  if (newVal === 0) {
+    initialDrawing();
+  }
+
   switch (currentPart.value) {
     case 1:
       head();
@@ -76,5 +85,5 @@ const drawNextPart = () => {
     default:
       break;
   }
-};
+});
 </script>
