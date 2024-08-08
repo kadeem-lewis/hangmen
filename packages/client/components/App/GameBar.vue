@@ -10,7 +10,7 @@
       v-if="route.path === `/game/${roomCode}/play`"
       class="flex flex-col justify-center"
     >
-      <span class="text-xs">{{ "player" }} is guessing</span>
+      <span class="text-xs">{{ currentPlayer?.username }} is guessing</span>
       <AppHangmanWord />
     </div>
     <div v-else>Waiting...</div>
@@ -33,6 +33,7 @@
 
 <script setup lang="ts">
 const { leaveGame } = useRoomStore();
+const { currentPlayer } = storeToRefs(useGameStore());
 
 const { count, reset, dec } = useCounter(30, { min: 0, max: 30 });
 
