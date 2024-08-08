@@ -1,24 +1,48 @@
-import type { GameSettings } from "@hangmen/shared";
+import type { GameSettings, User } from "@hangmen/shared";
 
 export const useGameStore = defineStore("game", () => {
   const { $io } = useNuxtApp();
+  const { players } = storeToRefs(useRoomStore());
+  const { gameCode } = storeToRefs(useRoomStore());
   const guessedWord = ref<string[]>([]);
+  const guessedLetters = ref(new Set<string>());
   const wordToGuess = ref<string[]>([]);
+  const wordCategory = ref<string>("");
   const gameSettings = ref<GameSettings | null>(null);
+  const currentPlayer = ref<User | null>(null);
+
   function bindEvents() {
-    $io.on(ServerEvents.GAME_UPDATE, (word) => {
+    $io.on(
+      ServerEvents.GAME_UPDATE,
+      (word, letters, currentGuesser, playerList) => {
+        wordToGuess.value = word;
+        guessedLetters.value = new Set(letters);
+        currentPlayer.value = currentGuesser;
+        players.value = new Map(playerList);
+      },
+    );
+
+    $io.on(ServerEvents.GAME_START, (word, category, currentGuesser) => {
       wordToGuess.value = word;
+      wordCategory.value = category;
+      currentPlayer.value = currentGuesser;
+      navigateTo({
+        path: `/game/${gameCode.value}/play`,
+      });
     });
   }
 
-  function startGame(roomCode: string) {
+  function startGame() {
     if (!gameSettings.value) return;
     $io.emit(ClientEvents.START_GAME, gameSettings.value, (response) => {
       if (response.status === "ok") {
-        wordToGuess.value = response.word;
-        navigateTo({ path: `/game/${roomCode}/play` });
+        console.log("Game started", response);
       }
     });
+  }
+
+  function sendGuess(guess: string) {
+    $io.emit(ClientEvents.SEND_GUESS, guess);
   }
 
   const skipTurn = () => {
@@ -29,9 +53,13 @@ export const useGameStore = defineStore("game", () => {
     guessedWord,
     wordToGuess,
     gameSettings,
+    wordCategory,
+    currentPlayer,
+    guessedLetters,
     bindEvents,
     startGame,
     skipTurn,
+    sendGuess,
   };
 });
 
