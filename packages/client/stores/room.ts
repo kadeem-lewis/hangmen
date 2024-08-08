@@ -35,7 +35,6 @@ export const useRoomStore = defineStore("room", () => {
       messages.value.push(message);
     });
     $io.on(ServerEvents.NEW_PLAYER, (player, playerList) => {
-      console.log(playerList);
       players.value = new Map(playerList);
       const date = useDateFormat(useNow(), "HH:mm");
 

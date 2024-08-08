@@ -16,8 +16,6 @@ export const gameHandler = (
   socket.on(ClientEvents.START_GAME, async (settings, callback) => {
     const room = activeRooms[socket.data.roomId];
 
-    console.log("AT GAME START:", socket.data);
-
     await room.startGame(settings);
 
     if (room.word) {
