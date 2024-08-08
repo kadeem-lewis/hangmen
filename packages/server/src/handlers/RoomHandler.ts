@@ -29,6 +29,7 @@ export const roomHandler = (
     if (activeRooms[roomCode]) {
       socket.join(roomCode);
       socket.data.roomId = roomCode;
+      socket.data.lives = 6;
       activeRooms[roomCode].addPlayer(socket.id, socket.data);
       socket
         .in(roomCode)

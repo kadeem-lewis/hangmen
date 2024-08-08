@@ -60,7 +60,7 @@ io.on("connection", (socket) => {
     this.isGuesser = false;
     this.isHost = false;
     this.points = 0;
-    this.lives = 7;
+    this.lives = 6;
   };
   roomHandler(io, socket);
   gameHandler(io, socket);
