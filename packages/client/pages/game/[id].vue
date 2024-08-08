@@ -6,10 +6,10 @@
 
 <script lang="ts" setup>
 const { $io } = useNuxtApp();
+const { hasLeftRoom } = storeToRefs(useRoomStore());
 
 const route = useRoute("game-id");
 const roomCode = ref(route.params.id);
-const hasLeftRoom = useState<boolean>("hasLeftRoom");
 
 onBeforeRouteLeave(() => {
   if (!hasLeftRoom.value) {
