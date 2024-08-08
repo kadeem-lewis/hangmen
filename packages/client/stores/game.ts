@@ -30,6 +30,12 @@ export const useGameStore = defineStore("game", () => {
         path: `/game/${gameCode.value}/play`,
       });
     });
+
+    $io.on(ServerEvents.GAME_OVER, () => {
+      navigateTo({
+        path: `/game/${gameCode.value}/gameover`,
+      });
+    });
   }
 
   function startGame() {
