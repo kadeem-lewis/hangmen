@@ -7,6 +7,7 @@ export const useRoomStore = defineStore("room", () => {
   const hasLeftRoom = ref(false);
   const settings = ref({});
   const players = ref(new Map<string, User>());
+  const gameCode = ref("");
 
   function bindEvents() {
     $io.on(ServerEvents.CREATE_ROOM, (roomCode) => {
@@ -14,7 +15,6 @@ export const useRoomStore = defineStore("room", () => {
         const date = useDateFormat(useNow(), "HH:mm");
 
         if (response.data) {
-          console.log(response.data.playerList);
           players.value = new Map(response.data.playerList);
 
           const message = {
@@ -26,6 +26,7 @@ export const useRoomStore = defineStore("room", () => {
           messages.value.push(message);
         }
       });
+      gameCode.value = roomCode;
       navigateTo({
         path: `/game/${roomCode}/lobby`,
       });
@@ -34,6 +35,7 @@ export const useRoomStore = defineStore("room", () => {
       messages.value.push(message);
     });
     $io.on(ServerEvents.NEW_PLAYER, (player, playerList) => {
+      console.log(playerList);
       players.value = new Map(playerList);
       const date = useDateFormat(useNow(), "HH:mm");
 
@@ -71,6 +73,7 @@ export const useRoomStore = defineStore("room", () => {
     $io.emit(ClientEvents.LEAVE_ROOM, roomCode, (response) => {
       if (response.status === "ok") {
         hasLeftRoom.value = true;
+        messages.value = [];
         $io.off(ServerEvents.NEW_PLAYER);
         navigateTo({ path: "/mode" });
       } else {
@@ -84,6 +87,7 @@ export const useRoomStore = defineStore("room", () => {
     hasLeftRoom,
     settings,
     players,
+    gameCode,
     bindEvents,
     sendMessage,
     leaveGame,

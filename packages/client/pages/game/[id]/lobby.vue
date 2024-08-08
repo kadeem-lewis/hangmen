@@ -24,7 +24,7 @@
         :disabled="!players.get($io.id!)?.isHost"
         block
         padded
-        @click="startGame(roomCode)"
+        @click="startGame"
       >
         Start
       </UButton>

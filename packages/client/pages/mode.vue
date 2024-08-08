@@ -42,6 +42,7 @@ import { nanoid } from "nanoid";
 import { z } from "zod";
 import type { FormSubmitEvent } from "#ui/types";
 const { $io } = useNuxtApp();
+const { createGame } = useRoomStore();
 
 const schema = z.object({
   gameCode: z.string().length(5, "Invalid room code"),
@@ -55,38 +56,7 @@ const state: State = reactive({
 
 const serverError = ref<string>();
 
-const { players, messages } = storeToRefs(useRoomStore());
-
-onMounted(() => {
-  $io.on(ServerEvents.CREATE_ROOM, (roomCode) => {
-    $io.emit(ClientEvents.JOIN_ROOM, roomCode, (response) => {
-      const date = useDateFormat(useNow(), "HH:mm");
-
-      if (response.data) {
-        console.log(response.data.playerList);
-        players.value = new Map(response.data.playerList);
-
-        const message = {
-          id: nanoid(),
-          sender: response.data.player.username,
-          text: `has joined the game.`,
-          time: date.value,
-        };
-        messages.value.push(message);
-      }
-    });
-    navigateTo({
-      path: `/game/${roomCode}/lobby`,
-    });
-  });
-});
-
-onUnmounted(() => {
-  $io.off(ServerEvents.CREATE_ROOM);
-});
-const createGame = () => {
-  $io.emit(ClientEvents.REQUEST_ROOM_CODE);
-};
+const { players, messages, gameCode } = storeToRefs(useRoomStore());
 
 const joinGame = (event: FormSubmitEvent<State>) => {
   console.log(event.data);
@@ -106,7 +76,7 @@ const joinGame = (event: FormSubmitEvent<State>) => {
         };
         messages.value.push(message);
       }
-
+      gameCode.value = room;
       navigateTo({
         path: `/game/${room}/lobby`,
       });
