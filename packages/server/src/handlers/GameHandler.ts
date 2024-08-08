@@ -45,6 +45,15 @@ export const gameHandler = (
       const currentScore = room.scores.get(socket.id) ?? 0;
       room.scores.set(socket.id, currentScore + score);
       socket.data.points = room.scores.get(socket.id)!;
+    } else {
+      socket.data.lives -= 1;
+      if (socket.data.lives === 0) {
+        room.eligiblePlayers.delete(socket.id);
+
+        if (room.eligiblePlayers.size === 0) {
+          io.in(socket.data.roomId).emit(ServerEvents.GAME_OVER);
+        }
+      }
     }
     if (room.getPlayers().size > 1) socket.data.isGuesser = false;
     room.nextTurn();

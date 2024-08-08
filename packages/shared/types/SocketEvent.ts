@@ -28,6 +28,7 @@ export enum ServerEvents {
   PLAYER_LEAVE_ROOM = "player-leave-room",
   GAME_START = "game-start",
   GAME_UPDATE = "game-update",
+  GAME_OVER = "game-over",
 }
 export enum ClientEvents {
   REQUEST_ROOM_CODE = "request-room-code",
@@ -60,6 +61,7 @@ export interface ServerPayloads {
     currentGuesser: User,
     playerList: [string, User][]
   ) => void;
+  [ServerEvents.GAME_OVER]: () => void;
 }
 export interface ClientPayloads {
   [ClientEvents.REQUEST_ROOM_CODE]: () => void;

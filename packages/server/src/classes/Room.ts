@@ -8,6 +8,7 @@ import { maskWord } from "../utils/WordHelper.js";
 export class Room {
   code: string;
   players: Map<string, User>;
+  eligiblePlayers: Map<string, User> = new Map();
   maxPlayers: number;
   wordsToGuess: { word: string; category: string }[] = [];
   word: { word: string; category: string } | null = null;
@@ -63,6 +64,7 @@ export class Room {
     this.maskedWord = maskWord(this.word.word, this.guessedLetters);
     this.currentGuesser = Array.from(this.players.values())[0];
     this.currentGuesser.isGuesser = true;
+    this.eligiblePlayers = new Map(this.players);
   }
   async fetchWords(minWordLength: number, numOfWords: number) {
     try {
@@ -107,7 +109,7 @@ export class Room {
   }
 
   nextTurn() {
-    const playerArray = Array.from(this.players.values());
+    const playerArray = Array.from(this.eligiblePlayers.values());
     const currentPlayerIndex = playerArray.findIndex(
       (player) => player === this.currentGuesser
     );
