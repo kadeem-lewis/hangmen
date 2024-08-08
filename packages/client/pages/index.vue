@@ -69,6 +69,7 @@ const register = () => {
 };
 
 const changeAvatar = () => {
-  seed.value = Math.floor(Math.random() * 100).toString();
+  const constantPrefix = "playhangmen-avatars";
+  seed.value = `${constantPrefix}-${Math.floor(Math.random() * 100)}`;
 };
 </script>
