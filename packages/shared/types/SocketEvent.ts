@@ -1,10 +1,12 @@
-export type User = {
+export interface User {
   username: string;
   userId: string;
   isHost: boolean;
-  isReady: boolean;
-  avatar: string;
-};
+  isGuesser: boolean;
+  points: number;
+  lives: number;
+  avatarSeed: string;
+}
 
 export type Message = {
   id: string;
@@ -47,8 +49,17 @@ export interface ServerPayloads {
     user: User,
     playerList: [string, User][]
   ) => void;
-  [ServerEvents.GAME_START]: () => void;
-  [ServerEvents.GAME_UPDATE]: (word: string[]) => void;
+  [ServerEvents.GAME_START]: (
+    word: string[],
+    category: string,
+    currentGuesser: User
+  ) => void;
+  [ServerEvents.GAME_UPDATE]: (
+    word: string[],
+    guessedLetters: string[],
+    currentGuesser: User,
+    playerList: [string, User][]
+  ) => void;
 }
 export interface ClientPayloads {
   [ClientEvents.REQUEST_ROOM_CODE]: () => void;
@@ -83,13 +94,7 @@ export interface ClientPayloads {
   [ClientEvents.SKIP_TURN]: () => void;
 }
 export interface InterServerEvents {}
-export interface SocketData {
+export interface SocketData extends User {
   roomId: string;
-  isReady: boolean;
-  username: string;
-  userId: string;
-  isHost: boolean;
-  points: number;
-  avatar: string;
   reset: () => void;
 }
