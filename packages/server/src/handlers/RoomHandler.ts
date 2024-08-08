@@ -30,7 +30,6 @@ export const roomHandler = (
       socket.join(roomCode);
       socket.data.roomId = roomCode;
       activeRooms[roomCode].addPlayer(socket.id, socket.data);
-
       socket
         .in(roomCode)
         .emit(
@@ -97,7 +96,7 @@ export const roomHandler = (
       id,
       sender: socket.data.username,
       text,
-      time: `${date.getHours()}:${date.getMinutes()}`,
+      time: `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`,
     });
   });
 };
