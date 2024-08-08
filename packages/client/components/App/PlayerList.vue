@@ -16,10 +16,10 @@
             </span>
             <span v-if="$io.id === key"> ( You ) </span>
           </div>
-          <div>{{ 0 }} points</div>
+          <div>{{ player.points ?? 0 }} points</div>
         </div>
         <UAvatar
-          :src="player.avatar"
+          :src="`https://api.dicebear.com/9.x/adventurer-neutral/svg?${player.avatarSeed}`"
           :name="`${player.username} Avatar`"
           size="sm"
         />
