@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <UContainer>
     <NavBar />
-    <main class="m-auto mt-16 max-w-md lg:max-w-7xl">
+    <main class="mt-16">
       <slot />
     </main>
-  </div>
+  </UContainer>
 </template>
 
 <script setup lang="ts"></script>

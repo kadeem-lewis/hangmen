@@ -2,11 +2,11 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
-    "@nuxtjs/google-fonts",
-    "@nuxtjs/tailwindcss",
-    "@nuxtjs/color-mode",
     "@vueuse/nuxt",
-    "@nuxt/icon"
+    "@pinia/nuxt",
+    "@nuxt/eslint",
+    "@nuxt/fonts",
+    "@nuxt/ui",
   ],
   postcss: {
     plugins: {
@@ -22,16 +22,8 @@ export default defineNuxtConfig({
   experimental: {
     typedPages: true,
   },
-  plugins: ["./plugins/socket.io"],
-  typescript:{
+  typescript: {
     typeCheck: true,
-  },
-  googleFonts: {
-    families: {
-      // "Open+Sans": true,
-      "Short+Stack": true,
-    },
-    display: "swap",
   },
   colorMode: {
     preference: "system",

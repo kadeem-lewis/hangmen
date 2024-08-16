@@ -12,6 +12,5 @@
 </template>
 
 <script setup lang="ts">
-const wordToGuess = useState<(string | null)[]>("wordToGuess");
-const guessedLetters = ref(["s", "n"]);
+const { wordToGuess } = storeToRefs(useGameStore());
 </script>

@@ -1,10 +1,12 @@
-export type User = {
+export interface User {
   username: string;
   userId: string;
   isHost: boolean;
-  isReady: boolean;
-  avatar: string;
-};
+  isGuesser: boolean;
+  points: number;
+  lives: number;
+  avatarSeed: string;
+}
 
 export type Message = {
   id: string;
@@ -12,6 +14,13 @@ export type Message = {
   text: string;
   time: string;
 };
+
+export type GameSettings = {
+  wordsPerGame: number;
+  minWordLength: number;
+  isHardMode: boolean;
+};
+
 export enum ServerEvents {
   CREATE_ROOM = "create-room",
   NEW_PLAYER = "new-player",
@@ -19,6 +28,7 @@ export enum ServerEvents {
   PLAYER_LEAVE_ROOM = "player-leave-room",
   GAME_START = "game-start",
   GAME_UPDATE = "game-update",
+  GAME_OVER = "game-over",
 }
 export enum ClientEvents {
   REQUEST_ROOM_CODE = "request-room-code",
@@ -32,16 +42,26 @@ export enum ClientEvents {
 
 export interface ServerPayloads {
   [ServerEvents.CREATE_ROOM]: (roomCode: string) => void;
-  [ServerEvents.NEW_PLAYER]: (
-    user: User,
-    playerList: { [id: string]: User }
-  ) => void;
+  [ServerEvents.NEW_PLAYER]: (user: User, playerList: [string, User][]) => void;
 
   [ServerEvents.RECEIVE_MESSAGE]: (message: Message) => void;
 
-  [ServerEvents.PLAYER_LEAVE_ROOM]: (user: User) => void;
-  [ServerEvents.GAME_START]: () => void;
-  [ServerEvents.GAME_UPDATE]: (word: string[]) => void;
+  [ServerEvents.PLAYER_LEAVE_ROOM]: (
+    user: User,
+    playerList: [string, User][]
+  ) => void;
+  [ServerEvents.GAME_START]: (
+    word: string[],
+    category: string,
+    currentGuesser: User
+  ) => void;
+  [ServerEvents.GAME_UPDATE]: (
+    word: string[],
+    guessedLetters: string[],
+    currentGuesser: User,
+    playerList: [string, User][]
+  ) => void;
+  [ServerEvents.GAME_OVER]: () => void;
 }
 export interface ClientPayloads {
   [ClientEvents.REQUEST_ROOM_CODE]: () => void;
@@ -50,7 +70,7 @@ export interface ClientPayloads {
     callback: (response: {
       status: string;
       message?: string;
-      data?: { player: User; playerList: { [id: string]: User } };
+      data?: { player: User; playerList: [string, User][] };
     }) => void
   ) => void;
 
@@ -76,13 +96,7 @@ export interface ClientPayloads {
   [ClientEvents.SKIP_TURN]: () => void;
 }
 export interface InterServerEvents {}
-export interface SocketData {
+export interface SocketData extends User {
   roomId: string;
-  isReady: boolean;
-  username: string;
-  userId: string;
-  isHost: boolean;
-  points: number;
-  avatar: string;
   reset: () => void;
 }

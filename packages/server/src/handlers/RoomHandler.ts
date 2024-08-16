@@ -13,6 +13,7 @@ interface ActiveRooms {
   [key: string]: Room;
 }
 
+// Active rooms should probably be a Set instead of an object
 export const activeRooms: ActiveRooms = {};
 
 export const roomHandler = (
@@ -28,22 +29,23 @@ export const roomHandler = (
     if (activeRooms[roomCode]) {
       socket.join(roomCode);
       socket.data.roomId = roomCode;
+      socket.data.lives = 6;
       activeRooms[roomCode].addPlayer(socket.id, socket.data);
-
       socket
         .in(roomCode)
         .emit(
           ServerEvents.NEW_PLAYER,
           socket.data,
-          activeRooms[roomCode].getPlayers()
+          Array.from(activeRooms[roomCode].getPlayers())
         );
 
       console.log("Current Socket is in these rooms: ", socket.rooms);
+      // This callback would give new players the current player list but future players wouldn't get sent
       callback({
         status: "ok",
         data: {
           player: socket.data,
-          playerList: activeRooms[roomCode].getPlayers(),
+          playerList: Array.from(activeRooms[roomCode].getPlayers()),
         },
       });
     } else {
@@ -55,21 +57,31 @@ export const roomHandler = (
   });
   socket.on(ClientEvents.LEAVE_ROOM, (roomCode, callback) => {
     //on leave room remove the player from the room, remove the room from the players current room and delete the room if the player count is 0.
-    if (roomCode in activeRooms && socket.id in activeRooms[roomCode].players) {
+    if (
+      roomCode in activeRooms &&
+      activeRooms[roomCode].players.has(socket.id)
+    ) {
       activeRooms[roomCode].removePlayer(socket.id);
       socket.data.reset();
-      if (Object.keys(activeRooms[roomCode].players).length === 0) {
+      io.in(roomCode).emit(
+        ServerEvents.PLAYER_LEAVE_ROOM,
+        socket.data,
+        Array.from(activeRooms[roomCode].getPlayers())
+      );
+      socket.leave(roomCode);
+      if (activeRooms[roomCode].players.size === 0) {
         delete activeRooms[roomCode];
       }
-      socket.leave(roomCode);
       if (
-        !(roomCode in activeRooms && socket.id in activeRooms[roomCode].players)
+        !(
+          roomCode in activeRooms &&
+          activeRooms[roomCode].players.has(socket.id)
+        )
       ) {
         callback({
           status: "ok",
         });
       }
-      io.in(roomCode).emit(ServerEvents.PLAYER_LEAVE_ROOM, socket.data);
     } else {
       callback({
         status: "error",
@@ -85,7 +97,7 @@ export const roomHandler = (
       id,
       sender: socket.data.username,
       text,
-      time: `${date.getHours()}:${date.getMinutes()}`,
+      time: `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`,
     });
   });
 };

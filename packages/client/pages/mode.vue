@@ -1,82 +1,72 @@
 <template>
-  <div class="m-auto max-w-4xl">
+  <div class="space-y-8">
     <h2 class="text-center text-2xl font-bold">Choose Mode</h2>
     <div class="grid gap-8 lg:grid-cols-2">
-      <div class="flex items-end justify-center rounded-lg border p-8">
-        <button
-          @click="createGame"
-          class="btn rounded-lg py-2 text-xl font-semibold"
+      <UCard>
+        <template #header>
+          <h4 class="text-2xl">Create Game</h4>
+        </template>
+        <div class="flex h-full items-end justify-center">
+          <UButton block @click="createGame">Create Game</UButton>
+        </div>
+      </UCard>
+      <UCard>
+        <template #header>
+          <h4 class="text-2xl">Join Game</h4>
+        </template>
+        <UForm
+          ref="form"
+          :schema="schema"
+          :state="state"
+          class="space-y-4"
+          @submit="joinGame"
+          @error="console.log"
         >
-          Create Game
-        </button>
-      </div>
-      <div class="flex flex-col justify-center gap-4 rounded-lg border p-8">
-        <input
-          type="text"
-          v-model="gameCode"
-          placeholder="Enter Room Code"
-          class="mx-2 rounded-md bg-dark-mode-400 px-4 py-2 outline-none"
-        />
-        <button
-          @click="joinGame"
-          class="btn mx-auto py-2 text-xl font-semibold"
-        >
-          Join Game
-        </button>
-      </div>
+          <UAlert
+            v-if="serverError"
+            title="Failed to join Room"
+            :description="serverError"
+          />
+          <UFormGroup label="Enter Room Code" name="gameCode">
+            <UInput v-model="state.gameCode" placeholder="Room Code:" />
+          </UFormGroup>
+          <UButton type="submit" block>Join Game</UButton>
+        </UForm>
+      </UCard>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { User, Message } from "@hangmen/shared";
 import { nanoid } from "nanoid";
+import { z } from "zod";
+import type { FormSubmitEvent } from "#ui/types";
 const { $io } = useNuxtApp();
+const { createGame } = useRoomStore();
 
-const gameCode = ref("");
-const players = useState<{ [id: string]: User } | null>("players", () => null);
-const messages = useState<Message[]>("messages", () => []);
-
-// Set up event listener on component mount
-onMounted(() => {
-  $io.on(ServerEvents.CREATE_ROOM, (roomCode) => {
-    $io.emit(ClientEvents.JOIN_ROOM, roomCode, (response) => {
-      const date = useDateFormat(useNow(), "HH:mm");
-
-      if (response.data) {
-        players.value = response.data.playerList;
-
-        const message = {
-          id: nanoid(),
-          sender: response.data.player.username,
-          text: `has joined the game.`,
-          time: date.value,
-        };
-        messages.value.push(message);
-      }
-    });
-    navigateTo({
-      path: `/game/${roomCode}/lobby`,
-    });
-  });
+const schema = z.object({
+  gameCode: z.string().length(5, "Invalid room code"),
 });
 
-// Remove event listener on component unmount
-onUnmounted(() => {
-  $io.off(ServerEvents.CREATE_ROOM);
-});
-const createGame = () => {
-  $io.emit(ClientEvents.REQUEST_ROOM_CODE);
-};
+type State = z.infer<typeof schema>;
 
-const joinGame = () => {
-  let room = gameCode.value.toString().toUpperCase();
+const state: State = reactive({
+  gameCode: "",
+});
+
+const serverError = ref<string>();
+
+const { players, messages, gameCode } = storeToRefs(useRoomStore());
+
+const joinGame = (event: FormSubmitEvent<State>) => {
+  console.log(event.data);
+  const room = state.gameCode.toUpperCase();
   $io.emit(ClientEvents.JOIN_ROOM, room, (response) => {
     if (response.status === "ok") {
       const date = useDateFormat(useNow(), "HH:mm");
 
       if (response.data) {
-        players.value = response.data.playerList;
+        players.value = new Map(response.data.playerList);
 
         const message = {
           id: nanoid(),
@@ -86,12 +76,13 @@ const joinGame = () => {
         };
         messages.value.push(message);
       }
-
+      gameCode.value = room;
       navigateTo({
         path: `/game/${room}/lobby`,
       });
     } else {
-      alert(response.message);
+      console.log(response.message);
+      serverError.value = response.message;
     }
   });
 };

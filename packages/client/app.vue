@@ -18,8 +18,30 @@ useHead({
   },
 });
 const { $io } = useNuxtApp();
+const connectionStore = useConnectionStore();
+const roomStore = useRoomStore();
+const gameStore = useGameStore();
 
+$io.off();
+
+gameStore.bindEvents();
+roomStore.bindEvents();
+connectionStore.bindEvents();
+
+// Most of these should eventually be moved to connection store
 $io.onAny((event, ...args) => {
   console.log(event, args);
+});
+
+$io.onAnyOutgoing((event, ...args) => {
+  console.log(event, args);
+});
+
+$io.on("disconnect", (reason) => {
+  if (reason === "io server disconnect") {
+    navigateTo({
+      path: "/",
+    });
+  }
 });
 </script>

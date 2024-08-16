@@ -1,76 +1,75 @@
 <template>
-  <div class="flex flex-col items-center justify-center gap-16">
-    <div
-      class="flex max-w-md flex-col items-center gap-y-4 rounded-lg border p-4"
-    >
-      <span class="relative">
-        <UiAvatar :src="avatar" :name="username" size="lg" />
-        <button
-          class="absolute bottom-0 right-0 rounded-full bg-blue-600 p-1 hover:bg-blue-500"
-          @click="changeAvatar"
-        >
-          <Icon icon="heroicons:arrow-path" :inline="true" class="text-2xl" />
-        </button>
-      </span>
-      <div class="mx-16 w-full text-left lg:space-y-4">
-        <p class="hidden text-center text-lg font-semibold uppercase lg:block">
-          <!-- Label and Input -->
-          Choose a character and a nickname
-        </p>
-        <input
-          class="w-full rounded-md bg-dark-mode-400 px-4 py-2 text-xl font-semibold outline-none"
-          type="text"
-          name="username"
-          placeholder="Enter a username"
-          v-model="username"
-        />
-      </div>
-      <button
-        @click="register"
-        class="btn mx-auto mt-8 flex w-1/2 items-center gap-x-4 py-2 pl-4 text-xl font-semibold"
-      >
-        <Icon icon="heroicons:play" :inline="true" class="text-2xl" />
-        <span class="flex-grow uppercase">Play</span>
-      </button>
-    </div>
-    <div class="hidden lg:block">
+  <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+    <UCard>
+      <ClientOnly>
+        <div class="flex flex-col items-center justify-center gap-6">
+          <UChip
+            inset
+            position="bottom-right"
+            :ui="{ base: '-mx-2 my-1 rounded-none ring-0', background: '' }"
+          >
+            <template #content>
+              <UButton
+                icon="i-heroicons-arrow-path"
+                class="rounded-full"
+                @click="changeAvatar"
+              />
+            </template>
+            <UAvatar
+              :src="`https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=${seed}&size=128&scale=90&radius=50`"
+              alt="`${username} Avatar`"
+              size="3xl"
+            />
+          </UChip>
+          <UFormGroup>
+            <template #label>
+              <span
+                class="hidden text-center text-lg font-semibold uppercase lg:block"
+              >
+                Choose a character and a nickname
+              </span>
+            </template>
+            <UInput
+              v-model="username"
+              name="username"
+              size="lg"
+              placeholder="Enter a username"
+              required
+            />
+          </UFormGroup>
+          <UButton
+            icon="i-heroicons-play"
+            label="Play"
+            block
+            @click="register"
+          />
+        </div>
+      </ClientOnly>
+    </UCard>
+    <UCard>
       <h4 class="text-2xl">How to play</h4>
-      <p>Guess the word or something. Idk, why are you asking me??</p>
-    </div>
+      <UCarousel />
+      <p>Guess the word or something.</p>
+      <p>Idk, why are you asking me??</p>
+    </UCard>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-const { $io } = useNuxtApp();
-import { createAvatar } from "@dicebear/core";
-import { adventurerNeutral } from "@dicebear/collection";
 import { useStorage } from "@vueuse/core";
+const { $io } = useNuxtApp();
 
 const username = useStorage("username", "");
-const avatar = ref("");
 const seed = useStorage("userSeed", "");
 
-onMounted(() => {
-  generateAvatar();
-});
-
 const register = () => {
-  $io.auth = { username: username.value, avatar: avatar.value };
+  $io.auth = { username: username.value, avatarSeed: seed.value };
   $io.connect();
   navigateTo({ path: "/mode" });
 };
-const generateAvatar = () => {
-  const svg = createAvatar(adventurerNeutral, {
-    size: 128, //TODO: set standard size and change size using css?
-    radius: 50,
-    scale: 90,
-    seed: seed.value,
-  }).toDataUriSync();
-  avatar.value = svg;
-};
+
 const changeAvatar = () => {
-  seed.value = Math.floor(Math.random() * 100).toString();
-  generateAvatar();
+  const constantPrefix = "playhangmen-avatars";
+  seed.value = `${constantPrefix}-${Math.floor(Math.random() * 100)}`;
 };
 </script>

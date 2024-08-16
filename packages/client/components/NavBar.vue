@@ -1,7 +1,7 @@
 <template>
   <header class="grid justify-center">
     <NuxtLink to="/">
-      <img src="../assets/logo.svg" alt="Hangman Logo" class="h-12" />
+      <img src="../assets/logo.svg" alt="Hangman Logo" class="h-12" >
     </NuxtLink>
   </header>
 </template>

@@ -3,46 +3,45 @@ import { fileURLToPath } from "url";
 import path from "path";
 
 import { customAlphabet } from "nanoid";
-import { User } from "@hangmen/shared";
+import { GameSettings, User } from "@hangmen/shared";
 import { maskWord } from "../utils/WordHelper.js";
 export class Room {
   code: string;
-  players: { [id: string]: User };
+  players: Map<string, User>;
+  eligiblePlayers: Map<string, User> = new Map();
   maxPlayers: number;
   wordsToGuess: { word: string; category: string }[] = [];
   word: { word: string; category: string } | null = null;
   maskedWord: string[] = [];
   guessedLetters: Set<string> = new Set();
-  scores: { [id: string]: number } = {};
+  scores: Map<string, number>;
+  currentGuesser: User | null = null;
 
   constructor() {
     this.code = this.createNewCode();
-    this.players = {};
+    this.players = new Map();
+    this.scores = new Map();
     this.maxPlayers = 4;
   }
   setMaxPlayers(maxPlayers: number) {
     this.maxPlayers = maxPlayers;
   }
-  addPlayer(id: string, player: any) {
-    if (
-      Object.keys(this.players).length < this.maxPlayers &&
-      !this.players[id]
-    ) {
-      if (Object.keys(this.players).length === 0) {
+  addPlayer(id: string, player: User) {
+    if (this.players.size < this.maxPlayers && !this.players.has(id)) {
+      if (this.players.size === 0) {
         player.isHost = true;
       }
-
-      this.players[id] = player;
+      this.players.set(id, player);
     }
   }
   removePlayer(id: string) {
-    const wasHost = this.players[id]?.isHost;
-    delete this.players[id];
+    const wasHost = this.players.get(id)?.isHost;
+    this.players.delete(id);
 
     // If the player leaving was the host, reassign the host to another player
-    if (wasHost && Object.keys(this.players).length > 0) {
-      const nextPlayerId = Object.keys(this.players)[0]; // Get the first available player's ID
-      this.players[nextPlayerId].isHost = true;
+    if (wasHost && this.players.size > 0) {
+      const firstPlayer = this.players.values().next().value;
+      if (firstPlayer) firstPlayer.isHost = true;
     }
   }
 
@@ -56,17 +55,16 @@ export class Room {
     const roomId = nanoid();
     return roomId;
   }
-  async startGame(settings: {
-    wordsPerGame: number;
-    minWordLength: number;
-    isHardMode: boolean;
-  }) {
+  async startGame(settings: GameSettings) {
     this.wordsToGuess = await this.fetchWords(
       settings.minWordLength,
       settings.wordsPerGame
     );
     this.word = this.wordsToGuess[0];
     this.maskedWord = maskWord(this.word.word, this.guessedLetters);
+    this.currentGuesser = Array.from(this.players.values())[0];
+    this.currentGuesser.isGuesser = true;
+    this.eligiblePlayers = new Map(this.players);
   }
   async fetchWords(minWordLength: number, numOfWords: number) {
     try {
@@ -98,12 +96,30 @@ export class Room {
       return [];
     }
   }
-  guessLetter(letter: string): boolean {
+  guessLetter(letter: string): number {
+    this.guessedLetters.add(letter);
     if (this.word && this.word.word.includes(letter)) {
-      this.guessedLetters.add(letter);
+      const count = this.word.word
+        .split("")
+        .filter((char) => char === letter).length;
       this.maskedWord = maskWord(this.word.word, this.guessedLetters);
-      return true; // The guess was correct
+      return count; // The guess was correct
     }
-    return false; // The guess was incorrect
+    return 0; // The guess was incorrect
+  }
+
+  nextTurn() {
+    const playerArray = Array.from(this.eligiblePlayers.values());
+    const currentPlayerIndex = playerArray.findIndex(
+      (player) => player === this.currentGuesser
+    );
+    if (currentPlayerIndex === -1) {
+      this.currentGuesser = playerArray[0];
+      playerArray[0].isGuesser = true;
+    } else {
+      this.currentGuesser =
+        playerArray[(currentPlayerIndex + 1) % playerArray.length];
+      this.currentGuesser.isGuesser = true;
+    }
   }
 }

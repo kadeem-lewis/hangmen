@@ -46,20 +46,21 @@ io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
 
   io.use((socket, next) => {
-    const { username, avatar } = socket.handshake.auth;
+    const { username, avatarSeed } = socket.handshake.auth;
     if (!username) {
       return next(new Error("invalid username"));
     }
-    socket.data = { ...socket.data, username, avatar };
+    socket.data = { ...socket.data, username, avatarSeed };
 
     next();
   });
 
   socket.data.reset = function () {
     this.roomId = "";
-    this.isReady = false;
-    this.isHost = false; //TODO: might cause issues on game reset
+    this.isGuesser = false;
+    this.isHost = false;
     this.points = 0;
+    this.lives = 6;
   };
   roomHandler(io, socket);
   gameHandler(io, socket);
