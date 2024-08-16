@@ -19,12 +19,6 @@
     "url": "https://github.com/kadeem-lewis/hangmen/issues"
   },
   "homepage": "https://github.com/kadeem-lewis/hangmen#readme",
-  "dependencies": {
-    "@types/node": "^20.14.12",
-    "nanoid": "^4.0.2",
-    "typescript": "^5.5.4",
-    "zod": "^3.23.8"
-  },
   "devDependencies": {
     "turbo": "^2.0.9"
   }
