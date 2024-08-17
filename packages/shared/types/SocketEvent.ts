@@ -21,24 +21,25 @@ export type GameSettings = {
   isHardMode: boolean;
 };
 
-export enum ServerEvents {
-  CREATE_ROOM = "create-room",
-  NEW_PLAYER = "new-player",
-  RECEIVE_MESSAGE = "receive-message",
-  PLAYER_LEAVE_ROOM = "player-leave-room",
-  GAME_START = "game-start",
-  GAME_UPDATE = "game-update",
-  GAME_OVER = "game-over",
-}
-export enum ClientEvents {
-  REQUEST_ROOM_CODE = "request-room-code",
-  JOIN_ROOM = "join-room",
-  SEND_MESSAGE = "send-message",
-  LEAVE_ROOM = "leave-room",
-  START_GAME = "start-game",
-  SEND_GUESS = "send-guess",
-  SKIP_TURN = "skip-turn",
-}
+export const ServerEvents = {
+  CREATE_ROOM: "create-room",
+  NEW_PLAYER: "new-player",
+  RECEIVE_MESSAGE: "receive-message",
+  PLAYER_LEAVE_ROOM: "player-leave-room",
+  GAME_START: "game-start",
+  GAME_UPDATE: "game-update",
+  GAME_OVER: "game-over",
+} as const;
+
+export const ClientEvents = {
+  REQUEST_ROOM_CODE: "request-room-code",
+  JOIN_ROOM: "join-room",
+  SEND_MESSAGE: "send-message",
+  LEAVE_ROOM: "leave-room",
+  START_GAME: "start-game",
+  SEND_GUESS: "send-guess",
+  SKIP_TURN: "skip-turn",
+} as const;
 
 export interface ServerPayloads {
   [ServerEvents.CREATE_ROOM]: (roomCode: string) => void;
