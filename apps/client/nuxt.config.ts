@@ -19,7 +19,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      url: process.env.URL || "http://localhost:3001",
+      url: "",
     },
   },
 
