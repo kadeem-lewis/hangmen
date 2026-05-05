@@ -1,0 +1,20 @@
+services:
+  client:
+    build: ./apps/client
+    networks:
+      - hangmen
+    environment:
+      - URL=https://api.hangmen.builtbykadeem.com
+    expose:
+      - 3000
+  server:
+    build: ./apps/server
+    networks:
+      - hangmen
+    environment:
+      - CLIENT_URL=https://hangmen.builtbykadeem.com
+      - PORT=3001
+    expose:
+      - 3001
+networks:
+  hangmen:

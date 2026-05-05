@@ -3,11 +3,13 @@
 .nuxt
 .nitro
 .cache
-.turbo
 dist
 
 # Node dependencies
 node_modules
+
+# pnpm 
+prod
 
 # Logs
 logs
@@ -22,3 +24,8 @@ logs
 .env
 .env.*
 !.env.example
+
+
+# Turbo
+.turbo
+out
