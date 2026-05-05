@@ -6,7 +6,7 @@ services:
     networks:
       - hangmen
     environment:
-      - NUXT_PUBLIC_URL=https://api.hangmen.builtbykadeem.com
+      - NUXT_PUBLIC_URL=https://api-hangmen.builtbykadeem.com
     expose:
       - 8080
   server:
