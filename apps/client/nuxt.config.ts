@@ -19,7 +19,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      url: "",
+      url: "https://api-hangmen.builtbykadeem.com",
     },
   },
 
