@@ -13,7 +13,7 @@ FROM base AS builder
 
 COPY . .
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
-
+RUN pnpm --filter=@hangmen/shared build
 RUN pnpm --filter=@hangmen/client generate
 
 FROM nginxinc/nginx-unprivileged:alpine-slim AS production
